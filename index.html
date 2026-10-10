@@ -121,6 +121,13 @@
       #print-area th { background: #eee; }
     }
 
+    /* Panel kanan adalah kolom flex yang bisa digulir: anak-anaknya tidak boleh menyusut (isi terpotong) */
+    #mobile-sec-panel > * { flex-shrink: 0; }
+
+    /* Aksesibilitas: fokus keyboard yang jelas, dan hormati pengaturan "kurangi gerakan" */
+    button:focus-visible, input:focus-visible, select:focus-visible, summary:focus-visible { outline: 3px solid #6366f1; outline-offset: 2px; }
+    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition: none !important; animation: none !important; scroll-behavior: auto !important; } }
+
     .glass-card {
       background: rgba(248, 250, 252, 0.9);
       backdrop-filter: blur(8px);
@@ -179,7 +186,7 @@
         </div>
         <div>
           <h1 class="font-bold text-base sm:text-lg text-slate-900 leading-none">GeoMatrix <span class="text-sky-600 font-semibold text-xs sm:text-sm">Lab</span></h1>
-          <p class="text-[10px] sm:text-xs text-slate-500 hidden sm:block">Topik: <span class="text-slate-700 font-semibold">Transformasi Geometri</span></p>
+          <p class="text-[10px] sm:text-xs text-slate-500 hidden sm:block">Topik : <span class="text-slate-700 font-semibold">Transformasi Geometri</span></p>
         </div>
       </div>
 
@@ -275,14 +282,15 @@
                 <span class="text-slate-700">Objek Asal (Awal)</span>
               </div>
               <div class="flex items-center gap-2">
-                <span class="w-3 h-3 rounded-full bg-emerald-500 inline-block"></span>
+                <span class="w-3 h-3 rounded-sm bg-emerald-500 inline-block"></span>
                 <span class="text-slate-700">Hasil Bayangan ($A'$)</span>
               </div>
               <div id="legend-ghost" class="hidden items-center gap-2">
-                <span class="w-3 h-3 rounded-full border-2 border-dashed border-amber-500 inline-block"></span>
+                <span class="w-2.5 h-2.5 rotate-45 border-2 border-dashed border-amber-500 inline-block"></span>
                 <span class="text-slate-700">Prediksi Hipotesismu</span>
               </div>
             </div>
+            <div id="basis-readout" class="hidden glass-card px-3 py-2 rounded-lg text-[11px] font-bold shadow-sm space-y-0.5"></div>
           </div>
 
           <!-- Zoom & Controls Overlay -->
@@ -296,11 +304,14 @@
             <button onclick="resetZoom()" class="p-2.5 rounded-lg glass-card hover:bg-slate-100 text-slate-700 text-xs shadow-sm border border-slate-200" title="Reset View">
               <i class="fa-solid fa-crosshairs"></i>
             </button>
+            <button id="basis-btn" onclick="toggleBasis()" class="p-2.5 rounded-lg glass-card hover:bg-slate-100 text-indigo-700 text-xs shadow-sm border border-slate-200" title="Vektor basis" aria-label="Tampilkan vektor basis" aria-pressed="false">
+              <i class="fa-solid fa-vector-square"></i>
+            </button>
           </div>
 
           <!-- Interactive Canvas -->
           <div class="flex-1 w-full h-full relative cursor-crosshair">
-            <canvas id="lab-canvas" class="absolute inset-0 w-full h-full"></canvas>
+            <canvas id="lab-canvas" role="img" aria-label="Bidang Cartesius" class="absolute inset-0 w-full h-full"></canvas>
             <div id="anim-info" role="status" aria-live="polite" class="hidden absolute bottom-3 right-3 z-10 glass-card px-3 py-2 rounded-lg text-[11px] font-bold text-purple-800 shadow-sm pointer-events-none space-y-0.5"></div>
             <button id="assistant-fab" onclick="openAssistant()" title="Buka Asisten Penemuan" aria-label="Buka Asisten Penemuan" class="hidden absolute z-20 left-3 bottom-3 items-center gap-2 px-3 sm:px-3.5 py-2.5 rounded-full bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-400 hover:to-orange-400 text-white text-xs font-bold shadow-lg shadow-amber-500/30 active:scale-95 transition-all">
               <i class="fa-solid fa-lightbulb"></i><span class="hidden sm:inline">Asisten Penemuan</span>
@@ -339,6 +350,26 @@
         <!-- Right Column: Interactive Controls, Discovery Table & Matrix Builder -->
         <div id="mobile-sec-panel" class="hidden lg:flex lg:col-span-5 xl:col-span-4 bg-slate-50 border-l border-slate-200 flex-col h-full overflow-y-auto p-4 space-y-4">
           
+          <!-- 0. Mode Dasar / Lanjutan -->
+          <div class="glass-panel p-3 rounded-2xl space-y-2">
+            <div class="flex items-center gap-1 bg-slate-100 p-1 rounded-lg border border-slate-200" role="group" aria-label="Mode Lab">
+              <button type="button" id="labmode-dasar" onclick="setLabMode('dasar')" class="flex-1 px-2 py-1.5 rounded-md text-[11px] border">Mode Dasar</button>
+              <button type="button" id="labmode-lanjutan" onclick="setLabMode('lanjutan')" class="flex-1 px-2 py-1.5 rounded-md text-[11px] border">Mode Lanjutan</button>
+            </div>
+            <p id="lab-mode-desc" class="text-[10px] text-slate-500 leading-relaxed"></p>
+          </div>
+
+          <section id="step-1" class="shrink-0 rounded-2xl border border-slate-200 bg-white/60 overflow-hidden">
+            <button id="step-head-1" type="button" onclick="goToStep(1)" aria-expanded="false" aria-controls="step-body-1" class="w-full flex items-center gap-3 px-4 py-3 text-left">
+              <span id="step-badge-1" class="w-7 h-7 rounded-full flex items-center justify-center text-xs font-black shrink-0 bg-slate-200 text-slate-500">1</span>
+              <span class="flex-1 min-w-0">
+                <span class="block text-sm font-black text-slate-800">Amati</span>
+                <span class="block text-[11px] text-slate-500 font-medium leading-snug">Ubah parameter, baca tabel pola, dan (opsional) tampilkan vektor basis.</span>
+              </span>
+              <i id="step-chev-1" class="fa-solid fa-chevron-down text-slate-400 text-xs"></i>
+            </button>
+            <div id="step-body-1" class="hidden px-3 pb-3 space-y-3">
+
           <!-- 1. Parameter Dynamic Controls -->
           <div class="glass-panel p-4 rounded-2xl space-y-3">
             <div class="flex items-center justify-between pb-2 border-b border-slate-100">
@@ -351,10 +382,20 @@
             <div id="param-controls-container" class="space-y-4 pt-1">
               <!-- Rendered via JS -->
             </div>
+
+            <!-- Vektor basis: membaca kolom matriks langsung dari kanvas -->
+            <div class="pt-3 border-t border-slate-100 space-y-1.5">
+              <label class="flex items-center gap-2 text-xs font-bold text-slate-700 cursor-pointer">
+                <input id="basis-toggle" type="checkbox" onchange="toggleBasis(this.checked)" class="rounded" style="accent-color:#4338ca">
+                <i class="fa-solid fa-vector-square text-indigo-600"></i> Tampilkan vektor basis
+              </label>
+              <p id="basis-note" class="text-[10px] text-slate-500 leading-relaxed"></p>
+            </div>
           </div>
 
-          <!-- 2. Tabel Pola Koordinat (posisi semula) -->
-          <div class="glass-panel p-4 rounded-2xl space-y-3">
+          <!-- 2. Tabel Pola Koordinat -->
+          <div id="pattern-slot-1">
+          <div id="pattern-card" class="glass-panel p-4 rounded-2xl space-y-3">
             <div class="flex items-center justify-between pb-2 border-b border-slate-100">
               <h3 class="font-black text-sm text-teal-600 flex items-center gap-2">
                 <i class="fa-solid fa-table"></i> Tabel Pola Koordinat
@@ -378,6 +419,23 @@
             </div>
           </div>
 
+          </div>
+              <button onclick="completeStep(1)" class="w-full py-2.5 rounded-xl bg-gradient-to-r from-sky-500 to-indigo-600 hover:from-sky-600 hover:to-indigo-700 text-white font-bold text-xs shadow-md active:scale-95 transition-all">Lanjut: Buat Prediksi <i class="fa-solid fa-chevron-right ml-1"></i></button>
+            </div>
+          </section>
+
+          <section id="step-2" class="shrink-0 rounded-2xl border border-slate-200 bg-white/60 overflow-hidden">
+            <button id="step-head-2" type="button" onclick="goToStep(2)" aria-expanded="false" aria-controls="step-body-2" class="w-full flex items-center gap-3 px-4 py-3 text-left">
+              <span id="step-badge-2" class="w-7 h-7 rounded-full flex items-center justify-center text-xs font-black shrink-0 bg-slate-200 text-slate-500">2</span>
+              <span class="flex-1 min-w-0">
+                <span class="block text-sm font-black text-slate-800">Prediksi</span>
+                <span class="block text-[11px] text-slate-500 font-medium leading-snug">Tulis bentuk aljabarnya berdasarkan pola yang kamu amati.</span>
+              </span>
+              <i id="step-chev-2" class="fa-solid fa-chevron-down text-slate-400 text-xs"></i>
+            </button>
+            <div id="step-body-2" class="hidden px-3 pb-3 space-y-3">
+              <div id="pattern-slot-2"></div>
+
           <!-- 3. Hypothesis Builder (form terpisah: penjumlahan vektor vs perkalian matriks 2x2) -->
           <div class="glass-panel p-4 rounded-2xl space-y-3 border-l-4 border-l-amber-400 shadow-sm">
             <div class="flex items-center justify-between pb-2 border-b border-slate-100">
@@ -400,9 +458,9 @@
 
             <!-- Indikator langkah (refleksi garis x = a / y = b) -->
             <div id="hyp-steps" class="hidden items-center justify-center gap-2 text-[11px] font-bold">
-              <span id="step-1" class="px-2.5 py-1 rounded-full border">1. Matriks M</span>
+              <span id="aff-step-1" class="px-2.5 py-1 rounded-full border">1. Matriks M</span>
               <i class="fa-solid fa-arrow-right text-slate-300 text-[10px]"></i>
-              <span id="step-2" class="px-2.5 py-1 rounded-full border">2. Vektor penggeser</span>
+              <span id="aff-step-2" class="px-2.5 py-1 rounded-full border">2. Vektor penggeser</span>
             </div>
 
             <!-- FORM A: Translasi = PENJUMLAHAN vektor kolom -->
@@ -478,14 +536,59 @@
               </button>
             </div>
 
-            <!-- Test Button -->
-            <button onclick="testUserMatrix()" class="w-full py-2.5 rounded-xl bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-400 hover:to-orange-400 text-white font-bold text-xs shadow-md active:scale-95 transition-all flex items-center justify-center gap-2">
-              <i class="fa-solid fa-vial"></i> Uji Hipotesis
-            </button>
-
-            <!-- Feedback -->
-            <div id="matrix-feedback" class="hidden p-3 rounded-xl text-xs font-medium border text-center leading-relaxed"></div>
           </div>
+              <p id="step2-warn" class="hidden text-xs font-bold text-amber-600 text-center"></p>
+              <button onclick="completeStep(2)" class="w-full py-2.5 rounded-xl bg-gradient-to-r from-sky-500 to-indigo-600 hover:from-sky-600 hover:to-indigo-700 text-white font-bold text-xs shadow-md active:scale-95 transition-all">Lanjut ke Uji <i class="fa-solid fa-chevron-right ml-1"></i></button>
+            </div>
+          </section>
+
+          <section id="step-3" class="shrink-0 rounded-2xl border border-slate-200 bg-white/60 overflow-hidden">
+            <button id="step-head-3" type="button" onclick="goToStep(3)" aria-expanded="false" aria-controls="step-body-3" class="w-full flex items-center gap-3 px-4 py-3 text-left">
+              <span id="step-badge-3" class="w-7 h-7 rounded-full flex items-center justify-center text-xs font-black shrink-0 bg-slate-200 text-slate-500">3</span>
+              <span class="flex-1 min-w-0">
+                <span class="block text-sm font-black text-slate-800">Uji</span>
+                <span class="block text-[11px] text-slate-500 font-medium leading-snug">Cocokkan prediksimu dengan hasil sebenarnya.</span>
+              </span>
+              <i id="step-chev-3" class="fa-solid fa-chevron-down text-slate-400 text-xs"></i>
+            </button>
+            <div id="step-body-3" class="hidden px-3 pb-3 space-y-3">
+              <div id="pattern-slot-3"></div>
+              <div class="glass-panel p-4 rounded-2xl space-y-3 border-l-4 border-l-amber-400 shadow-sm">
+                <p class="text-[11px] font-black text-slate-500 uppercase tracking-wide">Prediksimu</p>
+                <div id="pred-summary" class="text-center text-sm overflow-x-auto py-1"></div>
+                <button onclick="testUserMatrix()" class="w-full py-2.5 rounded-xl bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-400 hover:to-orange-400 text-white font-bold text-xs shadow-md active:scale-95 transition-all flex items-center justify-center gap-2">
+                  <i class="fa-solid fa-vial"></i> Uji Hipotesis
+                </button>
+                <div id="matrix-feedback" role="status" aria-live="polite" class="hidden p-3 rounded-xl text-xs font-medium border text-center leading-relaxed"></div>
+              </div>
+              <div class="grid grid-cols-2 gap-2">
+                <button onclick="goToStep(2)" class="py-2.5 rounded-xl bg-white border border-slate-300 hover:bg-slate-50 text-slate-700 font-bold text-xs active:scale-95 transition-all"><i class="fa-solid fa-chevron-left mr-1"></i> Ubah Prediksi</button>
+                <button onclick="goToStep(4)" class="py-2.5 rounded-xl bg-gradient-to-r from-sky-500 to-indigo-600 hover:from-sky-600 hover:to-indigo-700 text-white font-bold text-xs shadow-md active:scale-95 transition-all"><span id="step3-next-label">Lihat animasi dulu</span> <i class="fa-solid fa-chevron-right ml-1"></i></button>
+              </div>
+            </div>
+          </section>
+
+          <section id="step-4" class="shrink-0 rounded-2xl border border-slate-200 bg-white/60 overflow-hidden">
+            <button id="step-head-4" type="button" onclick="goToStep(4)" aria-expanded="false" aria-controls="step-body-4" class="w-full flex items-center gap-3 px-4 py-3 text-left">
+              <span id="step-badge-4" class="w-7 h-7 rounded-full flex items-center justify-center text-xs font-black shrink-0 bg-slate-200 text-slate-500">4</span>
+              <span class="flex-1 min-w-0">
+                <span class="block text-sm font-black text-slate-800">Putar Animasi</span>
+                <span class="block text-[11px] text-slate-500 font-medium leading-snug">Tonton prosesnya, lalu bandingkan bayangan oranye dan hijau.</span>
+              </span>
+              <i id="step-chev-4" class="fa-solid fa-chevron-down text-slate-400 text-xs"></i>
+            </button>
+            <div id="step-body-4" class="hidden px-3 pb-3 space-y-3">
+              <div class="glass-panel p-4 rounded-2xl space-y-3 border-l-4 border-l-purple-400 shadow-sm">
+                <p class="text-xs text-slate-600 leading-relaxed">Tekan tombol di bawah, lalu perhatikan: apakah bayangan oranye (prediksimu) menimpa bayangan hijau di akhir gerak? Geser penggeser di bawah kanvas untuk berhenti di tengah proses.</p>
+                <button onclick="playFromStep()" class="w-full py-3 rounded-xl bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-white font-bold text-sm shadow-md active:scale-95 transition-all"><i class="fa-solid fa-play mr-2"></i>Transformasikan</button>
+                <div id="step4-done" class="hidden p-3 rounded-xl bg-emerald-50 border border-emerald-200 text-xs font-bold text-emerald-800 leading-relaxed"><i class="fa-solid fa-circle-check mr-1"></i>Satu putaran penemuan selesai. Ubah parameter untuk soal baru, atau coba lagi dari awal.</div>
+              </div>
+              <div class="grid grid-cols-2 gap-2">
+                <button onclick="goToStep(3)" class="py-2.5 rounded-xl bg-white border border-slate-300 hover:bg-slate-50 text-slate-700 font-bold text-xs active:scale-95 transition-all"><i class="fa-solid fa-chevron-left mr-1"></i> Kembali ke Uji</button>
+                <button onclick="restartSteps()" class="py-2.5 rounded-xl bg-white border border-slate-300 hover:bg-slate-50 text-slate-700 font-bold text-xs active:scale-95 transition-all"><i class="fa-solid fa-rotate-right mr-1"></i> Coba dari Awal</button>
+              </div>
+            </div>
+          </section>
 
         </div>
       </div>
@@ -663,14 +766,14 @@
           </div>
           <div class="space-y-3">
             <label class="block text-sm font-bold text-slate-700">Nama Lengkap <span class="text-rose-500">*</span>
-              <input id="eval-nama" type="text" maxlength="60" autocomplete="off" placeholder="mis. Ni Luh Ayu Lestari" class="mt-1 w-full rounded-xl border border-slate-300 bg-white px-3 py-2.5 text-sm font-medium text-slate-800 focus:outline-none focus:ring-2 focus:ring-sky-500">
+              <input id="eval-nama" type="text" maxlength="60" autocomplete="off" placeholder="mis. Made Agus" class="mt-1 w-full rounded-xl border border-slate-300 bg-white px-3 py-2.5 text-sm font-medium text-slate-800 focus:outline-none focus:ring-2 focus:ring-sky-500">
             </label>
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
               <label class="block text-sm font-bold text-slate-700">Kelas
-                <input id="eval-kelas" type="text" maxlength="30" autocomplete="off" placeholder="mis. XI MIPA 2" class="mt-1 w-full rounded-xl border border-slate-300 bg-white px-3 py-2.5 text-sm font-medium text-slate-800 focus:outline-none focus:ring-2 focus:ring-sky-500">
+                <input id="eval-kelas" type="text" maxlength="30" autocomplete="off" placeholder="mis. XI 2" class="mt-1 w-full rounded-xl border border-slate-300 bg-white px-3 py-2.5 text-sm font-medium text-slate-800 focus:outline-none focus:ring-2 focus:ring-sky-500">
               </label>
               <label class="block text-sm font-bold text-slate-700">Asal Sekolah
-                <input id="eval-sekolah" type="text" maxlength="60" autocomplete="off" placeholder="mis. SMAN 1 Denpasar" class="mt-1 w-full rounded-xl border border-slate-300 bg-white px-3 py-2.5 text-sm font-medium text-slate-800 focus:outline-none focus:ring-2 focus:ring-sky-500">
+                <input id="eval-sekolah" type="text" maxlength="60" autocomplete="off" placeholder="mis. SMAN 2 Kuta" class="mt-1 w-full rounded-xl border border-slate-300 bg-white px-3 py-2.5 text-sm font-medium text-slate-800 focus:outline-none focus:ring-2 focus:ring-sky-500">
               </label>
             </div>
           </div>
@@ -834,7 +937,7 @@
           Siswa bertindak sebagai "peneliti" yang menelusuri pola pergeseran koordinat, mulai dari objek Titik, Garis, Kurva, hingga Bidang Datar, untuk merumuskan sendiri bentuk matriks aljabar $2 \times 2$.
         </p>
         <div class="p-4 bg-slate-50 rounded-xl border border-slate-200 space-y-1">
-          <p class="font-bold text-sky-700 text-xs uppercase tracking-wider mb-2">Pengembang Media:</p>
+          <p class="font-bold text-sky-700 text-xs uppercase tracking-wider mb-2">Pengembang Media & Desainer:</p>
           <p class="text-slate-900 font-black text-base">I Made Agus Suputrayasa</p>
           <p class="text-slate-500 text-xs font-medium">Guru Matematika</p>
         </div>
@@ -871,7 +974,7 @@
           <strong>Ubah jenis objek geometri:</strong> Awali eksplorasi dari Titik $\rightarrow$ Garis $\rightarrow$ Kurva $\rightarrow$ Bidang Datar.
         </li>
         <li class="pl-1">
-          <strong>Manipulasi Parameter:</strong> Geser slider parameter (sudut, faktor skala) atau seret titik biru langsung pada grafik. Pada Rotasi, Dilatasi, dan Refleksi garis $x=a$ / $y=b$, seret titik oranye untuk memindahkan pusat atau garis cermin.
+          <strong>Manipulasi Parameter:</strong> Geser slider parameter (sudut, faktor skala) atau seret titik biru langsung pada grafik. Pada Rotasi, Dilatasi, dan Refleksi garis $x=a$ / $y=b$, seret titik oranye untuk memindahkan pusat atau garis cermin. <em>Mode Dasar</em> memakai pusat O(0,0); beralih ke <em>Mode Lanjutan</em> untuk pusat (a, b) dan garis x = a / y = b. Aktifkan <em>vektor basis</em> untuk membaca kolom matriks langsung dari kanvas.
         </li>
         <li class="pl-1">
           <strong>Analisis Tabel Pola:</strong> Perhatikan dengan seksama perubahan koordinat awal $A(x,y)$ menjadi bayangan $A'(x',y')$. Buka <em>Asisten Penemuan</em> (jendela melayang yang bisa digeser dan ditutup) untuk Petunjuk Pola bertingkat dan (pada Rotasi) Bantuan Trigonometri. Tombol <em>Transformasikan</em> di bawah kanvas memutar animasi perpindahan titik, garis, atau bidang; penggeser di sebelahnya menghentikan animasi pada posisi mana pun.
@@ -964,6 +1067,8 @@
       hypothesis: null, // {m, t} hasil tebakan siswa (digambar putus-putus)
       inputMode: 'numerik', // 'numerik' | 'simbolik' (khusus rotasi)
       stepUnlocked: false, // Langkah 2 (vektor penggeser) pada refleksi x = a / y = b
+      labMode: 'dasar',    // 'dasar' (pusat O, sumbu) | 'lanjutan' (pusat (a,b), garis x=a / y=b)
+      showBasis: false,    // tampilkan vektor basis
       isDraggingHandle: false,
       
       // Transformation parameters
@@ -1005,6 +1110,9 @@
       document.addEventListener('webkitfullscreenchange', syncFullscreenIcon);
       initAssistant();
       updateAnimControls();
+      updateStepper();
+      updateLabModeUI();
+      updateBasisUI();
       showHypothesisForm();
       renderParamControls();
       initEvaluation();
@@ -1381,6 +1489,7 @@
         drawObject(rawPoints, '#0284c7', false);
         drawObject(transformedPoints, '#059669', true);
       }
+      drawBasis();
       drawHandle();
       updateAnimInfo();
     }
@@ -1394,6 +1503,7 @@
       if (state.currentObject === 'point') {
         const c = toCanvasPt(points[0]);
         ctx.beginPath(); ctx.arc(c.x, c.y, 12, 0, Math.PI * 2); ctx.stroke();
+        drawDiamond(c, 6);
       } else {
         ctx.beginPath();
         points.forEach((p, i) => {
@@ -1402,7 +1512,16 @@
         });
         if (state.currentObject === 'shape') ctx.closePath();
         ctx.stroke();
+        if (state.currentObject !== 'curve') points.forEach(p => drawDiamond(toCanvasPt(p), 6)); // hipotesis: belah ketupat
       }
+      ctx.restore();
+    }
+
+    function drawDiamond(c, r) {
+      ctx.save();
+      ctx.setLineDash([]); ctx.lineWidth = 2.25; ctx.strokeStyle = '#d97706'; ctx.fillStyle = '#ffffff';
+      ctx.beginPath(); ctx.moveTo(c.x, c.y - r); ctx.lineTo(c.x + r, c.y); ctx.lineTo(c.x, c.y + r); ctx.lineTo(c.x - r, c.y); ctx.closePath();
+      ctx.fill(); ctx.stroke();
       ctx.restore();
     }
 
@@ -1422,12 +1541,14 @@
         pts.forEach((p, i) => {
           const cp = toCanvasPt(p);
           ctx.save();
-          ctx.beginPath(); ctx.arc(cp.x, cp.y, 6, 0, Math.PI * 2);
+          ctx.beginPath();
+          if (isTransformed) ctx.rect(cp.x - 6, cp.y - 6, 12, 12);      // bayangan: persegi
+          else ctx.arc(cp.x, cp.y, 6, 0, Math.PI * 2);                   // asal: lingkaran
           ctx.fillStyle = color; ctx.fill();
           ctx.lineWidth = 2; ctx.strokeStyle = '#ffffff'; ctx.stroke();
 
           const label = `${names[i] || 'P'}${isTransformed ? "'" : ''}(${p.x}, ${p.y})`;
-          ctx.font = 'bold 12px "Inter", sans-serif';
+          ctx.font = `bold ${lblPx()}px "Inter", sans-serif`;
           ctx.textAlign = 'left';
           const lx = cp.x + 10;
           const ly = cp.y + (isTransformed ? 20 : -10); // bayangan di bawah agar tidak bertumpuk
@@ -1494,9 +1615,9 @@
 
         // Handle pusat / garis cermin (prioritas di atas titik objek)
         const hd = animLocked ? null : getHandle();
-        if (hd) {
+        if (hd && !hd.fixed) {
           const hx = originX + hd.x * state.zoom, hy = originY - hd.y * state.zoom;
-          if (Math.hypot(pos.x - hx, pos.y - hy) < 22) { state.isDraggingHandle = true; return; }
+          if (Math.hypot(pos.x - hx, pos.y - hy) < hitR(22)) { state.isDraggingHandle = true; return; }
         }
 
         const points = state.objects[state.currentObject];
@@ -1507,7 +1628,7 @@
             const cx = originX + p.x * state.zoom;
             const cy = originY - p.y * state.zoom;
             const dist = Math.hypot(pos.x - cx, pos.y - cy);
-            if (dist < 20) foundIdx = idx; // larger hit area for touch
+            if (dist < hitR(20)) foundIdx = idx; // area sentuh lebih lega pada layar sentuh
           });
         }
 
@@ -1572,6 +1693,7 @@
     }
 
     function centerControls() {
+      if (state.labMode !== 'lanjutan') return '';   // Mode Dasar: pusat selalu O(0,0)
       return `
         <div class="pt-3 mt-1 border-t border-slate-100 space-y-2">
           <div class="flex items-center justify-between">
@@ -1599,7 +1721,7 @@
             <label class="text-xs text-slate-700 font-bold">Pilih Sumbu / Garis Cermin:</label>
             <select onchange="updateParam('reflectionAxis', this.value)" class="w-full bg-white border border-slate-300 rounded-lg p-2.5 text-sm font-semibold text-teal-800 focus:outline-none focus:ring-1 focus:ring-teal-500 shadow-sm cursor-pointer">
               ${opt('X_AXIS', 'Sumbu X (y = 0)')}${opt('Y_AXIS', 'Sumbu Y (x = 0)')}${opt('Y_EQUAL_X', 'Garis y = x')}${opt('Y_EQUAL_NEG_X', 'Garis y = -x')}
-              ${opt('X_EQ_A', 'Garis x = a (tidak melalui O)')}${opt('Y_EQ_B', 'Garis y = b (tidak melalui O)')}
+              ${state.labMode === 'lanjutan' ? opt('X_EQ_A', 'Garis x = a (tidak melalui O)') + opt('Y_EQ_B', 'Garis y = b (tidak melalui O)') : ''}
             </select>
           </div>`;
         if (ax === 'X_EQ_A') html += `<div class="pt-2">${paramSlider('lineA', 'Nilai $a$ pada garis $x = a$', -6, 6, 1, '#ea580c')}<p class="text-[10px] text-slate-500 mt-1">Seret titik oranye pada kanvas untuk menggeser garis cermin.</p></div>`;
@@ -1669,6 +1791,7 @@
     function updateDiscoveryTable() {
       const tbody = document.getElementById('discovery-table-body');
       tbody.innerHTML = '';
+      describeCanvas();
 
       const labels = ['A', 'B', 'C', 'D'];
       getKeyPoints().forEach((p, idx) => {
@@ -1771,6 +1894,8 @@
       });
       applyStepLock();
       updatePreview();
+      if (clearInputs) resetSteps();                              // soal baru: mulai lagi dari langkah 1
+      else { steps.done[3] = false; steps.done[4] = false; updateStepper(); }  // parameter berubah: uji & animasi perlu diulang
     }
 
     function markCell(el) { el.classList.remove('cell-ok', 'cell-bad', 'cell-near'); }
@@ -1877,6 +2002,7 @@
     }
 
     function setFeedback(type, html) {
+      if (type === 'ok' && /Luar biasa/.test(html)) markStepDone(3);   // hipotesis terbukti tepat
       const fb = document.getElementById('matrix-feedback');
       fb.classList.remove('hidden', 'bg-emerald-100', 'border-emerald-300', 'text-emerald-800',
                           'bg-rose-100', 'border-rose-300', 'text-rose-800', 'bg-amber-100', 'border-amber-300', 'text-amber-900');
@@ -1970,7 +2096,7 @@
       const nOk = ok.filter(Boolean).length;
       const hint = isT
         ? `Petunjuk: hitung selisih koordinat, yaitu $a = x' - x$ dan $b = y' - y$ dari tabel pola.`
-        : `Petunjuk: pilih objek <strong>Titik</strong>, lalu geser ke $(1, 0)$ dan $(0, 1)$. Bayangan $(1,0)$ adalah <strong>kolom pertama</strong> matriks, bayangan $(0,1)$ adalah <strong>kolom kedua</strong>.`;
+        : `Petunjuk: pilih objek <strong>Titik</strong>, lalu geser ke $(1, 0)$ dan $(0, 1)$. Bayangan $(1,0)$ adalah <strong>kolom pertama</strong> matriks, bayangan $(0,1)$ adalah <strong>kolom kedua</strong>. Atau aktifkan <strong>vektor basis</strong> pada kontrol parameter.`;
       setFeedback('bad', `<i class="fa-solid fa-triangle-exclamation mr-1.5 text-rose-600"></i><strong class="text-rose-900">Belum tepat.</strong> ${nOk} dari ${ids.length} kotak sudah benar (hijau).<div class="mt-2 space-y-1.5 text-left text-[11px] text-rose-900">${lines.map(l => `<p>${l}</p>`).join('')}</div><div class="mt-2 text-[11px] text-rose-900 border-t border-rose-200 pt-1.5">${hint}</div>`);
     }
 
@@ -2054,6 +2180,7 @@
       if (anim.u >= 1) {
         anim.playing = false; anim.active = false; anim.u = 1;   // selesai: kembali ke tampilan diam (asal + bayangan berlabel)
         draw(); updateAnimControls();
+        if (steps.active === 4) markStepDone(4);
         return;
       }
       draw(); updateAnimControls();
@@ -2086,6 +2213,7 @@
       anim.u = Math.max(0, Math.min(1, Number(val) / 100));
       anim.active = anim.u < 1;
       draw(); updateAnimControls(true);
+      if (anim.u >= 1 && steps.active === 4) markStepDone(4);
     }
 
     function setAnimSpeed(v) { anim.speed = v; updateAnimControls(); }
@@ -2167,12 +2295,12 @@
       ctx.restore();
     }
 
-    function drawArrow(a, b, color) {
+    function drawArrow(a, b, color, width) {
       const len = Math.hypot(b.x - a.x, b.y - a.y);
       if (len < 6) return;
       const ang = Math.atan2(b.y - a.y, b.x - a.x), h = 9;
       ctx.save();
-      ctx.setLineDash([]); ctx.lineWidth = 2; ctx.strokeStyle = color; ctx.fillStyle = color;
+      ctx.setLineDash([]); ctx.lineWidth = width || 2; ctx.strokeStyle = color; ctx.fillStyle = color;
       ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke();
       ctx.beginPath(); ctx.moveTo(b.x, b.y);
       ctx.lineTo(b.x - h * Math.cos(ang - 0.4), b.y - h * Math.sin(ang - 0.4));
@@ -2275,6 +2403,232 @@
       // objek bergerak: biru -> hijau mengikuti kemajuan
       const [r, g, b] = lerpRGB('#0284c7', '#059669', e);
       drawStyled(rawPoints.map(p => animPoint(p, e)), { stroke: `rgb(${r},${g},${b})`, fill: `rgba(${r},${g},${b},0.2)`, width: 3, dotColor: `rgb(${r},${g},${b})`, dots: true });
+    }
+
+    /* ==========================================================================
+       TAHAP 2: Vektor basis + Mode Dasar / Lanjutan
+       ========================================================================== */
+    // Titik tumpu yang tidak berpindah: O (linear), pusat P (rotasi/dilatasi), atau titik pada garis cermin
+    function basisBase() {
+      const tf = state.currentTransformation, P = state.params;
+      if (tf === 'rotasi' || tf === 'dilatasi') return { x: P.cx, y: P.cy };
+      if (tf === 'refleksi' && P.reflectionAxis === 'X_EQ_A') return { x: P.lineA, y: 0 };
+      if (tf === 'refleksi' && P.reflectionAxis === 'Y_EQ_B') return { x: 0, y: P.lineB };
+      return { x: 0, y: 0 };
+    }
+
+    // Menggambar bayangan vektor satuan (1,0) dan (0,1) dari titik tumpu: itulah kolom 1 dan kolom 2 matriks
+    function drawBasis() {
+      const readout = $q('basis-readout');
+      if (!state.showBasis || state.currentTransformation === 'translasi') { if (readout) readout.classList.add('hidden'); return; }
+      const e = anim.active ? animProgress() : 1;
+      const B = basisBase();
+      const pts = { o: B, e1: { x: B.x + 1, y: B.y }, e2: { x: B.x, y: B.y + 1 }, e12: { x: B.x + 1, y: B.y + 1 } };
+      const at = (k) => toCanvasPt(pts[k]);
+      const mv = (k) => toCanvasPt(animPoint(pts[k], e));
+      const C1 = '#dc2626', C2 = '#4338ca';
+
+      ctx.save();
+      const quad = (fn, fill, stroke, dash) => {
+        ctx.beginPath();
+        ['o', 'e1', 'e12', 'e2'].forEach((k, i) => { const p = fn(k); if (i === 0) ctx.moveTo(p.x, p.y); else ctx.lineTo(p.x, p.y); });
+        ctx.closePath(); ctx.fillStyle = fill; ctx.fill();
+        ctx.setLineDash(dash); ctx.lineWidth = 1.25; ctx.strokeStyle = stroke; ctx.stroke();
+      };
+      quad(at, 'rgba(100,116,139,0.06)', 'rgba(100,116,139,0.45)', [4, 4]);   // persegi satuan awal
+      quad(mv, 'rgba(79,70,229,0.10)', 'rgba(79,70,229,0.55)', []);           // bayangannya
+      ctx.setLineDash([]);
+
+      drawArrow(at('o'), at('e1'), 'rgba(220,38,38,0.35)', 1.5);   // vektor awal (tipis)
+      drawArrow(at('o'), at('e2'), 'rgba(67,56,202,0.35)', 1.5);
+      drawArrow(mv('o'), mv('e1'), C1, 3.5);                        // bayangan (tebal)
+      drawArrow(mv('o'), mv('e2'), C2, 3.5);
+
+      const rel = (k) => { const q = animPoint(pts[k], e); return { x: q.x - B.x, y: q.y - B.y }; };
+      const f3 = (v) => String(Math.round(v * 1000) / 1000 + 0);
+      const label = (txt, p, color) => {
+        ctx.font = `bold ${lblPx()}px "Inter", sans-serif`; ctx.textAlign = 'left'; ctx.lineJoin = 'round';
+        ctx.lineWidth = 4; ctx.strokeStyle = 'rgba(255,255,255,0.92)'; ctx.strokeText(txt, p.x + 8, p.y - 8);
+        ctx.fillStyle = color; ctx.fillText(txt, p.x + 8, p.y - 8);
+      };
+      const r1 = rel('e1'), r2 = rel('e2');
+      label("e1'", mv('e1'), C1);
+      label("e2'", mv('e2'), C2);
+      ctx.restore();
+
+      if (readout) {
+        readout.innerHTML =
+          `<div class="text-[10px] uppercase tracking-wide text-slate-500">Vektor basis (kolom matriks)</div>` +
+          `<div style="color:${C1}">e1 = (1, 0) → e1' = (${f3(r1.x)}, ${f3(r1.y)})</div>` +
+          `<div style="color:${C2}">e2 = (0, 1) → e2' = (${f3(r2.x)}, ${f3(r2.y)})</div>`;
+        readout.classList.remove('hidden');
+      }
+    }
+
+    function toggleBasis(on) {
+      if (state.currentTransformation === 'translasi') return;
+      state.showBasis = (typeof on === 'boolean') ? on : !state.showBasis;
+      updateBasisUI();
+      draw();
+    }
+
+    function updateBasisUI() {
+      const tf = state.currentTransformation, P = state.params;
+      const isT = tf === 'translasi';
+      const cb = $q('basis-toggle'), btn = $q('basis-btn'), note = $q('basis-note');
+      if (!cb) return;
+      cb.checked = state.showBasis && !isT;
+      cb.disabled = isT;
+      btn.disabled = isT;
+      btn.style.opacity = isT ? '0.4' : '1';
+      btn.setAttribute('aria-pressed', String(state.showBasis && !isT));
+      btn.className = 'p-2.5 rounded-lg text-xs shadow-sm border ' + (state.showBasis && !isT
+        ? 'bg-indigo-600 text-white border-indigo-600' : 'glass-card hover:bg-slate-100 text-indigo-700 border-slate-200');
+      if (isT) { note.innerText = 'Translasi hanya menggeser (penjumlahan vektor), sehingga vektor basis tidak berubah arah maupun panjang.'; return; }
+      let from = 'Diukur dari O(0, 0).';
+      if (hypContext() === 'centered') from = `Diukur dari pusat P(${P.cx}, ${P.cy}): ini bentuk relatif yang dipakai pada hipotesis.`;
+      else if (tf === 'refleksi' && P.reflectionAxis === 'X_EQ_A') from = `Diukur dari titik (${P.lineA}, 0) pada garis cermin: ini bagian matriks M.`;
+      else if (tf === 'refleksi' && P.reflectionAxis === 'Y_EQ_B') from = `Diukur dari titik (0, ${P.lineB}) pada garis cermin: ini bagian matriks M.`;
+      else if ((tf === 'rotasi' || tf === 'dilatasi')) from = 'Diukur dari pusat O(0, 0).';
+      note.innerText = `Panah merah = bayangan titik (1, 0) = kolom 1 matriks. Panah indigo = bayangan (0, 1) = kolom 2. ${from}`;
+    }
+
+    // ---------- Mode Dasar / Lanjutan ----------
+    function updateLabModeUI() {
+      const adv = state.labMode === 'lanjutan';
+      $q('labmode-dasar').className = adv ? MODE_OFF : MODE_ON;
+      $q('labmode-lanjutan').className = adv ? MODE_ON : MODE_OFF;
+      $q('lab-mode-desc').innerText = adv
+        ? 'Lanjutan: tambah pusat rotasi/dilatasi P(a, b) dan garis cermin x = a / y = b (transformasi affine).'
+        : 'Dasar: pusat di titik asal O(0, 0) dan garis cermin berupa sumbu atau garis y = ±x. Cocok untuk menemukan matriks dasar.';
+    }
+
+    function setLabMode(mode) {
+      if (state.labMode === mode) return;
+      state.labMode = mode;
+      stopAnimation(false);
+      if (mode === 'dasar') {                       // kembali ke bentuk linear
+        const P = state.params;
+        P.cx = 0; P.cy = 0;
+        if (P.reflectionAxis === 'X_EQ_A' || P.reflectionAxis === 'Y_EQ_B') P.reflectionAxis = 'X_AXIS';
+      }
+      resetHypothesis(true);
+      updateLabModeUI();
+      showHypothesisForm();                         // menyegarkan kontrol, form hipotesis, tabel, dan kanvas
+    }
+
+    /* ==========================================================================
+       TAHAP 3: panel bertahap (Amati -> Prediksi -> Uji -> Putar Animasi) + aksesibilitas
+       ========================================================================== */
+    const steps = { active: 1, done: [false, false, false, false, false] };
+    const lblPx = () => (window.innerWidth < 640 ? 14 : 12);   // label kanvas lebih besar di HP
+    const hitR = (n) => n + ((window.matchMedia && window.matchMedia('(pointer: coarse)').matches) ? 10 : 0);
+
+    function updateStepper() {
+      for (let n = 1; n <= 4; n++) {
+        const body = $q('step-body-' + n);
+        if (!body) return;
+        const active = steps.active === n, done = steps.done[n];
+        body.classList.toggle('hidden', !active);
+        const head = $q('step-head-' + n);
+        head.setAttribute('aria-expanded', String(active));
+        if (active) head.setAttribute('aria-current', 'step'); else head.removeAttribute('aria-current');
+        const badge = $q('step-badge-' + n);
+        badge.innerHTML = done ? '<i class="fa-solid fa-check"></i>' : String(n);
+        badge.className = 'w-7 h-7 rounded-full flex items-center justify-center text-xs font-black shrink-0 ' +
+          (done ? 'bg-emerald-500 text-white' : active ? 'bg-sky-600 text-white' : 'bg-slate-200 text-slate-500');
+        $q('step-' + n).className = 'shrink-0 rounded-2xl border overflow-hidden ' + (active ? 'border-sky-300 bg-white shadow-sm' : 'border-slate-200 bg-white/60');
+        $q('step-chev-' + n).className = 'fa-solid text-slate-400 text-xs ' + (active ? 'fa-chevron-up' : 'fa-chevron-down');
+      }
+      // tabel pola mengikuti langkah yang butuh bukti pengamatan (1, 2, 3)
+      const slot = $q('pattern-slot-' + (steps.active === 2 ? 2 : steps.active === 3 ? 3 : 1));
+      const card = $q('pattern-card');
+      if (slot && card && card.parentElement !== slot) slot.appendChild(card);
+      $q('step3-next-label').innerText = steps.done[3] ? 'Lanjut: Putar Animasi' : 'Lihat animasi dulu';
+      $q('step4-done').classList.toggle('hidden', !steps.done[4]);
+    }
+
+    function goToStep(n) {
+      steps.active = n;
+      updateStepper();
+      if (n === 3) updatePredictionSummary();
+      if (n === 2) $q('step2-warn').classList.add('hidden');
+      const head = $q('step-head-' + n);
+      if (head && head.scrollIntoView) head.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function markStepDone(n) { steps.done[n] = true; updateStepper(); }
+
+    function resetSteps() {
+      steps.active = 1;
+      steps.done = [false, false, false, false, false];
+      const w2 = $q('step2-warn'); if (w2) w2.classList.add('hidden');
+      updateStepper();
+    }
+
+    function restartSteps() {
+      stopAnimation(true);
+      resetHypothesis(true);   // mengosongkan prediksi dan memanggil resetSteps()
+      goToStep(1);
+    }
+
+    function completeStep(n) {
+      if (n === 1) { markStepDone(1); goToStep(2); return; }
+      if (n === 2) {
+        const trig = state.inputMode === 'simbolik' && state.currentTransformation !== 'translasi';
+        const needed = activeHypIds().map(id => $q(id)).filter(el => !el.disabled);
+        const bad = needed.some(el => isNaN(parseMathNumber(el.value, { trig })));
+        const warn = $q('step2-warn');
+        if (bad) {
+          warn.innerText = 'Isi semua kotak prediksi dengan angka yang valid terlebih dahulu.';
+          warn.classList.remove('hidden');
+          return;
+        }
+        warn.classList.add('hidden');
+        markStepDone(2);
+        goToStep(3);
+      }
+    }
+
+    function playFromStep() {
+      if (window.innerWidth < 1024) switchMobileLabTab('canvas');   // di HP kanvas ada di tab lain
+      setTimeout(() => playAnimation(true), 60);
+    }
+
+    // Ringkasan prediksi pada langkah Uji (agar tetap terlihat saat panel prediksi tertutup)
+    function updatePredictionSummary() {
+      const box = $q('pred-summary');
+      if (!box) return;
+      const tf = state.currentTransformation, ctx2 = hypContext(), P = state.params;
+      const trig = state.inputMode === 'simbolik' && tf !== 'translasi';
+      const val = (id) => {
+        const el = $q(id);
+        if (!el || el.value.trim() === '') return '\\square';
+        const v = parseMathNumber(el.value, { trig });
+        return isNaN(v) ? '?' : String(Math.round(v * 1000) / 1000 + 0);
+      };
+      const col = (a, b) => `\\begin{pmatrix} ${a} \\\\ ${b} \\end{pmatrix}`;
+      let tex;
+      if (tf === 'translasi') {
+        tex = `${col("x'", "y'")} = ${col('x', 'y')} + ${col(val('t1'), val('t2'))}`;
+      } else {
+        const cen = ctx2 === 'centered', L = (s0, v) => cen ? shiftLabel(s0, v) : s0;
+        const M = `\\begin{pmatrix} ${val('m11')} & ${val('m12')} \\\\ ${val('m21')} & ${val('m22')} \\end{pmatrix}`;
+        tex = `${col(L("x'", P.cx), L("y'", P.cy))} = ${M}${col(L('x', P.cx), L('y', P.cy))}`;
+        if (ctx2 === 'affine') tex += ` + ${col(state.stepUnlocked ? val('r1') : 'p', state.stepUnlocked ? val('r2') : 'q')}`;
+      }
+      box.innerHTML = `$${tex}$`;
+      renderMathEquations(box);
+    }
+
+    // Deskripsi teks untuk pembaca layar
+    function describeCanvas() {
+      const c = $q('lab-canvas');
+      if (!c) return;
+      const names = ['A', 'B', 'C', 'D'];
+      const parts = getKeyPoints().map((p, i) => { const q = transformPoint(p); return `${names[i] || 'P'}(${p.x}, ${p.y}) menjadi (${q.x}, ${q.y})`; });
+      c.setAttribute('role', 'img');
+      c.setAttribute('aria-label', `Bidang Cartesius. ${TF_NAMES[state.currentTransformation]}: ${parts.join('; ')}.`);
     }
 
     const asst = {
@@ -2408,7 +2762,7 @@
           h1 = `Pusat rotasi kini $P(${P.cx}, ${P.cy})$ (titik oranye). Perhatikan sumbu lokal putus-putus yang berpusat di $P$: ukur posisi titik terhadap sumbu itu, bukan terhadap $O$. Geser pusat kembali ke $O$ untuk membandingkan.`;
           h2 = `Geser pusat ke $O$, putar, lalu geser kembali: <br> $${sh("x'", P.cx)} = (${sh('x', P.cx)})\\cos\\theta - (${sh('y', P.cy)})\\sin\\theta$ <br> $${sh("y'", P.cy)} = (${sh('x', P.cx)})\\sin\\theta + (${sh('y', P.cy)})\\cos\\theta$ <br> dengan $\\theta = ${P.angle}^\\circ$.`;
         } else {
-          h1 = 'Pilih objek <strong>Titik</strong>, lalu geser ke $(1, 0)$ dan ke $(0, 1)$. Ke mana bayangan masing-masing pada sudut ini? Catat sebagai pasangan koordinat.';
+          h1 = 'Pilih objek <strong>Titik</strong>, lalu geser ke $(1, 0)$ dan ke $(0, 1)$. Ke mana bayangan masing-masing pada sudut ini? Catat sebagai pasangan koordinat. Atau aktifkan <strong>vektor basis</strong> di bawah kontrol parameter.';
           h2 = `Gunakan persamaan rotasi: <br> $x' = x\\cos\\theta - y\\sin\\theta$ <br> $y' = x\\sin\\theta + y\\cos\\theta$ <br> dengan $\\theta = ${P.angle}^\\circ$.`;
         }
       } else if (tf === 'dilatasi') {
@@ -2541,7 +2895,7 @@
       const tf = state.currentTransformation, P = state.params;
       if (tf === 'rotasi' || tf === 'dilatasi') {
         const zero = P.cx === 0 && P.cy === 0;
-        return { kind: 'center', x: P.cx, y: P.cy, label: zero ? 'Pusat O(0, 0)' : `Pusat P(${P.cx}, ${P.cy})` };
+        return { kind: 'center', x: P.cx, y: P.cy, fixed: state.labMode === 'dasar', label: zero ? 'Pusat O(0, 0)' : `Pusat P(${P.cx}, ${P.cy})` };
       }
       if (tf === 'refleksi' && P.reflectionAxis === 'X_EQ_A') return { kind: 'lineA', x: P.lineA, y: 0, label: `x = ${P.lineA}` };
       if (tf === 'refleksi' && P.reflectionAxis === 'Y_EQ_B') return { kind: 'lineB', x: 0, y: P.lineB, label: `y = ${P.lineB}` };
@@ -2558,7 +2912,7 @@
       ctx.fillStyle = '#f97316'; ctx.fill();
       ctx.lineWidth = 3; ctx.strokeStyle = '#ffffff'; ctx.stroke();
       ctx.beginPath(); ctx.arc(c.x, c.y, 2.5, 0, Math.PI * 2); ctx.fillStyle = '#ffffff'; ctx.fill();
-      ctx.font = 'bold 12px "Inter", sans-serif'; ctx.textAlign = 'left';
+      ctx.font = `bold ${lblPx()}px "Inter", sans-serif`; ctx.textAlign = 'left';
       ctx.lineJoin = 'round'; ctx.lineWidth = 4; ctx.strokeStyle = 'rgba(255,255,255,0.92)';
       ctx.strokeText(hd.label, c.x + 14, c.y + 4);
       ctx.fillStyle = '#c2410c'; ctx.fillText(hd.label, c.x + 14, c.y + 4);
@@ -2567,7 +2921,7 @@
 
     function moveHandleTo(gx, gy) {
       const hd = getHandle();
-      if (!hd) return;
+      if (!hd || hd.fixed) return;
       const cl = (v) => Math.max(-6, Math.min(6, v)) + 0;
       const P = state.params;
       let changed = false;
@@ -2614,6 +2968,7 @@
       document.getElementById('hyp-concept').innerHTML = html;
 
       applyStepLock();
+      updateBasisUI();
       renderMathEquations(document.getElementById('hyp-concept'));
       renderMathEquations(document.getElementById('form-linear'));
     }
@@ -2633,8 +2988,8 @@
       const on = 'px-2.5 py-1 rounded-full border bg-amber-100 border-amber-300 text-amber-800';
       const done = 'px-2.5 py-1 rounded-full border bg-emerald-100 border-emerald-300 text-emerald-800';
       const off = 'px-2.5 py-1 rounded-full border bg-slate-100 border-slate-200 text-slate-400';
-      document.getElementById('step-1').className = state.stepUnlocked ? done : on;
-      document.getElementById('step-2').className = state.stepUnlocked ? on : off;
+      document.getElementById('aff-step-1').className = state.stepUnlocked ? done : on;
+      document.getElementById('aff-step-2').className = state.stepUnlocked ? on : off;
     }
 
     function diagnoseCells(vals, expected, allowSwap) {
