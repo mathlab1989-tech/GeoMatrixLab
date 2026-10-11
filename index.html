@@ -121,6 +121,10 @@
       #print-area th { background: #eee; }
     }
 
+    /* Panduan: sembunyikan penanda bawaan <summary> (Safari/Chrome lama) */
+    summary { list-style: none; }
+    summary::-webkit-details-marker { display: none; }
+
     /* Panel kanan adalah kolom flex yang bisa digulir: anak-anaknya tidak boleh menyusut (isi terpotong) */
     #mobile-sec-panel > * { flex-shrink: 0; }
 
@@ -600,137 +604,446 @@
         
         <div class="text-center space-y-2 border-b border-slate-200 pb-4">
           <h2 class="text-2xl sm:text-3xl font-black text-slate-900">Konsep Matriks Transformasi</h2>
-          <p class="text-slate-500 text-sm font-medium">Rangkuman teori, formulasi matriks, dan pembuktian matematis</p>
+          <p class="text-slate-500 text-sm font-medium">Dari titik, ke rumus koordinat, lalu ke matriks: setiap konsep dibangun bertahap</p>
         </div>
 
         <!-- Pagination Pages -->
-        <!-- MATERI PAGE 1: TRANSLASI -->
-        <div id="materi-page-1" class="materi-page block glass-panel p-6 sm:p-8 rounded-2xl border-l-4 border-l-sky-500 space-y-4">
-          <h3 class="text-xl font-black text-sky-700 flex items-center gap-2 border-b border-slate-100 pb-3">
-            <i class="fa-solid fa-arrows-up-down-left-right"></i> 1. Translasi (Pergeseran)
-          </h3>
-          <p class="text-slate-700 text-sm leading-relaxed">
-            Translasi memindahkan setiap titik sejauh komponen translasi $\begin{pmatrix} a \\ b \end{pmatrix}$. Karena sifatnya berupa pergeseran linier, hubungan posisi koordinat awal $(x, y)$ dan bayangannya $(x', y')$ dinyatakan melalui operasi <strong>penjumlahan matriks kolom (vektor)</strong>.
-          </p>
-          <div class="p-4 bg-sky-50 rounded-xl text-center border border-sky-100">
-            <p class="text-sm font-semibold text-slate-600 mb-2">Persamaan Translasi:</p>
-            <div class="text-lg text-sky-900">
-              $$ \begin{pmatrix} x' \\ y' \end{pmatrix} = \begin{pmatrix} x \\ y \end{pmatrix} + \begin{pmatrix} a \\ b \end{pmatrix} $$
-            </div>
-          </div>
-          <p class="text-slate-600 text-xs italic bg-slate-100 p-3 rounded-lg">
-            *Catatan: Translasi adalah satu-satunya transformasi geometri dasar yang tidak menggunakan perkalian matriks $2 \times 2$.
-          </p>
-        </div>
+        <!-- Alur setiap halaman: Titik -> Rumus koordinat -> Matriks (matriks muncul bertahap) -->
 
-        <!-- MATERI PAGE 2: REFLEKSI -->
-        <div id="materi-page-2" class="materi-page hidden glass-panel p-6 sm:p-8 rounded-2xl border-l-4 border-l-teal-500 space-y-4">
-          <h3 class="text-xl font-black text-teal-700 flex items-center gap-2 border-b border-slate-100 pb-3">
-            <i class="fa-solid fa-arrows-left-right-to-line"></i> 2. Refleksi (Pencerminan)
+        <!-- MATERI PAGE 1: PENGANTAR -->
+        <div id="materi-page-1" class="materi-page block glass-panel p-6 sm:p-8 rounded-2xl border-l-4 border-l-slate-500 space-y-4">
+          <h3 class="text-xl font-black text-slate-700 flex items-center gap-2 border-b border-slate-100 pb-3">
+            <i class="fa-solid fa-diagram-project"></i> 1. Pengantar: Transformasi sebagai Pemetaan Titik
           </h3>
           <p class="text-slate-700 text-sm leading-relaxed">
-            Pencerminan mengubah posisi koordinat berdasarkan sumbu atau garis cermin tertentu tanpa mengubah bentuk dan ukuran objek.
+            Transformasi geometri memindahkan setiap titik pada bidang ke titik lain. Titik asal $A(x, y)$ dipetakan oleh transformasi $T$ menjadi titik <strong>bayangan</strong> $A'(x', y')$, ditulis
           </p>
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div class="p-4 bg-white rounded-xl border border-slate-200 shadow-sm space-y-2">
-              <h4 class="font-bold text-teal-700 border-b border-slate-100 pb-1">Terhadap Sumbu X</h4>
-              <p class="text-sm text-slate-600">$x' = x$ dan $y' = -y$</p>
-              <div class="text-slate-800">$$ \begin{pmatrix} 1 & 0 \\ 0 & -1 \end{pmatrix} $$</div>
-            </div>
-            <div class="p-4 bg-white rounded-xl border border-slate-200 shadow-sm space-y-2">
-              <h4 class="font-bold text-teal-700 border-b border-slate-100 pb-1">Terhadap Sumbu Y</h4>
-              <p class="text-sm text-slate-600">$x' = -x$ dan $y' = y$</p>
-              <div class="text-slate-800">$$ \begin{pmatrix} -1 & 0 \\ 0 & 1 \end{pmatrix} $$</div>
-            </div>
-            <div class="p-4 bg-white rounded-xl border border-slate-200 shadow-sm space-y-2">
-              <h4 class="font-bold text-teal-700 border-b border-slate-100 pb-1">Terhadap Garis $y = x$</h4>
-              <p class="text-sm text-slate-600">$x' = y$ dan $y' = x$</p>
-              <div class="text-slate-800">$$ \begin{pmatrix} 0 & 1 \\ 1 & 0 \end{pmatrix} $$</div>
-            </div>
-            <div class="p-4 bg-white rounded-xl border border-slate-200 shadow-sm space-y-2">
-              <h4 class="font-bold text-teal-700 border-b border-slate-100 pb-1">Terhadap Garis $y = -x$</h4>
-              <p class="text-sm text-slate-600">$x' = -y$ dan $y' = -x$</p>
-              <div class="text-slate-800">$$ \begin{pmatrix} 0 & -1 \\ -1 & 0 \end{pmatrix} $$</div>
-            </div>
+          <div class="p-4 bg-slate-50 rounded-xl text-center border border-slate-200 text-slate-900">
+            $$ T(x, y) = (x', y') $$
           </div>
+          <p class="text-slate-700 text-sm leading-relaxed">
+            Pada setiap halaman berikutnya kita memakai alur yang sama, sejalan dengan kegiatan di Lab Maya:
+          </p>
+          <ol class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-sm">
+            <li class="p-3 rounded-xl bg-sky-50 border border-sky-200"><span class="font-black text-sky-700">1. Titik</span><br><span class="text-slate-600">Hitung bayangan beberapa titik dengan angka.</span></li>
+            <li class="p-3 rounded-xl bg-teal-50 border border-teal-200"><span class="font-black text-teal-700">2. Rumus koordinat</span><br><span class="text-slate-600">Temukan pola $x' = \ldots$ dan $y' = \ldots$.</span></li>
+            <li class="p-3 rounded-xl bg-amber-50 border border-amber-200"><span class="font-black text-amber-700">3. Matriks</span><br><span class="text-slate-600">Susun koefisien rumus menjadi matriks.</span></li>
+          </ol>
+
           <hr class="border-slate-200">
-          <h4 class="font-bold text-teal-700">Pencerminan Terhadap Garis yang Tidak Melalui $O$</h4>
-          <p class="text-sm text-slate-600 leading-relaxed">Jika garis cermin tidak melalui titik asal, rumusnya menjadi <strong>perkalian matriks ditambah vektor penggeser</strong>.</p>
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div class="p-4 bg-white rounded-xl border border-slate-200 shadow-sm space-y-2">
-              <h4 class="font-bold text-teal-700 border-b border-slate-100 pb-1">Terhadap Garis $x = a$</h4>
-              <p class="text-sm text-slate-600">$x' = 2a - x$ dan $y' = y$</p>
-              <div class="text-slate-800 text-sm">$$ \begin{pmatrix} x' \\ y' \end{pmatrix} = \begin{pmatrix} -1 & 0 \\ 0 & 1 \end{pmatrix}\begin{pmatrix} x \\ y \end{pmatrix} + \begin{pmatrix} 2a \\ 0 \end{pmatrix} $$</div>
-            </div>
-            <div class="p-4 bg-white rounded-xl border border-slate-200 shadow-sm space-y-2">
-              <h4 class="font-bold text-teal-700 border-b border-slate-100 pb-1">Terhadap Garis $y = b$</h4>
-              <p class="text-sm text-slate-600">$x' = x$ dan $y' = 2b - y$</p>
-              <div class="text-slate-800 text-sm">$$ \begin{pmatrix} x' \\ y' \end{pmatrix} = \begin{pmatrix} 1 & 0 \\ 0 & -1 \end{pmatrix}\begin{pmatrix} x \\ y \end{pmatrix} + \begin{pmatrix} 0 \\ 2b \end{pmatrix} $$</div>
-            </div>
+          <h4 class="font-bold text-slate-700">Apa yang Berubah dan Apa yang Tetap?</h4>
+          <div class="overflow-x-auto rounded-xl border border-slate-200">
+            <table class="w-full text-left text-xs sm:text-sm bg-white">
+              <thead class="bg-slate-100 text-slate-600">
+                <tr><th class="py-2 px-3 font-bold">Transformasi</th><th class="py-2 px-3 font-bold">Jarak antartitik</th><th class="py-2 px-3 font-bold">Luas bangun</th><th class="py-2 px-3 font-bold">Arah / orientasi</th></tr>
+              </thead>
+              <tbody class="divide-y divide-slate-100 text-slate-700">
+                <tr><td class="py-2 px-3 font-bold">Translasi</td><td class="py-2 px-3">tetap</td><td class="py-2 px-3">tetap</td><td class="py-2 px-3">tetap</td></tr>
+                <tr><td class="py-2 px-3 font-bold">Refleksi</td><td class="py-2 px-3">tetap</td><td class="py-2 px-3">tetap</td><td class="py-2 px-3">berbalik (urutan titik terbalik)</td></tr>
+                <tr><td class="py-2 px-3 font-bold">Rotasi</td><td class="py-2 px-3">tetap</td><td class="py-2 px-3">tetap</td><td class="py-2 px-3">tetap, bangun terputar</td></tr>
+                <tr><td class="py-2 px-3 font-bold">Dilatasi</td><td class="py-2 px-3">menjadi $\lvert k\rvert$ kali</td><td class="py-2 px-3">menjadi $k^2$ kali</td><td class="py-2 px-3">berbalik terhadap pusat jika $k &lt; 0$</td></tr>
+              </tbody>
+            </table>
           </div>
-        </div>
-
-        <!-- MATERI PAGE 3: ROTASI -->
-        <div id="materi-page-3" class="materi-page hidden glass-panel p-6 sm:p-8 rounded-2xl border-l-4 border-l-purple-500 space-y-4">
-          <h3 class="text-xl font-black text-purple-700 flex items-center gap-2 border-b border-slate-100 pb-3">
-            <i class="fa-solid fa-rotate"></i> 3. Rotasi (Perputaran)
-          </h3>
-          <p class="text-slate-700 text-sm leading-relaxed">
-            Rotasi titik sejauh sudut $\theta$ berlawanan arah jarum jam (positif) terhadap titik pusat origin $(0,0)$ dapat diturunkan menggunakan identitas penjumlahan sudut trigonometri.
+          <p class="text-slate-600 text-xs leading-relaxed">
+            Pada rotasi, jarak titik ke pusat juga tetap: $OA' = OA$. Karena jarak dan luas tidak berubah, translasi, refleksi, dan rotasi disebut <strong>isometri</strong>.
           </p>
-          <div class="p-4 bg-purple-50 rounded-xl text-center border border-purple-100">
-            <p class="text-sm font-semibold text-slate-600 mb-2">Matriks Rotasi Umum:</p>
-            <div class="text-lg text-purple-900">
-              $$ M_{\text{rotasi}} = \begin{pmatrix} \cos\theta & -\sin\theta \\ \sin\theta & \cos\theta \end{pmatrix} $$
-            </div>
-          </div>
-          <div class="text-sm text-slate-700 space-y-2 mt-2">
-            <p><strong>Contoh Rotasi Khusus:</strong></p>
-            <ul class="list-disc list-inside space-y-1 ml-2">
-              <li>Rotasi $90^\circ$: $\cos(90^\circ)=0, \sin(90^\circ)=1 \implies \begin{pmatrix} 0 & -1 \\ 1 & 0 \end{pmatrix}$</li>
-              <li>Rotasi $180^\circ$: $\cos(180^\circ)=-1, \sin(180^\circ)=0 \implies \begin{pmatrix} -1 & 0 \\ 0 & -1 \end{pmatrix}$</li>
+
+          <div class="p-4 bg-amber-50 rounded-xl border border-amber-200 space-y-2">
+            <h4 class="font-bold text-amber-700 text-sm"><i class="fa-solid fa-ruler-combined mr-1"></i>Determinan dan Luas</h4>
+            <p class="text-sm text-slate-700 leading-relaxed">
+              Untuk matriks $M = \begin{pmatrix} a & b \\ c & d \end{pmatrix}$, determinannya $\det M = ad - bc$. Luas bangun bayangan sama dengan $\lvert \det M \rvert$ kali luas semula.
+            </p>
+            <ul class="list-disc list-inside text-sm text-slate-700 space-y-0.5 ml-2">
+              <li>Rotasi: $\det = \cos^2\theta + \sin^2\theta = 1$ (luas tetap, orientasi tetap).</li>
+              <li>Refleksi: $\det = -1$ (luas tetap, orientasi berbalik).</li>
+              <li>Dilatasi: $\det = k \cdot k = k^2$ (luas menjadi $k^2$ kali).</li>
             </ul>
           </div>
-          <hr class="border-slate-200">
-          <h4 class="font-bold text-purple-700">Rotasi Berpusat di $P(a, b)$</h4>
-          <p class="text-sm text-slate-700 leading-relaxed">Gunakan <strong>metode translatif</strong>: geser sistem koordinat sementara agar pusat berada di $O$, lakukan rotasi, lalu geser kembali.</p>
-          <ol class="list-decimal list-inside text-sm text-slate-700 space-y-1 ml-2">
-            <li>Geser: kurangi koordinat dengan pusat, $(x - a,\ y - b)$.</li>
-            <li>Putar dengan matriks rotasi $M$ yang sama seperti pusat $O$.</li>
-            <li>Geser kembali: tambahkan pusat $(a, b)$.</li>
-          </ol>
-          <div class="p-4 bg-purple-50 rounded-xl text-center border border-purple-100 text-purple-900">
-            $$ \begin{pmatrix} x' - a \\ y' - b \end{pmatrix} = \begin{pmatrix} \cos\theta & -\sin\theta \\ \sin\theta & \cos\theta \end{pmatrix}\begin{pmatrix} x - a \\ y - b \end{pmatrix} $$
+
+          <div class="p-4 bg-slate-100 rounded-xl border border-slate-200 space-y-1">
+            <p class="text-sm font-bold text-slate-700">Dua cara menulis transformasi</p>
+            <ul class="list-disc list-inside text-sm text-slate-700 space-y-0.5 ml-2">
+              <li><strong>Perkalian matriks</strong> $\begin{pmatrix} x' \\ y' \end{pmatrix} = M \begin{pmatrix} x \\ y \end{pmatrix}$ untuk refleksi, rotasi, dan dilatasi yang berpusat/bercermin di $O$.</li>
+              <li><strong>Matriks ditambah vektor penggeser</strong> $\begin{pmatrix} x' \\ y' \end{pmatrix} = M \begin{pmatrix} x \\ y \end{pmatrix} + \begin{pmatrix} p \\ q \end{pmatrix}$ untuk translasi ($M$ matriks identitas) dan transformasi yang tidak berpusat di $O$.</li>
+            </ul>
           </div>
         </div>
 
-        <!-- MATERI PAGE 4: DILATASI & INVERS -->
-        <div id="materi-page-4" class="materi-page hidden glass-panel p-6 sm:p-8 rounded-2xl border-l-4 border-l-amber-500 space-y-4">
-          <h3 class="text-xl font-black text-amber-700 flex items-center gap-2 border-b border-slate-100 pb-3">
-            <i class="fa-solid fa-expand"></i> 4. Dilatasi & Transformasi Kurva
+        <!-- MATERI PAGE 2: TRANSLASI -->
+        <div id="materi-page-2" class="materi-page hidden glass-panel p-6 sm:p-8 rounded-2xl border-l-4 border-l-sky-500 space-y-4">
+          <h3 class="text-xl font-black text-sky-700 flex items-center gap-2 border-b border-slate-100 pb-3">
+            <i class="fa-solid fa-arrows-up-down-left-right"></i> 2. Translasi (Pergeseran)
           </h3>
           <p class="text-slate-700 text-sm leading-relaxed">
-            <strong>Dilatasi</strong> dengan faktor skala $k$ berpusat di $(0,0)$ meregangkan titik menjadi $x' = kx$ dan $y' = ky$. Matriks dilatasinya adalah:
-            $$ \begin{pmatrix} k & 0 \\ 0 & k \end{pmatrix} $$
+            Translasi menggeser <strong>setiap titik</strong> sejauh dan searah yang sama, yaitu sejauh komponen translasi $\begin{pmatrix} a \\ b \end{pmatrix}$: $a$ satuan ke kanan (ke kiri jika negatif) dan $b$ satuan ke atas (ke bawah jika negatif).
           </p>
-          <hr class="border-slate-200">
-          <h4 class="font-bold text-amber-700">Transformasi Kurva (Konsep Invers Matriks)</h4>
-          <p class="text-slate-700 text-sm leading-relaxed">
-            Untuk mentransformasikan persamaan garis atau kurva (misal: $y = x^2$), kita mencari variabel asal $x$ dan $y$ yang dinyatakan dalam $x'$ dan $y'$ menggunakan <strong>Invers Matriks ($M^{-1}$)</strong>:
-          </p>
-          <div class="p-4 bg-amber-50 rounded-xl text-center border border-amber-200">
-            <div class="text-lg text-amber-900">
-              $$ \begin{pmatrix} x \\ y \end{pmatrix} = M^{-1} \begin{pmatrix} x' \\ y' \end{pmatrix} $$
-            </div>
+
+          <h4 class="font-bold text-sky-700">Langkah 1 dan 2: Titik dan Rumus Koordinat</h4>
+          <div class="overflow-x-auto rounded-xl border border-slate-200">
+            <table class="w-full text-left text-xs sm:text-sm bg-white">
+              <thead class="bg-sky-50 text-sky-800">
+                <tr><th class="py-2 px-3 font-bold">Titik asal</th><th class="py-2 px-3 font-bold">Dihitung</th><th class="py-2 px-3 font-bold">Bayangan (translasi $(2, -1)$)</th></tr>
+              </thead>
+              <tbody class="divide-y divide-slate-100 text-slate-700">
+                <tr><td class="py-2 px-3">$A(3, 2)$</td><td class="py-2 px-3">$(3+2,\ 2-1)$</td><td class="py-2 px-3 font-bold text-emerald-700">$A'(5, 1)$</td></tr>
+                <tr><td class="py-2 px-3">$B(-1, 4)$</td><td class="py-2 px-3">$(-1+2,\ 4-1)$</td><td class="py-2 px-3 font-bold text-emerald-700">$B'(1, 3)$</td></tr>
+                <tr><td class="py-2 px-3">$O(0, 0)$</td><td class="py-2 px-3">$(0+2,\ 0-1)$</td><td class="py-2 px-3 font-bold text-emerald-700">$O'(2, -1)$</td></tr>
+              </tbody>
+            </table>
           </div>
-          <p class="text-slate-600 text-xs mt-1">Setelah mendapatkan nilai $x$ dan $y$, substitusikan kembali ke persamaan kurva awal untuk mendapatkan persamaan kurva bayangannya.</p>
+          <p class="text-slate-700 text-sm leading-relaxed">Selisih $x' - x = 2$ dan $y' - y = -1$ selalu sama untuk setiap titik. Itulah pola yang kita rumuskan:</p>
+          <div class="p-4 bg-sky-50 rounded-xl text-center border border-sky-100 text-sky-900">
+            $$ x' = x + a \qquad y' = y + b $$
+          </div>
+
+          <div class="p-4 bg-white rounded-xl border border-slate-200 shadow-sm space-y-2">
+            <h4 class="font-bold text-slate-800 text-sm"><i class="fa-solid fa-pencil text-sky-600 mr-1"></i>Contoh Soal</h4>
+            <p class="text-sm text-slate-700">Titik $P(-4, 5)$ ditranslasikan oleh $\begin{pmatrix} 3 \\ -7 \end{pmatrix}$. Tentukan $P'$, lalu tentukan translasi yang mengembalikan $P'$ ke $P$.</p>
+            <p class="text-sm text-slate-700">$P' = (-4+3,\ 5+(-7)) = (-1, -2)$. Translasi balikan memakai vektor <strong>berlawanan</strong> $\begin{pmatrix} -3 \\ 7 \end{pmatrix}$: $(-1-3,\ -2+7) = (-4, 5) = P$.</p>
+          </div>
+
+          <h4 class="font-bold text-sky-700">Langkah 3: Matriks</h4>
+          <button type="button" onclick="toggleMatriks('mx-translasi', this)" aria-expanded="false" class="px-3 py-2 rounded-lg bg-sky-600 hover:bg-sky-700 text-white text-xs font-bold shadow-sm active:scale-95 transition-all"><i class="fa-solid fa-eye mr-1"></i>Lihat bentuk matriks</button>
+          <div id="mx-translasi" class="hidden space-y-3">
+            <div class="p-4 bg-sky-50 rounded-xl text-center border border-sky-100 text-sky-900">
+              <p class="text-sm font-semibold text-slate-600 mb-2">Persamaan Translasi (penjumlahan vektor kolom):</p>
+              $$ \begin{pmatrix} x' \\ y' \end{pmatrix} = \begin{pmatrix} x \\ y \end{pmatrix} + \begin{pmatrix} a \\ b \end{pmatrix} $$
+            </div>
+            <p class="text-slate-600 text-xs bg-slate-100 p-3 rounded-lg leading-relaxed">
+              <strong>Catatan:</strong> translasi bukan transformasi linear, karena titik asal $O(0,0)$ ikut bergeser (lihat $O'(2,-1)$). Ia juga satu-satunya transformasi dasar yang <strong>murni penjumlahan</strong>, tanpa perkalian dengan matriks selain matriks identitas. Karena itu translasi menjadi bahan untuk transformasi yang tidak berpusat di $O$ pada halaman-halaman berikutnya.
+            </p>
+          </div>
+
+          <button type="button" onclick="tryInLab('translasi', {tx: 2, ty: -1}, false)" class="px-3 py-2 rounded-lg bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold shadow-sm active:scale-95 transition-all"><i class="fa-solid fa-flask mr-1.5"></i>Coba di Lab: translasi $(2, -1)$ pada $A(3, 2)$</button>
+        </div>
+
+        <!-- MATERI PAGE 3: REFLEKSI -->
+        <div id="materi-page-3" class="materi-page hidden glass-panel p-6 sm:p-8 rounded-2xl border-l-4 border-l-teal-500 space-y-4">
+          <h3 class="text-xl font-black text-teal-700 flex items-center gap-2 border-b border-slate-100 pb-3">
+            <i class="fa-solid fa-arrows-left-right-to-line"></i> 3. Refleksi (Pencerminan)
+          </h3>
+          <p class="text-slate-700 text-sm leading-relaxed">
+            Pencerminan memetakan titik ke sisi seberang garis cermin dengan <strong>jarak yang sama</strong>. Garis cermin adalah sumbu ruas yang menghubungkan titik dan bayangannya, sehingga bentuk dan ukuran objek tidak berubah.
+          </p>
+
+          <h4 class="font-bold text-teal-700">Langkah 1 dan 2: Titik dan Rumus Koordinat</h4>
+          <p class="text-sm text-slate-600">Kita cerminkan $A(3, 2)$ terhadap beberapa garis cermin:</p>
+          <div class="overflow-x-auto rounded-xl border border-slate-200">
+            <table class="w-full text-left text-xs sm:text-sm bg-white">
+              <thead class="bg-teal-50 text-teal-800">
+                <tr><th class="py-2 px-3 font-bold">Garis cermin</th><th class="py-2 px-3 font-bold">Rumus koordinat</th><th class="py-2 px-3 font-bold">Bayangan $A'$</th></tr>
+              </thead>
+              <tbody class="divide-y divide-slate-100 text-slate-700">
+                <tr><td class="py-2 px-3">Sumbu X ($y = 0$)</td><td class="py-2 px-3">$(x,\ -y)$</td><td class="py-2 px-3 font-bold text-emerald-700">$(3, -2)$</td></tr>
+                <tr><td class="py-2 px-3">Sumbu Y ($x = 0$)</td><td class="py-2 px-3">$(-x,\ y)$</td><td class="py-2 px-3 font-bold text-emerald-700">$(-3, 2)$</td></tr>
+                <tr><td class="py-2 px-3">Garis $y = x$</td><td class="py-2 px-3">$(y,\ x)$</td><td class="py-2 px-3 font-bold text-emerald-700">$(2, 3)$</td></tr>
+                <tr><td class="py-2 px-3">Garis $y = -x$</td><td class="py-2 px-3">$(-y,\ -x)$</td><td class="py-2 px-3 font-bold text-emerald-700">$(-2, -3)$</td></tr>
+                <tr><td class="py-2 px-3">Garis $x = 5$ (umum: $x = a$)</td><td class="py-2 px-3">$(2a - x,\ y)$</td><td class="py-2 px-3 font-bold text-emerald-700">$(7, 2)$</td></tr>
+                <tr><td class="py-2 px-3">Garis $y = 4$ (umum: $y = b$)</td><td class="py-2 px-3">$(x,\ 2b - y)$</td><td class="py-2 px-3 font-bold text-emerald-700">$(3, 6)$</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="p-4 bg-teal-50 rounded-xl border border-teal-100 space-y-1">
+            <p class="text-sm font-bold text-teal-800">Mengapa $x' = 2a - x$?</p>
+            <p class="text-sm text-slate-700 leading-relaxed">Titik dan bayangannya berjarak sama dari garis $x = a$, sehingga titik tengah keduanya berada di garis itu: $\dfrac{x + x'}{2} = a$. Dari sini $x' = 2a - x$, sedangkan $y' = y$ karena bergerak tegak lurus garis. Untuk $A(3,2)$ dan $x = 5$: $x' = 10 - 3 = 7$.</p>
+          </div>
+
+          <div class="p-4 bg-white rounded-xl border border-slate-200 shadow-sm space-y-2">
+            <h4 class="font-bold text-slate-800 text-sm"><i class="fa-solid fa-pencil text-teal-600 mr-1"></i>Contoh Soal</h4>
+            <p class="text-sm text-slate-700">(a) Titik $P(-2, 6)$ dicerminkan terhadap garis $y = -x$. (b) Titik $B(-1, 3)$ dicerminkan terhadap garis $x = 2$.</p>
+            <p class="text-sm text-slate-700">(a) $(x, y) \to (-y, -x)$, sehingga $P' = (-6, 2)$.<br>(b) $x' = 2(2) - (-1) = 5$ dan $y' = 3$, sehingga $B' = (5, 3)$.</p>
+          </div>
+
+          <h4 class="font-bold text-teal-700">Langkah 3: Matriks</h4>
+          <button type="button" onclick="toggleMatriks('mx-refleksi', this)" aria-expanded="false" class="px-3 py-2 rounded-lg bg-teal-600 hover:bg-teal-700 text-white text-xs font-bold shadow-sm active:scale-95 transition-all"><i class="fa-solid fa-eye mr-1"></i>Lihat bentuk matriks</button>
+          <div id="mx-refleksi" class="hidden space-y-4">
+            <p class="text-sm text-slate-600 leading-relaxed">Tulis rumus sebagai $x' = a\cdot x + b\cdot y$ dan $y' = c\cdot x + d\cdot y$. Koefisien-koefisiennya menjadi elemen matriks $\begin{pmatrix} a & b \\ c & d \end{pmatrix}$. Contoh sumbu X: $x' = 1\cdot x + 0\cdot y$ dan $y' = 0\cdot x + (-1)\cdot y$.</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div class="p-4 bg-white rounded-xl border border-slate-200 shadow-sm space-y-2">
+                <h4 class="font-bold text-teal-700 border-b border-slate-100 pb-1">Terhadap Sumbu X</h4>
+                <p class="text-sm text-slate-600">$x' = x$ dan $y' = -y$</p>
+                <div class="text-slate-800">$$ \begin{pmatrix} 1 & 0 \\ 0 & -1 \end{pmatrix} $$</div>
+              </div>
+              <div class="p-4 bg-white rounded-xl border border-slate-200 shadow-sm space-y-2">
+                <h4 class="font-bold text-teal-700 border-b border-slate-100 pb-1">Terhadap Sumbu Y</h4>
+                <p class="text-sm text-slate-600">$x' = -x$ dan $y' = y$</p>
+                <div class="text-slate-800">$$ \begin{pmatrix} -1 & 0 \\ 0 & 1 \end{pmatrix} $$</div>
+              </div>
+              <div class="p-4 bg-white rounded-xl border border-slate-200 shadow-sm space-y-2">
+                <h4 class="font-bold text-teal-700 border-b border-slate-100 pb-1">Terhadap Garis $y = x$</h4>
+                <p class="text-sm text-slate-600">$x' = y$ dan $y' = x$</p>
+                <div class="text-slate-800">$$ \begin{pmatrix} 0 & 1 \\ 1 & 0 \end{pmatrix} $$</div>
+              </div>
+              <div class="p-4 bg-white rounded-xl border border-slate-200 shadow-sm space-y-2">
+                <h4 class="font-bold text-teal-700 border-b border-slate-100 pb-1">Terhadap Garis $y = -x$</h4>
+                <p class="text-sm text-slate-600">$x' = -y$ dan $y' = -x$</p>
+                <div class="text-slate-800">$$ \begin{pmatrix} 0 & -1 \\ -1 & 0 \end{pmatrix} $$</div>
+              </div>
+            </div>
+            <hr class="border-slate-200">
+            <h4 class="font-bold text-teal-700">Pencerminan Terhadap Garis yang Tidak Melalui $O$</h4>
+            <p class="text-sm text-slate-600 leading-relaxed">Rumus $x' = 2a - x$ memuat suku konstan $2a$, sehingga bentuknya <strong>perkalian matriks ditambah vektor penggeser</strong>.</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div class="p-4 bg-white rounded-xl border border-slate-200 shadow-sm space-y-2">
+                <h4 class="font-bold text-teal-700 border-b border-slate-100 pb-1">Terhadap Garis $x = a$</h4>
+                <p class="text-sm text-slate-600">$x' = 2a - x$ dan $y' = y$</p>
+                <div class="text-slate-800 text-sm">$$ \begin{pmatrix} x' \\ y' \end{pmatrix} = \begin{pmatrix} -1 & 0 \\ 0 & 1 \end{pmatrix}\begin{pmatrix} x \\ y \end{pmatrix} + \begin{pmatrix} 2a \\ 0 \end{pmatrix} $$</div>
+              </div>
+              <div class="p-4 bg-white rounded-xl border border-slate-200 shadow-sm space-y-2">
+                <h4 class="font-bold text-teal-700 border-b border-slate-100 pb-1">Terhadap Garis $y = b$</h4>
+                <p class="text-sm text-slate-600">$x' = x$ dan $y' = 2b - y$</p>
+                <div class="text-slate-800 text-sm">$$ \begin{pmatrix} x' \\ y' \end{pmatrix} = \begin{pmatrix} 1 & 0 \\ 0 & -1 \end{pmatrix}\begin{pmatrix} x \\ y \end{pmatrix} + \begin{pmatrix} 0 \\ 2b \end{pmatrix} $$</div>
+              </div>
+            </div>
+            <p class="text-slate-600 text-xs bg-slate-100 p-3 rounded-lg leading-relaxed">Matriks $M$ pada garis $x = a$ sama dengan matriks pencerminan terhadap sumbu Y (garis sejajar yang melalui $O$); bagian $2a$ adalah vektor penggesernya. Inilah dua langkah yang dikerjakan di Lab.</p>
+          </div>
+
+          <div class="flex flex-wrap gap-2">
+            <button type="button" onclick="tryInLab('refleksi', {reflectionAxis: 'Y_EQUAL_X'}, false)" class="px-3 py-2 rounded-lg bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold shadow-sm active:scale-95 transition-all"><i class="fa-solid fa-flask mr-1.5"></i>Coba di Lab: cermin $y = x$</button>
+            <button type="button" onclick="tryInLab('refleksi', {reflectionAxis: 'X_EQ_A', lineA: 5}, true)" class="px-3 py-2 rounded-lg bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold shadow-sm active:scale-95 transition-all"><i class="fa-solid fa-flask mr-1.5"></i>Coba di Lab: cermin $x = 5$</button>
+          </div>
+        </div>
+
+        <!-- MATERI PAGE 4: ROTASI -->
+        <div id="materi-page-4" class="materi-page hidden glass-panel p-6 sm:p-8 rounded-2xl border-l-4 border-l-purple-500 space-y-4">
+          <h3 class="text-xl font-black text-purple-700 flex items-center gap-2 border-b border-slate-100 pb-3">
+            <i class="fa-solid fa-rotate"></i> 4. Rotasi (Perputaran)
+          </h3>
+          <p class="text-slate-700 text-sm leading-relaxed">
+            Rotasi memutar titik sejauh sudut $\theta$ terhadap suatu pusat. Sudut <strong>positif</strong> berarti berlawanan arah jarum jam, sudut negatif searah jarum jam. Jarak titik ke pusat <strong>tidak berubah</strong> ($OA' = OA$).
+          </p>
+
+          <h4 class="font-bold text-purple-700">Langkah 1 dan 2: Titik dan Rumus Koordinat (pusat $O$)</h4>
+          <div class="overflow-x-auto rounded-xl border border-slate-200">
+            <table class="w-full text-left text-xs sm:text-sm bg-white">
+              <thead class="bg-purple-50 text-purple-800">
+                <tr><th class="py-2 px-3 font-bold">Sudut</th><th class="py-2 px-3 font-bold">Rumus koordinat</th><th class="py-2 px-3 font-bold">Bayangan $A(3, 2)$</th></tr>
+              </thead>
+              <tbody class="divide-y divide-slate-100 text-slate-700">
+                <tr><td class="py-2 px-3">$90^\circ$</td><td class="py-2 px-3">$(-y,\ x)$</td><td class="py-2 px-3 font-bold text-emerald-700">$(-2, 3)$</td></tr>
+                <tr><td class="py-2 px-3">$180^\circ$</td><td class="py-2 px-3">$(-x,\ -y)$</td><td class="py-2 px-3 font-bold text-emerald-700">$(-3, -2)$</td></tr>
+                <tr><td class="py-2 px-3">$270^\circ$ (sama dengan $-90^\circ$)</td><td class="py-2 px-3">$(y,\ -x)$</td><td class="py-2 px-3 font-bold text-emerald-700">$(2, -3)$</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="text-xs text-slate-500">Cek jarak: $OA = \sqrt{3^2 + 2^2} = \sqrt{13}$ dan $OA' = \sqrt{(-2)^2 + 3^2} = \sqrt{13}$.</p>
+
+          <div class="p-4 bg-purple-50 rounded-xl border border-purple-100 space-y-2">
+            <p class="text-sm font-bold text-purple-800">Dari mana rumus umumnya?</p>
+            <p class="text-sm text-slate-700 leading-relaxed">Tulis titik dalam bentuk kutub: $x = r\cos\alpha$ dan $y = r\sin\alpha$. Setelah diputar sejauh $\theta$, sudutnya menjadi $\alpha + \theta$ dengan $r$ tetap. Dengan identitas penjumlahan sudut:</p>
+            <div class="text-slate-900 text-sm text-center">
+              $$ \begin{aligned} x' &= r\cos(\alpha + \theta) = r\cos\alpha\cos\theta - r\sin\alpha\sin\theta = x\cos\theta - y\sin\theta \\ y' &= r\sin(\alpha + \theta) = r\sin\alpha\cos\theta + r\cos\alpha\sin\theta = x\sin\theta + y\cos\theta \end{aligned} $$
+            </div>
+            <p class="text-xs text-slate-600">Uji dengan $\theta = 90^\circ$ ($\cos = 0$, $\sin = 1$): $x' = -y$ dan $y' = x$, sama dengan tabel.</p>
+          </div>
+
+          <div class="p-4 bg-white rounded-xl border border-slate-200 shadow-sm space-y-2">
+            <h4 class="font-bold text-slate-800 text-sm"><i class="fa-solid fa-pencil text-purple-600 mr-1"></i>Contoh Soal</h4>
+            <p class="text-sm text-slate-700">Titik $B(4, -1)$ dirotasikan (a) $180^\circ$ dan (b) $90^\circ$ berlawanan arah jarum jam terhadap $O$.</p>
+            <p class="text-sm text-slate-700">(a) $(x, y) \to (-x, -y)$, sehingga $B' = (-4, 1)$.<br>(b) $(x, y) \to (-y, x)$, sehingga $B' = (1, 4)$.</p>
+          </div>
+
+          <hr class="border-slate-200">
+          <h4 class="font-bold text-purple-700">Rotasi Berpusat di $P(a, b)$</h4>
+          <p class="text-sm text-slate-700 leading-relaxed">Gunakan <strong>metode translatif</strong>: ukur posisi titik terhadap pusat, putar, lalu kembalikan.</p>
+          <ol class="list-decimal list-inside text-sm text-slate-700 space-y-1 ml-2">
+            <li>Geser: kurangi koordinat dengan pusat, $(x - a,\ y - b)$.</li>
+            <li>Putar dengan rumus rotasi yang sama seperti pusat $O$.</li>
+            <li>Geser kembali: tambahkan pusat $(a, b)$.</li>
+          </ol>
+          <div class="p-4 bg-purple-50 rounded-xl text-center border border-purple-100 text-purple-900 text-sm">
+            $$ x' = (x - a)\cos\theta - (y - b)\sin\theta + a \qquad y' = (x - a)\sin\theta + (y - b)\cos\theta + b $$
+          </div>
+          <div class="p-4 bg-white rounded-xl border border-slate-200 shadow-sm space-y-2">
+            <h4 class="font-bold text-slate-800 text-sm"><i class="fa-solid fa-pencil text-purple-600 mr-1"></i>Contoh Soal</h4>
+            <p class="text-sm text-slate-700">Titik $A(3, 2)$ dirotasikan $90^\circ$ berpusat di $P(1, 1)$.</p>
+            <p class="text-sm text-slate-700">Posisi relatif: $(3-1,\ 2-1) = (2, 1)$. Rotasi $90^\circ$: $(-1, 2)$. Kembalikan: $(-1+1,\ 2+1) = (0, 3)$. Jadi $A' = (0, 3)$.</p>
+          </div>
+
+          <h4 class="font-bold text-purple-700">Langkah 3: Matriks</h4>
+          <button type="button" onclick="toggleMatriks('mx-rotasi', this)" aria-expanded="false" class="px-3 py-2 rounded-lg bg-purple-600 hover:bg-purple-700 text-white text-xs font-bold shadow-sm active:scale-95 transition-all"><i class="fa-solid fa-eye mr-1"></i>Lihat bentuk matriks</button>
+          <div id="mx-rotasi" class="hidden space-y-3">
+            <p class="text-sm text-slate-600 leading-relaxed">Koefisien $x$ dan $y$ pada rumus $x' = x\cos\theta - y\sin\theta$ dan $y' = x\sin\theta + y\cos\theta$ menjadi matriks rotasi:</p>
+            <div class="p-4 bg-purple-50 rounded-xl text-center border border-purple-100 text-purple-900">
+              $$ M_{\text{rotasi}} = \begin{pmatrix} \cos\theta & -\sin\theta \\ \sin\theta & \cos\theta \end{pmatrix} $$
+            </div>
+            <ul class="list-disc list-inside text-sm text-slate-700 space-y-1 ml-2">
+              <li>$90^\circ$: $\cos = 0,\ \sin = 1 \implies \begin{pmatrix} 0 & -1 \\ 1 & 0 \end{pmatrix}$</li>
+              <li>$180^\circ$: $\cos = -1,\ \sin = 0 \implies \begin{pmatrix} -1 & 0 \\ 0 & -1 \end{pmatrix}$</li>
+              <li>$270^\circ$ (atau $-90^\circ$): $\cos = 0,\ \sin = -1 \implies \begin{pmatrix} 0 & 1 \\ -1 & 0 \end{pmatrix}$</li>
+            </ul>
+            <p class="text-sm text-slate-700 leading-relaxed">Untuk pusat $P(a, b)$, matriks yang sama bekerja pada koordinat relatif:</p>
+            <div class="p-4 bg-purple-50 rounded-xl text-center border border-purple-100 text-purple-900">
+              $$ \begin{pmatrix} x' - a \\ y' - b \end{pmatrix} = \begin{pmatrix} \cos\theta & -\sin\theta \\ \sin\theta & \cos\theta \end{pmatrix}\begin{pmatrix} x - a \\ y - b \end{pmatrix} $$
+            </div>
+            <p class="text-slate-600 text-xs bg-slate-100 p-3 rounded-lg">$\det M = \cos^2\theta + \sin^2\theta = 1$, sehingga rotasi tidak mengubah luas maupun orientasi. Rotasi $360^\circ$ memberi $\cos 360^\circ = 1$ dan $\sin 360^\circ = 0$, yaitu matriks identitas.</p>
+          </div>
+
+          <div class="flex flex-wrap gap-2">
+            <button type="button" onclick="tryInLab('rotasi', {angle: 90}, false)" class="px-3 py-2 rounded-lg bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold shadow-sm active:scale-95 transition-all"><i class="fa-solid fa-flask mr-1.5"></i>Coba di Lab: rotasi $90^\circ$</button>
+            <button type="button" onclick="tryInLab('rotasi', {angle: -90}, false)" class="px-3 py-2 rounded-lg bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold shadow-sm active:scale-95 transition-all"><i class="fa-solid fa-flask mr-1.5"></i>Coba di Lab: $-90^\circ$ (= $270^\circ$)</button>
+            <button type="button" onclick="tryInLab('rotasi', {angle: 90, cx: 1, cy: 1}, true)" class="px-3 py-2 rounded-lg bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold shadow-sm active:scale-95 transition-all"><i class="fa-solid fa-flask mr-1.5"></i>Coba di Lab: pusat $P(1, 1)$</button>
+          </div>
+        </div>
+
+        <!-- MATERI PAGE 5: DILATASI -->
+        <div id="materi-page-5" class="materi-page hidden glass-panel p-6 sm:p-8 rounded-2xl border-l-4 border-l-amber-500 space-y-4">
+          <h3 class="text-xl font-black text-amber-700 flex items-center gap-2 border-b border-slate-100 pb-3">
+            <i class="fa-solid fa-expand"></i> 5. Dilatasi (Perbesaran / Perkecilan)
+          </h3>
+          <p class="text-slate-700 text-sm leading-relaxed">
+            Dilatasi dengan faktor skala $k$ mengalikan jarak setiap titik dari pusat dengan $k$. Jika $\lvert k\rvert &gt; 1$ bangun membesar, jika $0 &lt; \lvert k\rvert &lt; 1$ bangun mengecil, dan jika $k &lt; 0$ bayangan berada di seberang pusat.
+          </p>
+
+          <h4 class="font-bold text-amber-700">Langkah 1 dan 2: Titik dan Rumus Koordinat (pusat $O$)</h4>
+          <div class="overflow-x-auto rounded-xl border border-slate-200">
+            <table class="w-full text-left text-xs sm:text-sm bg-white">
+              <thead class="bg-amber-50 text-amber-800">
+                <tr><th class="py-2 px-3 font-bold">Faktor skala</th><th class="py-2 px-3 font-bold">Dihitung</th><th class="py-2 px-3 font-bold">Bayangan $A(3, 2)$</th></tr>
+              </thead>
+              <tbody class="divide-y divide-slate-100 text-slate-700">
+                <tr><td class="py-2 px-3">$k = 2$</td><td class="py-2 px-3">$(2\cdot 3,\ 2\cdot 2)$</td><td class="py-2 px-3 font-bold text-emerald-700">$(6, 4)$</td></tr>
+                <tr><td class="py-2 px-3">$k = \tfrac{1}{2}$</td><td class="py-2 px-3">$(\tfrac12\cdot 3,\ \tfrac12\cdot 2)$</td><td class="py-2 px-3 font-bold text-emerald-700">$(1{,}5;\ 1)$</td></tr>
+                <tr><td class="py-2 px-3">$k = -1$</td><td class="py-2 px-3">$(-3,\ -2)$</td><td class="py-2 px-3 font-bold text-emerald-700">$(-3, -2)$</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="p-4 bg-amber-50 rounded-xl text-center border border-amber-200 text-amber-900">
+            $$ x' = kx \qquad y' = ky $$
+          </div>
+
+          <div class="p-4 bg-amber-50 rounded-xl border border-amber-200 space-y-1">
+            <p class="text-sm font-bold text-amber-800">Dampak pada panjang dan luas</p>
+            <p class="text-sm text-slate-700 leading-relaxed">Segitiga dengan titik $(0,0)$, $(2,0)$, $(0,3)$ berluas $\tfrac12\cdot 2\cdot 3 = 3$. Dengan $k = 3$ titiknya menjadi $(0,0)$, $(6,0)$, $(0,9)$ yang berluas $\tfrac12\cdot 6\cdot 9 = 27 = 3^2 \times 3$. Panjang sisi menjadi $\lvert k\rvert$ kali, luas menjadi $k^2$ kali.</p>
+          </div>
+
+          <div class="p-4 bg-white rounded-xl border border-slate-200 shadow-sm space-y-2">
+            <h4 class="font-bold text-slate-800 text-sm"><i class="fa-solid fa-pencil text-amber-600 mr-1"></i>Contoh Soal</h4>
+            <p class="text-sm text-slate-700">Titik $(1, 3)$ didilatasi dengan pusat $O$ dan $k = -2$. Sebuah segitiga berluas $10\ \text{cm}^2$ didilatasi dengan $k = 3$.</p>
+            <p class="text-sm text-slate-700">Bayangan titik: $(-2\cdot 1,\ -2\cdot 3) = (-2, -6)$. Luas bayangan: $3^2 \times 10 = 90\ \text{cm}^2$.</p>
+          </div>
+
           <hr class="border-slate-200">
           <h4 class="font-bold text-amber-700">Dilatasi Berpusat di $P(a, b)$</h4>
-          <p class="text-slate-700 text-sm leading-relaxed">Dengan metode translatif yang sama, koordinat relatif terhadap pusat dikalikan faktor skala $k$:</p>
+          <p class="text-slate-700 text-sm leading-relaxed">Dengan metode translatif yang sama, posisi <strong>relatif terhadap pusat</strong> dikalikan $k$, lalu pusat ditambahkan kembali:</p>
           <div class="p-4 bg-amber-50 rounded-xl text-center border border-amber-200 text-amber-900">
-            $$ \begin{pmatrix} x' - a \\ y' - b \end{pmatrix} = \begin{pmatrix} k & 0 \\ 0 & k \end{pmatrix}\begin{pmatrix} x - a \\ y - b \end{pmatrix} $$
+            $$ x' = k(x - a) + a \qquad y' = k(y - b) + b $$
           </div>
-          <p class="text-slate-600 text-xs">Bentuk ringkas: $\begin{pmatrix} x' \\ y' \end{pmatrix} = \begin{pmatrix} k & 0 \\ 0 & k \end{pmatrix}\begin{pmatrix} x - a \\ y - b \end{pmatrix} + \begin{pmatrix} a \\ b \end{pmatrix}$. Jika $(a, b) = (0, 0)$, bentuk ini kembali ke dilatasi berpusat di $O$.</p>
+          <div class="p-4 bg-white rounded-xl border border-slate-200 shadow-sm space-y-2">
+            <h4 class="font-bold text-slate-800 text-sm"><i class="fa-solid fa-pencil text-amber-600 mr-1"></i>Contoh Soal</h4>
+            <p class="text-sm text-slate-700">(a) $A(3, 2)$ didilatasi berpusat di $P(1, 1)$ dengan $k = 2$. (b) $C(-1, 4)$ didilatasi berpusat di $P(2, -1)$ dengan $k = 3$.</p>
+            <p class="text-sm text-slate-700">(a) $x' = 2(3-1)+1 = 5$ dan $y' = 2(2-1)+1 = 3$, sehingga $A' = (5, 3)$.<br>(b) $x' = 3(-1-2)+2 = -7$ dan $y' = 3(4-(-1))+(-1) = 14$, sehingga $C' = (-7, 14)$.</p>
+          </div>
+
+          <h4 class="font-bold text-amber-700">Langkah 3: Matriks</h4>
+          <button type="button" onclick="toggleMatriks('mx-dilatasi', this)" aria-expanded="false" class="px-3 py-2 rounded-lg bg-amber-600 hover:bg-amber-700 text-white text-xs font-bold shadow-sm active:scale-95 transition-all"><i class="fa-solid fa-eye mr-1"></i>Lihat bentuk matriks</button>
+          <div id="mx-dilatasi" class="hidden space-y-3">
+            <p class="text-sm text-slate-700 leading-relaxed">Rumus $x' = k\cdot x + 0\cdot y$ dan $y' = 0\cdot x + k\cdot y$ memberi matriks dilatasi:</p>
+            <div class="p-4 bg-amber-50 rounded-xl text-center border border-amber-200 text-amber-900">
+              $$ \begin{pmatrix} x' \\ y' \end{pmatrix} = \begin{pmatrix} k & 0 \\ 0 & k \end{pmatrix}\begin{pmatrix} x \\ y \end{pmatrix} $$
+            </div>
+            <p class="text-sm text-slate-700 leading-relaxed">Berpusat di $P(a, b)$:</p>
+            <div class="p-4 bg-amber-50 rounded-xl text-center border border-amber-200 text-amber-900">
+              $$ \begin{pmatrix} x' - a \\ y' - b \end{pmatrix} = \begin{pmatrix} k & 0 \\ 0 & k \end{pmatrix}\begin{pmatrix} x - a \\ y - b \end{pmatrix} $$
+            </div>
+            <p class="text-slate-600 text-xs bg-slate-100 p-3 rounded-lg leading-relaxed">Bentuk ringkas: $\begin{pmatrix} x' \\ y' \end{pmatrix} = \begin{pmatrix} k & 0 \\ 0 & k \end{pmatrix}\begin{pmatrix} x - a \\ y - b \end{pmatrix} + \begin{pmatrix} a \\ b \end{pmatrix}$. Jika $(a, b) = (0, 0)$, bentuk ini kembali ke dilatasi berpusat di $O$. Determinannya $k \cdot k = k^2$, sesuai perubahan luas.</p>
+          </div>
+
+          <div class="flex flex-wrap gap-2">
+            <button type="button" onclick="tryInLab('dilatasi', {scale: 2}, false)" class="px-3 py-2 rounded-lg bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold shadow-sm active:scale-95 transition-all"><i class="fa-solid fa-flask mr-1.5"></i>Coba di Lab: $k = 2$, pusat $O$</button>
+            <button type="button" onclick="tryInLab('dilatasi', {scale: 2, cx: 1, cy: 1}, true)" class="px-3 py-2 rounded-lg bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold shadow-sm active:scale-95 transition-all"><i class="fa-solid fa-flask mr-1.5"></i>Coba di Lab: pusat $P(1, 1)$</button>
+          </div>
+        </div>
+
+        <!-- MATERI PAGE 6: KOMPOSISI -->
+        <div id="materi-page-6" class="materi-page hidden glass-panel p-6 sm:p-8 rounded-2xl border-l-4 border-l-rose-500 space-y-4">
+          <h3 class="text-xl font-black text-rose-700 flex items-center gap-2 border-b border-slate-100 pb-3">
+            <i class="fa-solid fa-layer-group"></i> 6. Komposisi Transformasi
+          </h3>
+          <p class="text-slate-700 text-sm leading-relaxed">
+            Komposisi adalah dua transformasi yang dilakukan berurutan. Notasi $T_2 \circ T_1$ dibaca: <strong>$T_1$ dikerjakan lebih dulu, baru $T_2$</strong>. Urutan itu berpengaruh pada hasil.
+          </p>
+
+          <h4 class="font-bold text-rose-700">Langkah 1: Titik</h4>
+          <p class="text-sm text-slate-600">Ambil $A(3, 2)$, refleksi terhadap sumbu X ($R$) dan rotasi $90^\circ$ berpusat di $O$ ($S$):</p>
+          <div class="overflow-x-auto rounded-xl border border-slate-200">
+            <table class="w-full text-left text-xs sm:text-sm bg-white">
+              <thead class="bg-rose-50 text-rose-800">
+                <tr><th class="py-2 px-3 font-bold">Urutan</th><th class="py-2 px-3 font-bold">Tahap 1</th><th class="py-2 px-3 font-bold">Tahap 2</th></tr>
+              </thead>
+              <tbody class="divide-y divide-slate-100 text-slate-700">
+                <tr><td class="py-2 px-3">$R$ dulu, lalu $S$</td><td class="py-2 px-3">$(3, 2) \to (3, -2)$</td><td class="py-2 px-3 font-bold text-emerald-700">$(3,-2) \to (2, 3)$</td></tr>
+                <tr><td class="py-2 px-3">$S$ dulu, lalu $R$</td><td class="py-2 px-3">$(3, 2) \to (-2, 3)$</td><td class="py-2 px-3 font-bold text-emerald-700">$(-2,3) \to (-2, -3)$</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="text-sm text-slate-700">Hasilnya berbeda, $(2, 3)$ dan $(-2, -3)$, sehingga urutan transformasi tidak boleh tertukar.</p>
+
+          <div class="p-4 bg-white rounded-xl border border-slate-200 shadow-sm space-y-2">
+            <h4 class="font-bold text-slate-800 text-sm"><i class="fa-solid fa-pencil text-rose-600 mr-1"></i>Contoh Soal</h4>
+            <p class="text-sm text-slate-700">Titik $A(3, 2)$ didilatasi $k = 2$ berpusat di $O$, lalu ditranslasikan oleh $\begin{pmatrix} 1 \\ -1 \end{pmatrix}$. Bandingkan dengan urutan sebaliknya.</p>
+            <p class="text-sm text-slate-700">Dilatasi dulu: $(6, 4) \to (7, 3)$.<br>Translasi dulu: $(4, 1) \to (8, 2)$.</p>
+          </div>
+
+          <h4 class="font-bold text-rose-700">Langkah 3: Matriks</h4>
+          <button type="button" onclick="toggleMatriks('mx-komposisi', this)" aria-expanded="false" class="px-3 py-2 rounded-lg bg-rose-600 hover:bg-rose-700 text-white text-xs font-bold shadow-sm active:scale-95 transition-all"><i class="fa-solid fa-eye mr-1"></i>Lihat bentuk matriks</button>
+          <div id="mx-komposisi" class="hidden space-y-3">
+            <p class="text-sm text-slate-700 leading-relaxed">Untuk transformasi bermatriks, $T_2 \circ T_1$ bermatriks <strong>$M_2 M_1$</strong> (matriks yang dikerjakan lebih dulu berada di sebelah kanan). Dengan $M_R = \begin{pmatrix} 1 & 0 \\ 0 & -1 \end{pmatrix}$ dan $M_S = \begin{pmatrix} 0 & -1 \\ 1 & 0 \end{pmatrix}$:</p>
+            <div class="p-4 bg-rose-50 rounded-xl text-center border border-rose-200 text-rose-900 text-sm space-y-2">
+              $$ M_S M_R = \begin{pmatrix} 0 & -1 \\ 1 & 0 \end{pmatrix}\begin{pmatrix} 1 & 0 \\ 0 & -1 \end{pmatrix} = \begin{pmatrix} 0 & 1 \\ 1 & 0 \end{pmatrix} \quad (\text{refleksi terhadap } y = x) $$
+              $$ M_R M_S = \begin{pmatrix} 1 & 0 \\ 0 & -1 \end{pmatrix}\begin{pmatrix} 0 & -1 \\ 1 & 0 \end{pmatrix} = \begin{pmatrix} 0 & -1 \\ -1 & 0 \end{pmatrix} \quad (\text{refleksi terhadap } y = -x) $$
+            </div>
+            <p class="text-slate-600 text-xs bg-slate-100 p-3 rounded-lg leading-relaxed">Cocok dengan tabel titik: $(3,2) \to (2,3)$ untuk $y = x$ dan $(3,2) \to (-2,-3)$ untuk $y = -x$. Perkalian matriks umumnya <strong>tidak komutatif</strong> ($M_S M_R \neq M_R M_S$), dan itulah sebab urutan berpengaruh. Contoh lain: dua rotasi $90^\circ$ berturut-turut sama dengan rotasi $180^\circ$.</p>
+          </div>
+        </div>
+
+        <!-- MATERI PAGE 7: TRANSFORMASI KURVA -->
+        <div id="materi-page-7" class="materi-page hidden glass-panel p-6 sm:p-8 rounded-2xl border-l-4 border-l-indigo-500 space-y-4">
+          <h3 class="text-xl font-black text-indigo-700 flex items-center gap-2 border-b border-slate-100 pb-3">
+            <i class="fa-solid fa-bezier-curve"></i> 7. Transformasi Garis dan Kurva
+          </h3>
+          <p class="text-slate-700 text-sm leading-relaxed">
+            Persamaan garis atau kurva yang ditransformasikan dicari dengan <strong>substitusi</strong>. Titik bayangan $(x', y')$ berasal dari titik $(x, y)$ pada kurva asal, jadi kita nyatakan $x$ dan $y$ dalam $x'$ dan $y'$, lalu masukkan ke persamaan asal.
+          </p>
+
+          <h4 class="font-bold text-indigo-700">Langkah 1: Substitusi dari Rumus Koordinat</h4>
+          <div class="p-4 bg-indigo-50 rounded-xl border border-indigo-100 space-y-2 text-sm text-slate-700">
+            <p class="font-bold text-indigo-800">Contoh: parabola $y = x^2$ ditranslasikan oleh $\begin{pmatrix} 2 \\ 3 \end{pmatrix}$</p>
+            <p>Rumus: $x' = x + 2$ dan $y' = y + 3$, sehingga $x = x' - 2$ dan $y = y' - 3$.</p>
+            <p>Substitusi ke $y = x^2$: $y' - 3 = (x' - 2)^2$. Tanpa tanda aksen: <strong>$y = (x - 2)^2 + 3$</strong>.</p>
+          </div>
+          <div class="overflow-x-auto rounded-xl border border-slate-200">
+            <table class="w-full text-left text-xs sm:text-sm bg-white">
+              <thead class="bg-indigo-50 text-indigo-800">
+                <tr><th class="py-2 px-3 font-bold">Kurva $y = x^2$ oleh</th><th class="py-2 px-3 font-bold">$x$ dan $y$ dalam $x'$, $y'$</th><th class="py-2 px-3 font-bold">Persamaan bayangan</th></tr>
+              </thead>
+              <tbody class="divide-y divide-slate-100 text-slate-700">
+                <tr><td class="py-2 px-3">Refleksi sumbu X</td><td class="py-2 px-3">$x = x',\ y = -y'$</td><td class="py-2 px-3 font-bold text-emerald-700">$y = -x^2$</td></tr>
+                <tr><td class="py-2 px-3">Dilatasi $k = 2$, pusat $O$</td><td class="py-2 px-3">$x = \tfrac{x'}{2},\ y = \tfrac{y'}{2}$</td><td class="py-2 px-3 font-bold text-emerald-700">$y = \tfrac12 x^2$</td></tr>
+                <tr><td class="py-2 px-3">Rotasi $90^\circ$, pusat $O$</td><td class="py-2 px-3">$x = y',\ y = -x'$</td><td class="py-2 px-3 font-bold text-emerald-700">$x = -y^2$</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="text-xs text-slate-500">Cek cepat: titik $(2, 4)$ pada $y = x^2$ menjadi $(4, 8)$ oleh dilatasi $k=2$, dan memang $8 = \tfrac12 \cdot 4^2$.</p>
+
+          <div class="p-4 bg-white rounded-xl border border-slate-200 shadow-sm space-y-2">
+            <h4 class="font-bold text-slate-800 text-sm"><i class="fa-solid fa-pencil text-indigo-600 mr-1"></i>Contoh Soal</h4>
+            <p class="text-sm text-slate-700">Tentukan bayangan garis $2x - y + 3 = 0$ oleh rotasi $90^\circ$ berpusat di $O$.</p>
+            <p class="text-sm text-slate-700">Rumus rotasi: $x' = -y$ dan $y' = x$, sehingga $x = y'$ dan $y = -x'$. Substitusi: $2y' - (-x') + 3 = 0$, yaitu <strong>$x + 2y + 3 = 0$</strong>.<br>Cek: titik $(0, 3)$ pada garis asal menjadi $(-3, 0)$, dan $-3 + 0 + 3 = 0$.</p>
+          </div>
+
+          <h4 class="font-bold text-indigo-700">Langkah 3: Cara Umum dengan Invers Matriks</h4>
+          <button type="button" onclick="toggleMatriks('mx-kurva', this)" aria-expanded="false" class="px-3 py-2 rounded-lg bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold shadow-sm active:scale-95 transition-all"><i class="fa-solid fa-eye mr-1"></i>Lihat bentuk matriks</button>
+          <div id="mx-kurva" class="hidden space-y-3">
+            <p class="text-sm text-slate-700 leading-relaxed">Jika transformasinya $\begin{pmatrix} x' \\ y' \end{pmatrix} = M \begin{pmatrix} x \\ y \end{pmatrix}$ dengan $\det M \neq 0$, maka $x$ dan $y$ diperoleh dengan <strong>invers matriks</strong>:</p>
+            <div class="p-4 bg-indigo-50 rounded-xl text-center border border-indigo-100 text-indigo-900">
+              $$ \begin{pmatrix} x \\ y \end{pmatrix} = M^{-1} \begin{pmatrix} x' \\ y' \end{pmatrix}, \qquad M^{-1} = \frac{1}{ad - bc}\begin{pmatrix} d & -b \\ -c & a \end{pmatrix} $$
+            </div>
+            <p class="text-sm text-slate-700 leading-relaxed">Contoh rotasi $90^\circ$: $M = \begin{pmatrix} 0 & -1 \\ 1 & 0 \end{pmatrix}$, $\det M = 1$, sehingga $M^{-1} = \begin{pmatrix} 0 & 1 \\ -1 & 0 \end{pmatrix}$. Maka $x = y'$ dan $y = -x'$, sama dengan hasil substitusi di atas.</p>
+            <p class="text-slate-600 text-xs bg-slate-100 p-3 rounded-lg leading-relaxed">Untuk transformasi dengan vektor penggeser $\begin{pmatrix} x' \\ y' \end{pmatrix} = M \begin{pmatrix} x \\ y \end{pmatrix} + \begin{pmatrix} p \\ q \end{pmatrix}$, kurangi dulu vektor penggeser: $\begin{pmatrix} x \\ y \end{pmatrix} = M^{-1} \begin{pmatrix} x' - p \\ y' - q \end{pmatrix}$. Setelah $x$ dan $y$ didapat, substitusikan ke persamaan kurva asal.</p>
+          </div>
         </div>
 
       </div>
@@ -741,7 +1054,7 @@
           <button id="btn-prev-materi" onclick="prevMateri()" class="px-4 py-2 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-sm disabled:opacity-50 disabled:cursor-not-allowed transition-all">
             <i class="fa-solid fa-chevron-left mr-1"></i> Sebelumnya
           </button>
-          <span id="materi-page-indicator" class="font-bold text-slate-500 text-sm tracking-widest">1 / 4</span>
+          <span id="materi-page-indicator" class="font-bold text-slate-500 text-sm tracking-widest">1 / 7</span>
           <button id="btn-next-materi" onclick="nextMateri()" class="px-4 py-2 rounded-lg bg-sky-600 hover:bg-sky-700 text-white font-bold text-sm disabled:opacity-50 disabled:cursor-not-allowed shadow-md transition-all">
             Selanjutnya <i class="fa-solid fa-chevron-right ml-1"></i>
           </button>
@@ -950,43 +1263,243 @@
   </div>
 
   <!-- MODAL: PETUNJUK PENGGUNAAN -->
-  <div id="guide-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm">
-    <div class="bg-white max-w-lg w-full p-6 sm:p-8 rounded-3xl space-y-4 border border-slate-200 shadow-2xl relative max-h-[90vh] overflow-y-auto">
-      <button onclick="closeModal('guide-modal')" class="absolute top-5 right-5 text-slate-400 hover:text-slate-700 text-xl transition-colors">
-        <i class="fa-solid fa-xmark"></i>
-      </button>
+  <div id="guide-modal" role="dialog" aria-modal="true" aria-labelledby="guide-title" class="hidden fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-slate-900/60 backdrop-blur-sm">
+    <div class="bg-white max-w-2xl w-full rounded-3xl border border-slate-200 shadow-2xl flex flex-col max-h-[92vh] overflow-hidden">
 
-      <div class="flex items-center gap-4 border-b border-slate-100 pb-4">
-        <div class="w-12 h-12 rounded-2xl bg-teal-100 text-teal-600 flex items-center justify-center text-2xl shadow-inner">
+      <!-- Kepala (tetap terlihat) -->
+      <div class="flex items-center gap-4 px-5 sm:px-7 py-4 border-b border-slate-100 shrink-0">
+        <div class="w-12 h-12 rounded-2xl bg-teal-100 text-teal-600 flex items-center justify-center text-2xl shadow-inner shrink-0">
           <i class="fa-solid fa-compass"></i>
         </div>
-        <div>
-          <h3 class="font-black text-lg text-slate-900">Langkah Penemuan Terbimbing</h3>
-          <p class="text-sm font-medium text-slate-500">Panduan Eksplorasi Lab Maya</p>
+        <div class="flex-1 min-w-0">
+          <h3 id="guide-title" class="font-black text-lg text-slate-900 leading-tight">Panduan Eksplorasi Lab Maya</h3>
+          <p class="text-sm font-medium text-slate-500">Langkah Penemuan Terbimbing: Titik, Rumus, Matriks</p>
+        </div>
+        <button onclick="closeModal('guide-modal')" class="w-9 h-9 rounded-lg text-slate-400 hover:text-slate-700 hover:bg-slate-100 text-xl transition-colors shrink-0" aria-label="Tutup panduan">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <!-- Isi (bisa digulir) -->
+      <div class="overflow-y-auto px-5 sm:px-7 py-4 space-y-3 text-sm font-medium text-slate-700 leading-relaxed">
+
+        <div class="p-3 rounded-xl bg-sky-50 border border-sky-200 text-xs text-sky-900 leading-relaxed">
+          <strong>Alur belajar yang disarankan:</strong> baca <em>Materi</em> &rarr; temukan polanya di <em>Lab Maya</em> &rarr; kerjakan <em>Evaluasi</em> &rarr; tulis <em>Refleksi</em>. Pilih bagian di bawah ini sesuai kebutuhanmu.
+        </div>
+
+        <!-- 1. ALUR 4 LANGKAH -->
+        <details open class="group rounded-2xl border border-slate-200 bg-slate-50">
+          <summary class="flex items-center gap-2 px-4 py-3 cursor-pointer list-none font-black text-slate-800">
+            <span class="w-7 h-7 rounded-full bg-sky-600 text-white text-xs flex items-center justify-center shrink-0">1</span>
+            <span class="flex-1">Empat langkah penemuan di Lab Maya</span>
+            <i class="fa-solid fa-chevron-down text-slate-400 text-xs transition-transform group-open:rotate-180"></i>
+          </summary>
+          <div class="px-4 pb-4 space-y-3">
+            <p class="text-xs text-slate-500">Panel kanan Lab berisi empat bagian bertahap. Di layar HP, pindah ke tab <strong>Kontrol &amp; Matriks</strong> untuk melihatnya dan ke tab <strong>Canvas Visual</strong> untuk melihat gambar.</p>
+            <ol class="space-y-3">
+              <li class="p-3 rounded-xl bg-white border border-slate-200">
+                <p class="font-black text-sky-700">Langkah 1 &middot; Amati</p>
+                <p>Pilih transformasi dan objek, ubah parameter, lalu baca <strong>Tabel Pola Koordinat</strong>: bandingkan setiap titik asal $(x, y)$ dengan bayangannya $(x', y')$. Cari apa yang tetap, berubah tanda, bertukar tempat, atau bertambah. Tekan <strong>Lanjut: Buat Prediksi</strong> bila sudah menemukan pola.</p>
+              </li>
+              <li class="p-3 rounded-xl bg-white border border-slate-200">
+                <p class="font-black text-amber-700">Langkah 2 &middot; Prediksi</p>
+                <p>Tuliskan hipotesismu pada formulir (lihat bagian <em>Mengisi prediksi</em>). Semua kotak harus terisi dengan angka yang valid sebelum tombol <strong>Lanjut ke Uji</strong> berfungsi.</p>
+              </li>
+              <li class="p-3 rounded-xl bg-white border border-slate-200">
+                <p class="font-black text-emerald-700">Langkah 3 &middot; Uji</p>
+                <p>Ringkasan prediksimu tampil di atas tombol <strong>Uji Hipotesis</strong>. Setelah ditekan, bayangan prediksimu digambar <strong>putus-putus oranye</strong> pada kanvas. Bayangan yang tepat akan menimpa bayangan hijau. Bila belum tepat, sistem memberi diagnosis dan petunjuk. Gunakan <strong>Ubah Prediksi</strong> untuk memperbaiki.</p>
+              </li>
+              <li class="p-3 rounded-xl bg-white border border-slate-200">
+                <p class="font-black text-purple-700">Langkah 4 &middot; Putar Animasi</p>
+                <p>Tekan <strong>Transformasikan</strong> dan tonton prosesnya, lalu bandingkan bayangan oranye dan hijau di akhir gerak. Setelah itu, <strong>Coba dari Awal</strong> atau ubah parameter untuk soal baru.</p>
+              </li>
+            </ol>
+            <ul class="list-disc list-inside text-xs text-slate-600 space-y-1 ml-1">
+              <li>Mengubah <strong>parameter</strong> (geser slider, seret titik) menghapus umpan balik lama, sehingga Uji dan Animasi perlu diulang. Isian prediksi tetap ada, kecuali vektor penggeser $(p, q)$ yang dikosongkan karena nilainya ikut berubah.</li>
+              <li>Mengganti <strong>jenis transformasi</strong> memulai lagi dari Langkah 1 dengan isian kosong.</li>
+              <li>Kamu bebas membuka langkah mana pun dengan menekan judul langkahnya.</li>
+            </ul>
+          </div>
+        </details>
+
+        <!-- 2. KANVAS & OBJEK -->
+        <details class="group rounded-2xl border border-slate-200 bg-slate-50">
+          <summary class="flex items-center gap-2 px-4 py-3 cursor-pointer list-none font-black text-slate-800">
+            <span class="w-7 h-7 rounded-full bg-teal-600 text-white text-xs flex items-center justify-center shrink-0">2</span>
+            <span class="flex-1">Memilih transformasi, objek, dan mengoperasikan kanvas</span>
+            <i class="fa-solid fa-chevron-down text-slate-400 text-xs transition-transform group-open:rotate-180"></i>
+          </summary>
+          <div class="px-4 pb-4 space-y-3">
+            <p><strong>Transformasi:</strong> Translasi, Refleksi, Rotasi, atau Dilatasi (bilah di atas Lab).</p>
+            <p><strong>Objek:</strong> mulailah dari <em>Titik</em> agar polanya mudah dibaca, lalu <em>Garis</em>, <em>Kurva (parabola)</em>, dan <em>Bidang Datar (segitiga)</em>. Tombol <strong>Reset</strong> mengembalikan parameter dan objek ke keadaan awal.</p>
+            <div class="overflow-x-auto rounded-xl border border-slate-200">
+              <table class="w-full text-left text-xs bg-white">
+                <thead class="bg-slate-100 text-slate-600"><tr><th class="py-2 px-3 font-bold">Parameter</th><th class="py-2 px-3 font-bold">Cara mengatur</th><th class="py-2 px-3 font-bold">Rentang</th></tr></thead>
+                <tbody class="divide-y divide-slate-100">
+                  <tr><td class="py-2 px-3">Translasi $(a, b)$</td><td class="py-2 px-3">dua slider</td><td class="py-2 px-3">&minus;8 sampai 8</td></tr>
+                  <tr><td class="py-2 px-3">Refleksi</td><td class="py-2 px-3">daftar garis cermin</td><td class="py-2 px-3">sumbu X, sumbu Y, $y = x$, $y = -x$</td></tr>
+                  <tr><td class="py-2 px-3">Rotasi $\theta$</td><td class="py-2 px-3">slider + sudut cepat</td><td class="py-2 px-3">&minus;180&deg; sampai 180&deg;, kelipatan 15&deg;</td></tr>
+                  <tr><td class="py-2 px-3">Dilatasi $k$</td><td class="py-2 px-3">slider</td><td class="py-2 px-3">&minus;3 sampai 3, kelipatan 0,5</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <p class="text-xs text-slate-600">Sudut positif berlawanan arah jarum jam. Rotasi $270^\circ$ sama dengan $-90^\circ$ (sudut cepat $-90^\circ$ tersedia).</p>
+            <ul class="list-disc list-inside text-xs text-slate-600 space-y-1 ml-1">
+              <li><strong>Seret titik biru</strong> untuk mengubah koordinat awal (titik, ujung garis, atau titik sudut segitiga). Titik pada <em>kurva</em> tidak bisa digeser; tabel memakai tiga titik sampel A, B, C.</li>
+              <li><strong>Seret ruang kosong</strong> untuk menggeser kanvas. Zoom dengan tombol + / &minus; atau roda mouse; tombol <i class="fa-solid fa-crosshairs"></i> mengembalikan tampilan.</li>
+              <li><strong>Titik oranye</strong> adalah pusat transformasi atau garis cermin yang bisa diseret (Mode Lanjutan).</li>
+              <li>Tombol <i class="fa-solid fa-expand"></i> pada header memasuki layar penuh. Tombol <i class="fa-solid fa-circle-info"></i> dan <i class="fa-solid fa-circle-question"></i> membuka informasi dan panduan ini.</li>
+            </ul>
+          </div>
+        </details>
+
+        <!-- 3. MODE DASAR / LANJUTAN -->
+        <details class="group rounded-2xl border border-slate-200 bg-slate-50">
+          <summary class="flex items-center gap-2 px-4 py-3 cursor-pointer list-none font-black text-slate-800">
+            <span class="w-7 h-7 rounded-full bg-orange-500 text-white text-xs flex items-center justify-center shrink-0">3</span>
+            <span class="flex-1">Mode Dasar dan Mode Lanjutan</span>
+            <i class="fa-solid fa-chevron-down text-slate-400 text-xs transition-transform group-open:rotate-180"></i>
+          </summary>
+          <div class="px-4 pb-4 space-y-3">
+            <p>Pilih mode di bagian atas panel kanan.</p>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+              <div class="p-3 rounded-xl bg-white border border-slate-200">
+                <p class="font-black text-slate-800 mb-1">Mode Dasar</p>
+                <p>Pusat rotasi dan dilatasi selalu $O(0,0)$. Garis cermin berupa sumbu atau garis $y = \pm x$. Cocok untuk menemukan matriks dasar.</p>
+              </div>
+              <div class="p-3 rounded-xl bg-white border border-orange-200">
+                <p class="font-black text-orange-700 mb-1">Mode Lanjutan</p>
+                <p>Pusat rotasi/dilatasi menjadi $P(a, b)$ dan muncul garis cermin $x = a$ serta $y = b$. Sumbu lokal putus-putus tampil bila pusat bukan $O$.</p>
+              </div>
+            </div>
+            <p class="text-xs text-slate-600">Berpindah kembali ke Mode Dasar mengembalikan pusat ke $O$, dan garis cermin $x = a$ atau $y = b$ (bila sedang dipakai) kembali ke sumbu X. Pada Mode Lanjutan, atur pusat dengan slider <em>Pusat a</em> dan <em>Pusat b</em> (rentang &minus;6 sampai 6) atau seret titik oranye.</p>
+          </div>
+        </details>
+
+        <!-- 4. MENGISI PREDIKSI -->
+        <details class="group rounded-2xl border border-slate-200 bg-slate-50">
+          <summary class="flex items-center gap-2 px-4 py-3 cursor-pointer list-none font-black text-slate-800">
+            <span class="w-7 h-7 rounded-full bg-amber-500 text-white text-xs flex items-center justify-center shrink-0">4</span>
+            <span class="flex-1">Mengisi prediksi (hipotesis) dengan benar</span>
+            <i class="fa-solid fa-chevron-down text-slate-400 text-xs transition-transform group-open:rotate-180"></i>
+          </summary>
+          <div class="px-4 pb-4 space-y-3">
+            <div class="overflow-x-auto rounded-xl border border-slate-200">
+              <table class="w-full text-left text-xs bg-white">
+                <thead class="bg-amber-50 text-amber-800"><tr><th class="py-2 px-3 font-bold">Situasi</th><th class="py-2 px-3 font-bold">Yang diisi</th></tr></thead>
+                <tbody class="divide-y divide-slate-100">
+                  <tr><td class="py-2 px-3 font-bold">Translasi</td><td class="py-2 px-3"><strong>Penjumlahan</strong> vektor: $\begin{pmatrix} x' \\ y' \end{pmatrix} = \begin{pmatrix} x \\ y \end{pmatrix} + \begin{pmatrix} a \\ b \end{pmatrix}$. Isi $a$ dan $b$.</td></tr>
+                  <tr><td class="py-2 px-3 font-bold">Refleksi sumbu / $y=\pm x$, rotasi dan dilatasi berpusat $O$</td><td class="py-2 px-3"><strong>Perkalian</strong> matriks $\begin{pmatrix} x' \\ y' \end{pmatrix} = \begin{pmatrix} a & b \\ c & d \end{pmatrix}\begin{pmatrix} x \\ y \end{pmatrix}$. Isi empat elemen.</td></tr>
+                  <tr><td class="py-2 px-3 font-bold">Rotasi / dilatasi berpusat $P(a, b)$</td><td class="py-2 px-3">Bentuk <strong>relatif terhadap pusat</strong>: $\begin{pmatrix} x' - a \\ y' - b \end{pmatrix} = M \begin{pmatrix} x - a \\ y - b \end{pmatrix}$. Cukup isi elemen matriks $M$; label di formulir ikut menyesuaikan pusat.</td></tr>
+                  <tr><td class="py-2 px-3 font-bold">Refleksi garis $x = a$ atau $y = b$</td><td class="py-2 px-3"><strong>Dua langkah:</strong> (1) isi matriks $M$; bila benar, kotak (2) vektor penggeser $\begin{pmatrix} p \\ q \end{pmatrix}$ terbuka. Rumusnya $M\begin{pmatrix} x \\ y \end{pmatrix} + \begin{pmatrix} p \\ q \end{pmatrix}$.</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <ul class="list-disc list-inside text-xs text-slate-600 space-y-1 ml-1">
+              <li><strong>Cara menulis angka:</strong> desimal (0,707), pecahan (1/2), atau akar (&radic;2/2). <em>Pratinjau</em> &ldquo;Terbaca sebagai nilai&rdquo; membantumu memeriksa tanda.</li>
+              <li><strong>Tombol pintas</strong> (&plusmn;, 0, 1, &frac12;, &radic;2/2, &radic;3/2, &#9003;) mengisi kotak yang sedang dipilih. &plusmn; membalik tanda.</li>
+              <li><strong>Rotasi punya dua mode input:</strong> <em>Numerik</em> (hitung dulu nilai cos dan sin, isi angkanya) dan <em>Simbolik</em> (tulis cos(&theta;), &minus;sin(&theta;), atau cos(45); sudut dalam derajat dan &theta; = sudut yang dipilih).</li>
+              <li><strong>Warna kotak setelah Uji:</strong> hijau = benar, kuning = hampir benar (tanda terbalik atau pembulatan terlalu kasar, pakai minimal 3 desimal atau bentuk akar), merah = salah, kosong, atau belum terbaca. Diagnosis juga memberi tahu bila posisi elemen tertukar.</li>
+              <li>Pada rotasi, tombol <em>Bantuan: nilai sin &amp; cos sudut istimewa</em> membuka tabel trigonometri.</li>
+            </ul>
+          </div>
+        </details>
+
+        <!-- 5. ANIMASI & VEKTOR BASIS -->
+        <details class="group rounded-2xl border border-slate-200 bg-slate-50">
+          <summary class="flex items-center gap-2 px-4 py-3 cursor-pointer list-none font-black text-slate-800">
+            <span class="w-7 h-7 rounded-full bg-purple-600 text-white text-xs flex items-center justify-center shrink-0">5</span>
+            <span class="flex-1">Animasi transformasi dan vektor basis</span>
+            <i class="fa-solid fa-chevron-down text-slate-400 text-xs transition-transform group-open:rotate-180"></i>
+          </summary>
+          <div class="px-4 pb-4 space-y-3">
+            <p class="font-black text-slate-800">Bilah animasi di bawah kanvas</p>
+            <ul class="list-disc list-inside text-xs text-slate-600 space-y-1 ml-1">
+              <li><strong>Transformasikan / Jeda / Lanjutkan:</strong> memutar, menjeda, dan melanjutkan animasi. Tombol <i class="fa-solid fa-rotate-left"></i> mengulang dari awal.</li>
+              <li><strong>Penggeser kemajuan:</strong> geser untuk berhenti di tahap mana pun (0% sampai 100%). Kotak info di kanvas menampilkan nilai saat itu, misalnya sudut atau skala berjalan.</li>
+              <li><strong>Kecepatan 0,5&times; / 1&times; / 2&times;</strong> dan kotak centang <strong>Jejak</strong> untuk menampilkan lintasan titik (otomatis menyala untuk objek Titik).</li>
+              <li>Selama animasi berjalan, titik dan titik oranye terkunci agar tidak tergeser tidak sengaja; kanvas tetap bisa digeser dan di-zoom. Jika perangkat memakai pengaturan &ldquo;kurangi gerakan&rdquo;, animasi tidak jalan otomatis: tombol berubah menjadi <strong>Lihat Proses</strong> dan kamu menggeser penggeser sendiri.</li>
+            </ul>
+            <p class="font-black text-slate-800">Petunjuk visual tiap konsep</p>
+            <ul class="list-disc list-inside text-xs text-slate-600 space-y-1 ml-1">
+              <li><strong>Translasi:</strong> panah vektor tumbuh dari titik asal.</li>
+              <li><strong>Refleksi:</strong> titik &ldquo;terlipat&rdquo; ke garis cermin, dengan tanda siku-siku dan tanda jarak sama.</li>
+              <li><strong>Rotasi:</strong> jari-jari dan busur sudut berpusat di pusat rotasi.</li>
+              <li><strong>Dilatasi:</strong> sinar dari pusat menuju bayangan.</li>
+            </ul>
+            <p class="font-black text-slate-800">Vektor basis (untuk Refleksi, Rotasi, Dilatasi)</p>
+            <p class="text-xs text-slate-600">Aktifkan lewat tombol <i class="fa-solid fa-vector-square"></i> di kanan atas kanvas atau kotak centang di Langkah 1. Panah <span class="font-bold text-red-600">merah</span> adalah bayangan titik $(1, 0)$ dan panah <span class="font-bold text-indigo-700">indigo</span> adalah bayangan titik $(0, 1)$. Koordinat keduanya adalah <strong>kolom 1 dan kolom 2</strong> matriks transformasi, jadi matriks bisa dibaca langsung dari gambar. Panah diukur dari titik tumpu yang tetap (pusat atau garis cermin), dan tidak tersedia untuk translasi.</p>
+          </div>
+        </details>
+
+        <!-- 6. ASISTEN -->
+        <details class="group rounded-2xl border border-slate-200 bg-slate-50">
+          <summary class="flex items-center gap-2 px-4 py-3 cursor-pointer list-none font-black text-slate-800">
+            <span class="w-7 h-7 rounded-full bg-amber-500 text-white text-xs flex items-center justify-center shrink-0"><i class="fa-solid fa-lightbulb"></i></span>
+            <span class="flex-1">Asisten Penemuan (petunjuk bertingkat)</span>
+            <i class="fa-solid fa-chevron-down text-slate-400 text-xs transition-transform group-open:rotate-180"></i>
+          </summary>
+          <div class="px-4 pb-4 space-y-2 text-xs text-slate-600">
+            <p class="text-sm text-slate-700">Buka lewat tombol <strong>Asisten Penemuan</strong> di kiri bawah kanvas atau tautan <strong>Petunjuk Pola</strong> di Tabel Pola.</p>
+            <ul class="list-disc list-inside space-y-1 ml-1">
+              <li><strong>Petunjuk 1</strong> memberi arahan pengamatan. <strong>Petunjuk 2</strong> (tombol &ldquo;Masih bingung?&rdquo;) menampilkan bentuk persamaannya. Isinya menyesuaikan transformasi, pusat, dan garis cermin yang sedang dipakai.</li>
+              <li>Tab <strong>Trigonometri</strong> (khusus Rotasi) memuat nilai sin dan cos sudut istimewa serta aturan sudut negatif.</li>
+              <li>Di komputer, jendela bisa <strong>digeser</strong> lewat judulnya, <strong>diciutkan</strong> dengan tombol &minus;, dan <strong>ditutup</strong> dengan &times; atau tombol Esc. Di HP, jendela muncul dari bawah; seret ke bawah untuk menutup.</li>
+            </ul>
+          </div>
+        </details>
+
+        <!-- 7. MATERI -->
+        <details class="group rounded-2xl border border-slate-200 bg-slate-50">
+          <summary class="flex items-center gap-2 px-4 py-3 cursor-pointer list-none font-black text-slate-800">
+            <span class="w-7 h-7 rounded-full bg-sky-600 text-white text-xs flex items-center justify-center shrink-0"><i class="fa-solid fa-book-open"></i></span>
+            <span class="flex-1">Membaca Materi (7 halaman)</span>
+            <i class="fa-solid fa-chevron-down text-slate-400 text-xs transition-transform group-open:rotate-180"></i>
+          </summary>
+          <div class="px-4 pb-4 space-y-2 text-xs text-slate-600">
+            <p class="text-sm text-slate-700">Gunakan tombol <strong>Sebelumnya / Selanjutnya</strong> di bagian bawah. Urutannya: Pengantar, Translasi, Refleksi, Rotasi, Dilatasi, Komposisi, lalu Transformasi Garis dan Kurva.</p>
+            <ul class="list-disc list-inside space-y-1 ml-1">
+              <li>Setiap konsep mengikuti alur <strong>Titik &rarr; Rumus koordinat &rarr; Matriks</strong>: hitung bayangan titik dulu, rumuskan polanya, baru susun matriks dari koefisien rumus itu.</li>
+              <li>Bentuk matriks disembunyikan dulu. Cobalah menyusunnya sendiri, lalu tekan <strong>Lihat bentuk matriks</strong> untuk memeriksa.</li>
+              <li>Tombol <strong>Coba di Lab</strong> membuka Lab dengan contoh dari halaman itu pada titik $A(3,2)$ (Mode Lanjutan dipakai otomatis bila contohnya berpusat di $P(a,b)$ atau bergaris cermin $x = a$).</li>
+              <li>Materi juga membahas determinan dan perubahan luas, komposisi (urutan berpengaruh), serta cara mencari persamaan bayangan kurva dengan substitusi dan invers matriks.</li>
+            </ul>
+          </div>
+        </details>
+
+        <!-- 8. EVALUASI & REFLEKSI -->
+        <details class="group rounded-2xl border border-slate-200 bg-slate-50">
+          <summary class="flex items-center gap-2 px-4 py-3 cursor-pointer list-none font-black text-slate-800">
+            <span class="w-7 h-7 rounded-full bg-emerald-600 text-white text-xs flex items-center justify-center shrink-0"><i class="fa-solid fa-pen-ruler"></i></span>
+            <span class="flex-1">Evaluasi dan Refleksi</span>
+            <i class="fa-solid fa-chevron-down text-slate-400 text-xs transition-transform group-open:rotate-180"></i>
+          </summary>
+          <div class="px-4 pb-4 space-y-2 text-xs text-slate-600">
+            <p class="font-black text-slate-800 text-sm">Evaluasi (11 soal, skor 0 sampai 100)</p>
+            <ul class="list-disc list-inside space-y-1 ml-1">
+              <li>Isi <strong>nama lengkap</strong> (wajib), kelas, dan asal sekolah, lalu tekan <strong>Mulai Evaluasi</strong>. Data hanya dipakai untuk rekap dan PDF, serta tidak dikirim ke mana pun.</li>
+              <li>Empat tipe soal: <em>pilihan ganda</em>, <em>pilihan ganda kompleks</em> (centang semua yang benar), <em>benar/salah</em>, dan <em>menjodohkan</em> (ada satu pernyataan pengecoh).</li>
+              <li>Tekan <strong>Kirim Jawaban</strong> pada tiap soal untuk mengunci jawaban dan melihat pembahasannya. Jawaban yang sudah dikirim tidak bisa diubah. Pindah soal dengan Sebelumnya/Selanjutnya atau nomor soal; warna nomor menunjukkan benar, sebagian, atau salah.</li>
+              <li>Penilaian: pilihan ganda kompleks harus tepat seluruhnya; benar/salah dan menjodohkan dinilai parsial sesuai butir yang benar. Soal yang belum dikirim bernilai 0.</li>
+              <li>Pada <strong>Rekapitulasi</strong>: <em>Unduh Rekap (PDF)</em>, <em>Cetak Pembahasan Lengkap</em> (pilih Simpan sebagai PDF di dialog cetak), <em>Tinjau Soal</em>, atau <em>Kerjakan Evaluasi Kembali</em> (identitas tetap terisi, urutan pernyataan menjodohkan diacak ulang).</li>
+            </ul>
+            <p class="font-black text-slate-800 text-sm pt-1">Refleksi</p>
+            <p>Jawab tiga pertanyaan reflektif tentang perbedaan translasi dengan transformasi lain, rotasi $360^\circ$, dan peran invers matriks, lalu tekan <strong>Simpan Laporan Refleksi</strong>.</p>
+          </div>
+        </details>
+
+        <!-- Ringkasan cepat -->
+        <div class="p-3 rounded-xl bg-amber-50 border border-amber-200 text-xs text-amber-900 leading-relaxed">
+          <strong>Tips cepat:</strong> bila bingung menentukan matriks, pilih objek <em>Titik</em>, letakkan di $(1, 0)$ lalu $(0, 1)$. Bayangan $(1,0)$ adalah kolom pertama dan bayangan $(0,1)$ adalah kolom kedua. Atau aktifkan <em>vektor basis</em>.
         </div>
       </div>
 
-      <ol class="text-sm font-medium text-slate-700 space-y-4 list-decimal list-inside leading-relaxed bg-slate-50 p-5 rounded-xl border border-slate-200">
-        <li class="pl-1">
-          <strong>Pilih jenis transformasi:</strong> Translasi, Refleksi, Rotasi, atau Dilatasi.
-        </li>
-        <li class="pl-1">
-          <strong>Ubah jenis objek geometri:</strong> Awali eksplorasi dari Titik $\rightarrow$ Garis $\rightarrow$ Kurva $\rightarrow$ Bidang Datar.
-        </li>
-        <li class="pl-1">
-          <strong>Manipulasi Parameter:</strong> Geser slider parameter (sudut, faktor skala) atau seret titik biru langsung pada grafik. Pada Rotasi, Dilatasi, dan Refleksi garis $x=a$ / $y=b$, seret titik oranye untuk memindahkan pusat atau garis cermin. <em>Mode Dasar</em> memakai pusat O(0,0); beralih ke <em>Mode Lanjutan</em> untuk pusat (a, b) dan garis x = a / y = b. Aktifkan <em>vektor basis</em> untuk membaca kolom matriks langsung dari kanvas.
-        </li>
-        <li class="pl-1">
-          <strong>Analisis Tabel Pola:</strong> Perhatikan dengan seksama perubahan koordinat awal $A(x,y)$ menjadi bayangan $A'(x',y')$. Buka <em>Asisten Penemuan</em> (jendela melayang yang bisa digeser dan ditutup) untuk Petunjuk Pola bertingkat dan (pada Rotasi) Bantuan Trigonometri. Tombol <em>Transformasikan</em> di bawah kanvas memutar animasi perpindahan titik, garis, atau bidang; penggeser di sebelahnya menghentikan animasi pada posisi mana pun.
-        </li>
-        <li class="pl-1">
-          <strong>Uji Hipotesis:</strong> Untuk <em>Translasi</em> isi vektor pergeseran (penjumlahan). Untuk <em>Refleksi, Rotasi, Dilatasi</em> isi matriks $2 \times 2$ (perkalian). Tekan <strong>Uji Hipotesis</strong>, lalu cek apakah bayangan putus-putus oranye menimpa bayangan hijau. Pada Rotasi, gunakan tombol pintas (±, √2/2, √3/2) atau pindah ke <em>Mode Simbolik</em> untuk menulis cos θ dan sin θ langsung.
-        </li>
-      </ol>
-
-      <button onclick="closeModal('guide-modal')" class="w-full py-3 rounded-xl bg-teal-600 hover:bg-teal-700 text-white font-bold text-sm shadow-md transition-colors">
-        Saya Mengerti, Mari Mulai!
-      </button>
+      <!-- Kaki (tetap terlihat) -->
+      <div class="px-5 sm:px-7 py-4 border-t border-slate-100 shrink-0">
+        <button onclick="closeModal('guide-modal')" class="w-full py-3 rounded-xl bg-teal-600 hover:bg-teal-700 text-white font-bold text-sm shadow-md transition-colors">
+          Saya Mengerti, Mari Mulai!
+        </button>
+      </div>
     </div>
   </div>
 
@@ -1095,7 +1608,7 @@
 
     let canvas, ctx;
     let currentMateriPage = 1;
-    const totalMateriPages = 4;
+    const totalMateriPages = 7;
 
     // Window Init
     window.onload = function() {
@@ -1139,8 +1652,32 @@
         draw();
         syncFullscreenIcon();
         syncAssistantVisibility();
+        showGuideOnStart();   // panduan muncul otomatis saat eksplorasi Lab dimulai
       }, 500);
     }
+
+    // Panduan Eksplorasi Lab Maya: tampil otomatis sekali saat pengguna memulai eksplorasi
+    let guideShownOnStart = false;
+    function showGuideOnStart() {
+      if (guideShownOnStart) return;
+      guideShownOnStart = true;
+      const body = document.querySelector('#guide-modal .overflow-y-auto');
+      if (body) body.scrollTop = 0;
+      openModal('guide-modal');
+      const btn = document.querySelector('#guide-modal button[aria-label="Tutup panduan"]');
+      if (btn) btn.focus({ preventScroll: true });
+    }
+
+    // Esc menutup panduan / informasi bila sedang terbuka
+    document.addEventListener('keydown', (e) => {
+      if (e.key !== 'Escape') return;
+      let closed = false;
+      ['guide-modal', 'info-modal'].forEach(id => {
+        const m = document.getElementById(id);
+        if (m && !m.classList.contains('hidden')) { closeModal(id); closed = true; }
+      });
+      if (closed) e.stopImmediatePropagation();   // jangan ikut menutup Asisten Penemuan
+    });
 
     function switchTab(tabId) {
       document.querySelectorAll('.tab-page').forEach(el => el.classList.add('hidden'));
@@ -1215,6 +1752,29 @@
       document.getElementById('btn-next-materi').disabled = currentMateriPage === totalMateriPages;
       renderMathEquations();
     }
+    function toggleMatriks(id, btn) {
+      const el = document.getElementById(id);
+      if (!el) return;
+      const open = el.classList.toggle('hidden') === false;
+      btn.setAttribute('aria-expanded', String(open));
+      btn.innerHTML = open ? '<i class="fa-solid fa-eye-slash mr-1"></i>Sembunyikan bentuk matriks' : '<i class="fa-solid fa-eye mr-1"></i>Lihat bentuk matriks';
+    }
+
+    // Buka Lab dengan contoh dari Materi: titik A(3, 2) dan parameter yang diberikan
+    function tryInLab(tf, params, needAdvanced) {
+      switchTab('lab');
+      if (window.innerWidth < 1024) switchMobileLabTab('canvas');
+      if (needAdvanced) setLabMode('lanjutan');
+      setTransformation(tf);
+      Object.assign(state.params, params);
+      state.objects.point = [{ x: 3, y: 2 }];
+      const sel = document.getElementById('select-object');
+      if (sel) sel.value = 'point';
+      changeObject('point');
+      renderParamControls();
+      onParamChanged();
+    }
+
     function prevMateri() { if (currentMateriPage > 1) { currentMateriPage--; updateMateriPagination(); document.getElementById('tab-materi').scrollTo(0,0); } }
     function nextMateri() { if (currentMateriPage < totalMateriPages) { currentMateriPage++; updateMateriPagination(); document.getElementById('tab-materi').scrollTo(0,0); } }
 
