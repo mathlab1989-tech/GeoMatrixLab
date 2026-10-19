@@ -137,6 +137,49 @@
       backdrop-filter: blur(8px);
       border: 1px solid rgba(0, 0, 0, 0.05);
     }
+
+    /* ===== Motif Budaya (Batik / Fraktal) ===== */
+    #tab-batik { overflow-y: auto; }
+    #bk-stage { height: 58vh; min-height: 320px; flex-shrink: 0; }
+    #bk-canvas-col { flex-shrink: 0; }
+    #bk-panel { border-top: 1px solid #e2e8f0; }
+    @media (min-width: 1024px) {
+      #tab-batik { overflow: hidden; }
+      #bk-canvas-col { flex: 1 1 0; min-height: 0; flex-shrink: 1; }
+      #bk-stage { flex: 1 1 0; min-height: 0; height: auto; }
+      #bk-panel { width: 450px; flex-shrink: 0; overflow-y: auto; border-top: 0; border-left: 1px solid #e2e8f0; }
+    }
+    .bk-card { border: 1px solid #e2e8f0; border-radius: 16px; padding: 12px; background: rgba(248,250,252,.7); display: flex; flex-direction: column; gap: 8px; }
+    .bk-h { display: flex; align-items: center; gap: 8px; font-weight: 900; font-size: .9rem; color: #0f172a; flex-wrap: wrap; }
+    .bk-sub { font-size: .65rem; font-weight: 800; text-transform: uppercase; letter-spacing: .04em; color: #94a3b8; margin-left: auto; }
+    .bk-badge { width: 22px; height: 22px; border-radius: 999px; color: #fff; font-size: .75rem; display: inline-flex; align-items: center; justify-content: center; font-weight: 900; }
+    .bk-lbl { font-size: .7rem; font-weight: 900; color: #475569; text-transform: uppercase; letter-spacing: .03em; }
+    .bk-in { border: 1px solid #cbd5e1; border-radius: 8px; padding: 4px 8px; background: #fff; color: #1e293b; }
+    .bk-in:focus { outline: none; border-color: #f59e0b; box-shadow: 0 0 0 2px rgba(245,158,11,.25); }
+    .bk-ib { width: 30px; height: 30px; border-radius: 8px; background: #f1f5f9; color: #475569; font-size: .75rem; }
+    .bk-ib:hover { background: #e0f2fe; color: #0369a1; }
+    .bk-btn { padding: 6px 10px; border-radius: 10px; font-size: .75rem; font-weight: 800; }
+    .bk-btn:active, .bk-add:active { transform: scale(.96); }
+    .bk-add { padding: 5px 9px; border-radius: 999px; font-size: .72rem; font-weight: 800; background: #ccfbf1; color: #0f766e; border: 1px solid #5eead4; }
+    .bk-add:hover { background: #99f6e4; }
+    .bk-tpl { padding: 8px 6px; border-radius: 12px; border: 2px solid #e2e8f0; background: #fff; font-size: .75rem; font-weight: 800; color: #475569; text-align: center; line-height: 1.2; }
+    .bk-tpl.on { border-color: #f59e0b; background: #fffbeb; color: #92400e; }
+    .bk-chip { padding: 5px 10px; border-radius: 999px; border: 1px solid #cbd5e1; background: #fff; font-size: .72rem; font-weight: 800; color: #475569; }
+    .bk-chip.on { background: #0f766e; color: #fff; border-color: #0f766e; }
+    .bk-stage { border: 1px solid #cbd5e1; border-left: 5px solid #0d9488; border-radius: 12px; background: #fff; padding: 8px; }
+    .bk-stage.off { opacity: .5; }
+    .bk-stage .hd { display: flex; align-items: center; gap: 6px; font-size: .78rem; font-weight: 900; color: #0f172a; }
+    .bk-stage .hd .sp { flex: 1; }
+    .bk-stage .hd button { width: 26px; height: 26px; border-radius: 7px; background: #f1f5f9; color: #475569; font-size: .7rem; }
+    .bk-stage .hd button:hover { background: #e0f2fe; color: #0369a1; }
+    .bk-stage .hd button.del:hover { background: #ffe4e6; color: #be123c; }
+    .bk-fields { display: flex; flex-wrap: wrap; gap: 6px 8px; margin-top: 6px; }
+    .bk-f { display: flex; flex-direction: column; font-size: .62rem; font-weight: 800; color: #64748b; gap: 2px; }
+    .bk-f input, .bk-f select { width: 4.4rem; height: 28px; text-align: center; border: 1px solid #cbd5e1; border-radius: 6px; font-size: .78rem; font-weight: 700; color: #1e293b; background: #fff; }
+    .bk-f select { width: 6.2rem; }
+    .bk-f input:focus, .bk-f select:focus { outline: none; border-color: #f59e0b; box-shadow: 0 0 0 2px rgba(245,158,11,.25); }
+    @media (max-width: 639px) { #bk-cmp { width: 110px !important; height: 110px !important; } #bk-cmp-note { max-width: 110px !important; } }
+    #bk-formulas .katex, #bk-nc-out .katex { font-size: 1em; }
   </style>
 </head>
 <body class="h-full flex flex-col font-sans overflow-x-hidden antialiased text-slate-800 select-none bg-slate-50">
@@ -157,6 +200,7 @@
         <p class="text-slate-600 text-sm sm:text-base font-medium leading-relaxed max-w-lg mx-auto">
           Eksplorasi & Penemuan Terbimbing Matriks Transformasi Geometri 
           <span class="text-sky-700 font-semibold block sm:inline">(Translasi, Refleksi, Rotasi & Dilatasi)</span>
+          <span class="text-amber-700 font-semibold block">+ Desain Motif Budaya Batik &amp; Fraktal (Etnomatematika)</span>
         </p>
       </div>
 
@@ -201,6 +245,9 @@
         </button>
         <button onclick="switchTab('materi')" id="nav-materi" class="nav-tab px-3 py-1.5 rounded-lg text-xs sm:text-sm font-semibold text-slate-500 hover:text-slate-700 transition-all">
           <i class="fa-solid fa-book-open sm:mr-1.5"></i><span class="hidden sm:inline">Materi</span>
+        </button>
+        <button onclick="switchTab('batik')" id="nav-batik" class="nav-tab px-3 py-1.5 rounded-lg text-xs sm:text-sm font-semibold text-slate-500 hover:text-slate-700 transition-all">
+          <i class="fa-solid fa-palette sm:mr-1.5"></i><span class="hidden sm:inline">Motif Batik</span>
         </button>
         <button onclick="switchTab('evaluasi')" id="nav-evaluasi" class="nav-tab px-3 py-1.5 rounded-lg text-xs sm:text-sm font-semibold text-slate-500 hover:text-slate-700 transition-all">
           <i class="fa-solid fa-pen-ruler sm:mr-1.5"></i><span class="hidden sm:inline">Evaluasi</span>
@@ -596,6 +643,126 @@
 
         </div>
       </div>
+    </main>
+
+    <!-- MAIN TAB: MOTIF BUDAYA (BATIK / FRAKTAL) -->
+    <main id="tab-batik" class="tab-page hidden flex flex-col lg:flex-row flex-1 min-h-0 bg-slate-50">
+
+      <!-- Kanvas motif -->
+      <section id="bk-canvas-col" class="flex flex-col gap-2 p-2 sm:p-3 min-w-0">
+        <div class="flex flex-wrap items-center gap-2 bg-white border border-slate-200 rounded-xl px-2 py-1.5">
+          <span class="text-[11px] font-black uppercase tracking-wide text-amber-700 hidden sm:inline"><i class="fa-solid fa-palette mr-1"></i>Kanvas Motif</span>
+          <select id="bk-palette" onchange="bkApi.setPalette(this.value)" class="bk-in text-xs font-semibold" aria-label="Palet warna">
+            <option value="sogan">Sogan (cokelat)</option>
+            <option value="indigo">Indigo (biru)</option>
+            <option value="mendung">Mendung (merah)</option>
+            <option value="malam">Malam (emas)</option>
+          </select>
+          <button onclick="bkApi.zoom(1.25)" class="bk-ib" title="Perbesar"><i class="fa-solid fa-magnifying-glass-plus"></i></button>
+          <button onclick="bkApi.zoom(0.8)" class="bk-ib" title="Perkecil"><i class="fa-solid fa-magnifying-glass-minus"></i></button>
+          <button onclick="bkApi.resetView()" class="bk-ib" title="Reset tampilan"><i class="fa-solid fa-expand"></i></button>
+          <label class="flex items-center gap-1 text-[11px] font-bold text-slate-600 cursor-pointer"><input id="bk-guides" type="checkbox" checked onchange="bkApi.toggle('guides',this.checked)"> Sumbu &amp; pusat</label>
+          <label class="flex items-center gap-1 text-[11px] font-bold text-slate-600 cursor-pointer"><input id="bk-hi" type="checkbox" onchange="bkApi.toggle('hi',this.checked)"> Sorot motif dasar</label>
+          <span id="bk-count" class="ml-auto text-[11px] font-bold text-slate-500"></span>
+        </div>
+        <div id="bk-stage" class="relative rounded-2xl border border-slate-200 bg-white overflow-hidden">
+          <canvas id="bk-canvas" class="absolute inset-0 w-full h-full" aria-label="Kanvas motif batik hasil transformasi matriks"></canvas>
+          <div id="bk-warn" class="hidden absolute inset-x-3 top-3 px-3 py-2 rounded-lg bg-rose-50 border border-rose-200 text-rose-700 text-xs font-bold"></div>
+          <div id="bk-chal-badge" class="hidden absolute left-3 top-3 px-3 py-1.5 rounded-full bg-slate-900/85 text-white text-xs font-black shadow-lg"></div>
+          <div id="bk-cmp-wrap" class="hidden absolute right-2 bottom-2 rounded-xl bg-white/95 border border-slate-300 shadow-xl p-1.5">
+            <div class="text-[10px] font-black text-slate-600 mb-1 px-1">Urutan layer DIBALIK</div>
+            <canvas id="bk-cmp" class="rounded-lg block" style="width:170px;height:170px"></canvas>
+            <div id="bk-cmp-note" class="text-[10px] font-bold text-slate-600 mt-1 px-1 max-w-[170px]"></div>
+          </div>
+          <div class="absolute left-2 bottom-2 text-[10px] font-semibold text-slate-500 bg-white/80 rounded px-1.5 py-0.5 pointer-events-none">Seret = geser · Roda/cubit = zoom</div>
+        </div>
+      </section>
+
+      <!-- Panel kontrol -->
+      <aside id="bk-panel" class="p-2 sm:p-3 space-y-3 bg-white border-slate-200">
+
+        <!-- TAHAP 1 -->
+        <section class="bk-card">
+          <h3 class="bk-h"><span class="bk-badge bg-amber-500">1</span> Dekonstruksi Motif Lokal <span class="bk-sub">Etnomatematika</span></h3>
+          <div id="bk-tpl-btns" class="grid grid-cols-2 gap-1.5"></div>
+          <div id="bk-info" class="text-xs leading-relaxed text-slate-700 bg-amber-50 border border-amber-200 rounded-xl p-3 space-y-1.5"></div>
+        </section>
+
+        <!-- TAHAP 2 -->
+        <section class="bk-card">
+          <h3 class="bk-h"><span class="bk-badge bg-sky-600">2</span> Replikasi Pola <span class="bk-sub">Penemuan terbimbing</span></h3>
+          <p class="text-xs text-slate-600">Pilih motif target, lalu susun <b>layer transformasi</b> sampai pola kamu menimpa bayangan abu-abu.</p>
+          <div class="flex flex-wrap gap-1.5">
+            <select id="bk-chal-sel" class="bk-in text-xs font-semibold flex-1 min-w-[8rem]"></select>
+            <button onclick="bkApi.startChallenge()" class="bk-btn bg-sky-600 text-white"><i class="fa-solid fa-bullseye mr-1"></i>Mulai</button>
+          </div>
+          <div id="bk-chal-box" class="hidden space-y-2">
+            <div>
+              <div class="flex justify-between text-[11px] font-black text-slate-600"><span>Kemiripan dengan target</span><span id="bk-score-txt">0%</span></div>
+              <div class="h-3 rounded-full bg-slate-200 overflow-hidden"><div id="bk-score-bar" class="h-full bg-rose-500 transition-all" style="width:0%"></div></div>
+              <div id="bk-score-msg" class="text-xs font-bold mt-1 text-slate-600"></div>
+            </div>
+            <div id="bk-hints" class="text-xs text-slate-700 space-y-1"></div>
+            <div class="flex flex-wrap gap-1.5">
+              <button onclick="bkApi.hint()" class="bk-btn bg-amber-100 text-amber-800 border border-amber-300"><i class="fa-solid fa-lightbulb mr-1"></i>Petunjuk</button>
+              <button onclick="bkApi.showKey()" class="bk-btn bg-slate-100 text-slate-700 border border-slate-300"><i class="fa-solid fa-key mr-1"></i>Lihat kunci</button>
+              <button onclick="bkApi.exitChallenge()" class="bk-btn bg-slate-100 text-slate-700 border border-slate-300"><i class="fa-solid fa-xmark mr-1"></i>Keluar</button>
+            </div>
+          </div>
+        </section>
+
+        <!-- TAHAP 3 -->
+        <section class="bk-card">
+          <h3 class="bk-h"><span class="bk-badge bg-teal-600">3</span> Kreasi Mandiri <span class="bk-sub">Motif · Layer · Matriks</span></h3>
+
+          <div class="bk-lbl">A. Motif dasar (elemen primitif)</div>
+          <div id="bk-prims" class="flex flex-wrap gap-1.5"></div>
+          <div id="bk-editor" class="hidden space-y-1.5">
+            <canvas id="bk-ed" width="260" height="260" class="rounded-lg border border-slate-300 bg-white mx-auto block" style="width:260px;max-width:100%;height:auto;aspect-ratio:1"></canvas>
+            <div class="flex flex-wrap items-center gap-2 text-[11px] font-bold text-slate-600">
+              <label class="flex items-center gap-1"><input id="bk-ed-closed" type="checkbox" checked onchange="bkApi.edOpt()"> Tutup &amp; isi</label>
+              <label class="flex items-center gap-1"><input id="bk-ed-smooth" type="checkbox" checked onchange="bkApi.edOpt()"> Haluskan (kurva)</label>
+              <button onclick="bkApi.edUndo()" class="bk-btn bg-slate-100 border border-slate-300 text-slate-700">Hapus titik akhir</button>
+              <button onclick="bkApi.edClear()" class="bk-btn bg-slate-100 border border-slate-300 text-slate-700">Kosongkan</button>
+            </div>
+            <p class="text-[11px] text-slate-500">Klik kotak untuk menambah titik, seret untuk menggeser, klik dua kali untuk menghapus. Titik asal (0,0) = pusat transformasi.</p>
+          </div>
+
+          <div class="bk-lbl mt-2">B. Timeline layer (urutan operasi: layer 1 dijalankan lebih dulu)</div>
+          <div id="bk-stages" class="space-y-2"></div>
+          <div class="flex flex-wrap gap-1.5">
+            <button onclick="bkApi.add('rot')" class="bk-add">+ Rotasi</button>
+            <button onclick="bkApi.add('mirror')" class="bk-add">+ Cermin</button>
+            <button onclick="bkApi.add('glide')" class="bk-add">+ Glide</button>
+            <button onclick="bkApi.add('lattice')" class="bk-add">+ Kisi</button>
+            <button onclick="bkApi.add('fractal')" class="bk-add">+ Fraktal</button>
+            <button onclick="bkApi.add('matrix')" class="bk-add">+ Matriks 2×2</button>
+          </div>
+
+          <div class="bk-lbl mt-2">C. Matriks &amp; komposisi</div>
+          <div id="bk-formulas" class="text-xs bg-slate-50 border border-slate-200 rounded-xl p-2 overflow-x-auto space-y-1"></div>
+
+          <div class="bk-lbl mt-2">D. Uji sifat non-komutatif ($A\cdot B \ne B\cdot A$)</div>
+          <div class="flex flex-wrap items-center gap-1.5 text-xs">
+            <select id="bk-nc-a" class="bk-in" onchange="bkApi.nc()"></select>
+            <span class="font-black">dan</span>
+            <select id="bk-nc-b" class="bk-in" onchange="bkApi.nc()"></select>
+          </div>
+          <div id="bk-nc-out" class="text-xs bg-slate-50 border border-slate-200 rounded-xl p-2 overflow-x-auto"></div>
+          <label class="flex items-center gap-1.5 text-xs font-bold text-slate-700 cursor-pointer"><input id="bk-cmp-chk" type="checkbox" onchange="bkApi.toggle('cmp',this.checked)"> Bandingkan dengan urutan layer dibalik (lihat di kanvas)</label>
+        </section>
+
+        <!-- TAHAP 4 -->
+        <section class="bk-card">
+          <h3 class="bk-h"><span class="bk-badge bg-rose-600">4</span> Ekspor &amp; Sertifikat Matriks <span class="bk-sub">Mathematical Art</span></h3>
+          <input id="bk-name" type="text" maxlength="40" placeholder="Nama siswa (untuk sertifikat)" class="bk-in w-full text-sm">
+          <div class="flex flex-wrap gap-1.5">
+            <button onclick="bkApi.exportPNG()" class="bk-btn bg-rose-600 text-white"><i class="fa-solid fa-image mr-1"></i>Unduh PNG + Sertifikat</button>
+            <button onclick="bkApi.exportSVG()" class="bk-btn bg-slate-800 text-white"><i class="fa-solid fa-bezier-curve mr-1"></i>Unduh SVG</button>
+          </div>
+          <p class="text-[11px] text-slate-500">Gambar memuat motif buatanmu dan daftar lengkap matriks yang membentuknya.</p>
+        </section>
+      </aside>
     </main>
 
     <!-- MAIN TAB 2: MATERI -->
@@ -1185,11 +1352,15 @@
         
         <div class="text-center space-y-2 border-b border-slate-200 pb-4">
           <h2 class="text-2xl font-black text-slate-900">Refleksi Pembelajaran</h2>
-          <p class="text-slate-500 text-sm font-medium">Jawab pertanyaan reflektif untuk menyimpulkan pengalaman penemuan kamu</p>
+          <p class="text-slate-500 text-sm font-medium">Jawab pertanyaan konsep, lalu tuliskan Refleksi 4P untuk menyimpulkan pengalaman belajarmu</p>
         </div>
 
         <form id="reflection-form" onsubmit="saveReflection(event)" class="glass-panel p-6 sm:p-8 rounded-2xl space-y-6">
           
+          <div class="pt-1 border-t border-slate-200">
+            <p class="text-xs font-black uppercase tracking-wider text-slate-500 pt-4">Bagian A &middot; Pemahaman Konsep</p>
+          </div>
+
           <div class="space-y-2">
             <label class="block text-sm font-bold text-sky-700 tracking-wide">
               1. Apa perbedaan mendasar antara operasi aritmatika pada Translasi dibandingkan dengan Refleksi/Rotasi/Dilatasi?
@@ -1209,6 +1380,53 @@
               3. Mengapa kita memerlukan konsep Invers Matriks untuk mencari persamaan bayangan sebuah kurva?
             </label>
             <textarea id="ref-q3" rows="3" required class="w-full bg-white border border-slate-300 rounded-xl p-4 text-sm font-medium text-slate-700 focus:border-amber-500 focus:ring-1 focus:ring-amber-500 focus:outline-none shadow-inner" placeholder="Tuliskan pemahamanmu mengenai substitusi nilai x dan y..."></textarea>
+          </div>
+
+          <div class="space-y-2">
+            <label class="block text-sm font-bold text-rose-700 tracking-wide">
+              4. Pada motif batik (Kawung/Parang), jika urutan layer transformasi ditukar, mengapa hasilnya bisa berbeda? Kaitkan dengan sifat perkalian matriks $A\cdot B \neq B\cdot A$.
+            </label>
+            <textarea id="ref-q4" rows="3" required class="w-full bg-white border border-slate-300 rounded-xl p-4 text-sm font-medium text-slate-700 focus:border-rose-500 focus:ring-1 focus:ring-rose-500 focus:outline-none shadow-inner" placeholder="Petunjuk: bandingkan hasil &ldquo;Bandingkan urutan dibalik&rdquo; di tab Motif Batik..."></textarea>
+          </div>
+
+          <div class="space-y-2">
+            <label class="block text-sm font-bold text-indigo-700 tracking-wide">
+              5. Sebutkan satu motif budaya Nusantara dan jelaskan transformasi geometri (translasi, refleksi, rotasi, dilatasi) apa saja yang membentuknya, beserta matriksnya.
+            </label>
+            <textarea id="ref-q5" rows="3" required class="w-full bg-white border border-slate-300 rounded-xl p-4 text-sm font-medium text-slate-700 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 focus:outline-none shadow-inner" placeholder="Contoh: Batik Kawung dibentuk oleh rotasi 90° yang matriksnya ..."></textarea>
+          </div>
+
+          <div class="pt-1 border-t border-slate-200">
+            <p class="text-xs font-black uppercase tracking-wider text-slate-500 pt-4">Bagian B &middot; Refleksi 4P</p>
+            <p class="text-xs text-slate-500 mt-1">Peristiwa &rarr; Perasaan &rarr; Pembelajaran &rarr; Penerapan. Tulis dengan kalimatmu sendiri.</p>
+          </div>
+
+          <div class="space-y-2">
+            <label class="block text-sm font-bold text-sky-700 tracking-wide">
+              <span class="inline-block px-2 py-0.5 mr-1 rounded bg-sky-100 text-sky-800 text-xs">P1 &middot; Peristiwa</span> Apa yang kamu kerjakan dan temukan selama belajar di Lab Maya dan Motif Batik? Ceritakan kegiatan yang paling berkesan.
+            </label>
+            <textarea id="ref-p1" rows="3" required class="w-full bg-white border border-slate-300 rounded-xl p-4 text-sm font-medium text-slate-700 focus:border-sky-500 focus:ring-1 focus:ring-sky-500 focus:outline-none shadow-inner" placeholder="Contoh: Saya mengamati tabel pola, menebak matriks rotasi, lalu mencoba menyusun batik Kawung..."></textarea>
+          </div>
+
+          <div class="space-y-2">
+            <label class="block text-sm font-bold text-amber-700 tracking-wide">
+              <span class="inline-block px-2 py-0.5 mr-1 rounded bg-amber-100 text-amber-800 text-xs">P2 &middot; Perasaan</span> Bagaimana perasaanmu saat belajar (senang, bingung, tertantang, bangga)? Pada bagian mana perasaan itu muncul, dan mengapa?
+            </label>
+            <textarea id="ref-p2" rows="3" required class="w-full bg-white border border-slate-300 rounded-xl p-4 text-sm font-medium text-slate-700 focus:border-amber-500 focus:ring-1 focus:ring-amber-500 focus:outline-none shadow-inner" placeholder="Tuliskan perasaanmu dan alasannya..."></textarea>
+          </div>
+
+          <div class="space-y-2">
+            <label class="block text-sm font-bold text-teal-700 tracking-wide">
+              <span class="inline-block px-2 py-0.5 mr-1 rounded bg-teal-100 text-teal-800 text-xs">P3 &middot; Pembelajaran</span> Apa yang kamu pelajari tentang matriks transformasi dan tentang caramu belajar? Bagian mana yang masih sulit dan bagaimana kamu mengatasinya?
+            </label>
+            <textarea id="ref-p3" rows="3" required class="w-full bg-white border border-slate-300 rounded-xl p-4 text-sm font-medium text-slate-700 focus:border-teal-500 focus:ring-1 focus:ring-teal-500 focus:outline-none shadow-inner" placeholder="Tuliskan pemahaman baru, kesulitan, dan caramu mengatasinya..."></textarea>
+          </div>
+
+          <div class="space-y-2">
+            <label class="block text-sm font-bold text-emerald-700 tracking-wide">
+              <span class="inline-block px-2 py-0.5 mr-1 rounded bg-emerald-100 text-emerald-800 text-xs">P4 &middot; Penerapan</span> Bagaimana kamu akan menerapkan pembelajaran ini ke depan, misalnya di pelajaran lain, seni, teknologi, atau untuk melestarikan budaya daerahmu?
+            </label>
+            <textarea id="ref-p4" rows="3" required class="w-full bg-white border border-slate-300 rounded-xl p-4 text-sm font-medium text-slate-700 focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 focus:outline-none shadow-inner" placeholder="Rencana konkret yang akan kamu lakukan..."></textarea>
           </div>
 
           <button type="submit" class="w-full py-3.5 rounded-xl bg-slate-800 hover:bg-slate-900 text-white font-bold text-sm shadow-md active:scale-95 transition-all flex items-center justify-center gap-2">
@@ -1247,7 +1465,7 @@
           <strong>GeoMatrix Lab</strong> adalah media pembelajaran berbasis web interaktif yang dirancang khusus dengan pendekatan pedagogis <em>Guided Discovery Learning</em> (Penemuan Terbimbing).
         </p>
         <p>
-          Siswa bertindak sebagai "peneliti" yang menelusuri pola pergeseran koordinat, mulai dari objek Titik, Garis, Kurva, hingga Bidang Datar, untuk merumuskan sendiri bentuk matriks aljabar $2 \times 2$.
+          Siswa bertindak sebagai "peneliti" yang menelusuri pola pergeseran koordinat, mulai dari objek Titik, Garis, Kurva, hingga Bidang Datar, untuk merumuskan sendiri bentuk matriks aljabar $2 \times 2$. Tab <em>Motif Batik</em> memperluasnya ke seni dan budaya: siswa merancang motif Kawung, Parang, Mega Mendung, dan fraktal ornamen melalui komposisi matriks (etnomatematika, STEAM).
         </p>
         <div class="p-4 bg-slate-50 rounded-xl border border-slate-200 space-y-1">
           <p class="font-bold text-sky-700 text-xs uppercase tracking-wider mb-2">Pengembang Media & Desainer:</p>
@@ -1273,7 +1491,7 @@
         </div>
         <div class="flex-1 min-w-0">
           <h3 id="guide-title" class="font-black text-lg text-slate-900 leading-tight">Panduan Eksplorasi Lab Maya</h3>
-          <p class="text-sm font-medium text-slate-500">Langkah Penemuan Terbimbing: Titik, Rumus, Matriks</p>
+          <p class="text-sm font-medium text-slate-500">Penemuan Terbimbing: Titik, Rumus, Matriks, lalu Motif Batik</p>
         </div>
         <button onclick="closeModal('guide-modal')" class="w-9 h-9 rounded-lg text-slate-400 hover:text-slate-700 hover:bg-slate-100 text-xl transition-colors shrink-0" aria-label="Tutup panduan">
           <i class="fa-solid fa-xmark"></i>
@@ -1284,7 +1502,7 @@
       <div class="overflow-y-auto px-5 sm:px-7 py-4 space-y-3 text-sm font-medium text-slate-700 leading-relaxed">
 
         <div class="p-3 rounded-xl bg-sky-50 border border-sky-200 text-xs text-sky-900 leading-relaxed">
-          <strong>Alur belajar yang disarankan:</strong> baca <em>Materi</em> &rarr; temukan polanya di <em>Lab Maya</em> &rarr; kerjakan <em>Evaluasi</em> &rarr; tulis <em>Refleksi</em>. Pilih bagian di bawah ini sesuai kebutuhanmu.
+          <strong>Alur belajar yang disarankan:</strong> temukan polanya di <em>Lab Maya</em> &rarr; rapikan konsepnya di <em>Materi</em> &rarr; terapkan pada budaya di <em>Motif Batik</em> &rarr; kerjakan <em>Evaluasi</em> &rarr; tulis <em>Refleksi</em> (termasuk Refleksi 4P). Pilih bagian di bawah ini sesuai kebutuhanmu.
         </div>
 
         <!-- 1. ALUR 4 LANGKAH -->
@@ -1348,7 +1566,7 @@
               <li><strong>Seret titik biru</strong> untuk mengubah koordinat awal (titik, ujung garis, atau titik sudut segitiga). Titik pada <em>kurva</em> tidak bisa digeser; tabel memakai tiga titik sampel A, B, C.</li>
               <li><strong>Seret ruang kosong</strong> untuk menggeser kanvas. Zoom dengan tombol + / &minus; atau roda mouse; tombol <i class="fa-solid fa-crosshairs"></i> mengembalikan tampilan.</li>
               <li><strong>Titik oranye</strong> adalah pusat transformasi atau garis cermin yang bisa diseret (Mode Lanjutan).</li>
-              <li>Tombol <i class="fa-solid fa-expand"></i> pada header memasuki layar penuh. Tombol <i class="fa-solid fa-circle-info"></i> dan <i class="fa-solid fa-circle-question"></i> membuka informasi dan panduan ini.</li>
+              <li>Tombol <i class="fa-solid fa-expand"></i> pada header memasuki layar penuh. Tombol <i class="fa-solid fa-circle-info"></i> dan <i class="fa-solid fa-circle-question"></i> membuka informasi dan panduan ini. Tab <strong>Motif Batik</strong> membuka kanvas desain motif budaya (lihat bagian "Motif Batik &amp; Fraktal" di bawah).</li>
             </ul>
           </div>
         </details>
@@ -1467,6 +1685,30 @@
           </div>
         </details>
 
+        <!-- 7b. MOTIF BATIK -->
+        <details class="group rounded-2xl border border-amber-200 bg-amber-50/50">
+          <summary class="flex items-center gap-2 px-4 py-3 cursor-pointer list-none font-black text-slate-800">
+            <span class="w-7 h-7 rounded-full bg-amber-600 text-white text-xs flex items-center justify-center shrink-0"><i class="fa-solid fa-palette"></i></span>
+            <span class="flex-1">Motif Batik &amp; Fraktal (Etnomatematika) <span class="ml-1 px-1.5 py-0.5 rounded bg-amber-500 text-white text-[10px] align-middle">BARU</span></span>
+            <i class="fa-solid fa-chevron-down text-slate-400 text-xs transition-transform group-open:rotate-180"></i>
+          </summary>
+          <div class="px-4 pb-4 space-y-3 text-xs text-slate-600">
+            <p class="text-sm text-slate-700">Buka tab <strong>Motif Batik</strong>. Satu motif dasar digandakan oleh <strong>layer transformasi</strong>; setiap salinan adalah hasil perkalian matriks $x' = Mx + t$. Layer 1 dijalankan lebih dulu, sehingga $M_{total} = M_n \cdots M_2 M_1$.</p>
+            <ol class="space-y-2">
+              <li class="p-3 rounded-xl bg-white border border-slate-200"><p class="font-black text-amber-700">Tahap 1 &middot; Dekonstruksi</p><p>Pilih templat: <em>Kawung</em> (rotasi $90^\circ$ + cermin $y=x$ + kisi), <em>Parang</em> (glide refleksi), <em>Mega Mendung</em> dan <em>Fraktal Candi</em> (dilatasi-rotasi berulang). Baca kotak penjelasan matriksnya. Aktifkan <strong>Sorot motif dasar</strong> untuk melihat satu elemen asli dan <strong>Sumbu &amp; pusat</strong> untuk melihat garis cermin dan pusat rotasi.</p></li>
+              <li class="p-3 rounded-xl bg-white border border-slate-200"><p class="font-black text-sky-700">Tahap 2 &middot; Replikasi</p><p>Pilih motif target lalu tekan <strong>Mulai</strong>. Bayangan abu-abu adalah target; susun layer sampai <strong>Kemiripan</strong> mendekati 100%. Minta <strong>Petunjuk</strong> bertahap, atau <strong>Lihat kunci</strong> bila perlu.</p></li>
+              <li class="p-3 rounded-xl bg-white border border-slate-200"><p class="font-black text-teal-700">Tahap 3 &middot; Kreasi mandiri</p>
+                <ul class="list-disc list-inside space-y-1 mt-1">
+                  <li><strong>Motif dasar:</strong> pilih elemen primitif atau <em>Gambar sendiri</em> (klik untuk menambah titik, seret untuk menggeser, klik dua kali untuk menghapus).</li>
+                  <li><strong>Layer:</strong> tambah Rotasi, Cermin, Glide, Kisi, Fraktal, atau Matriks 2&times;2 bebas. Atur parameternya, geser urutan dengan &#9650;&#9660;, matikan sementara dengan ikon mata.</li>
+                  <li><strong>Matriks &amp; komposisi:</strong> panel rumus menampilkan matriks tiap layer. <strong>Uji non-komutatif</strong> membandingkan $M_BM_A$ dengan $M_AM_B$; centang <em>Bandingkan urutan dibalik</em> untuk melihat dampaknya pada motif.</li>
+                  <li>Bila muncul peringatan &ldquo;terlalu banyak salinan&rdquo; (batas 6.000), kurangi $n$, $\pm m$, cabang, atau kedalaman. Geser kanvas dengan seret, zoom dengan roda mouse atau cubitan.</li>
+                </ul></li>
+              <li class="p-3 rounded-xl bg-white border border-slate-200"><p class="font-black text-rose-700">Tahap 4 &middot; Ekspor &amp; Sertifikat</p><p>Isi nama, lalu unduh <strong>PNG + Sertifikat</strong> (motif dan daftar matriksnya) atau <strong>SVG</strong>.</p></li>
+            </ol>
+          </div>
+        </details>
+
         <!-- 8. EVALUASI & REFLEKSI -->
         <details class="group rounded-2xl border border-slate-200 bg-slate-50">
           <summary class="flex items-center gap-2 px-4 py-3 cursor-pointer list-none font-black text-slate-800">
@@ -1484,7 +1726,7 @@
               <li>Pada <strong>Rekapitulasi</strong>: <em>Unduh Rekap (PDF)</em>, <em>Cetak Pembahasan Lengkap</em> (pilih Simpan sebagai PDF di dialog cetak), <em>Tinjau Soal</em>, atau <em>Kerjakan Evaluasi Kembali</em> (identitas tetap terisi, urutan pernyataan menjodohkan diacak ulang).</li>
             </ul>
             <p class="font-black text-slate-800 text-sm pt-1">Refleksi</p>
-            <p>Jawab tiga pertanyaan reflektif tentang perbedaan translasi dengan transformasi lain, rotasi $360^\circ$, dan peran invers matriks, lalu tekan <strong>Simpan Laporan Refleksi</strong>.</p>
+            <p>Bagian A berisi pertanyaan konsep (translasi, rotasi $360^\circ$, invers matriks, dan motif batik). Bagian B adalah <strong>Refleksi 4P</strong>: <em>Peristiwa, Perasaan, Pembelajaran, Penerapan</em>. Semua kolom wajib diisi, lalu tekan <strong>Simpan Laporan Refleksi</strong>. Jawabanmu tersimpan di peramban ini dan terisi kembali saat kamu membuka halaman lagi.</p>
           </div>
         </details>
 
@@ -1693,6 +1935,7 @@
         setTimeout(resizeCanvas, 50);
       }
       syncAssistantVisibility();
+      if (tabId === 'batik' && window.bkApi) bkApi.onShow();
       if (tabId !== 'lab') pauseAnimation();   // animasi dijeda saat meninggalkan Lab
     }
 
@@ -4255,10 +4498,22 @@
       if (document.documentElement.scrollTop) document.documentElement.scrollTop = 0;
     }, { passive: true });
 
+    const REF_IDS = ['ref-q1','ref-q2','ref-q3','ref-q4','ref-q5','ref-p1','ref-p2','ref-p3','ref-p4'];
     function saveReflection(e) {
       e.preventDefault();
+      try {
+        const o = {}; REF_IDS.forEach(id => { o[id] = document.getElementById(id).value; });
+        localStorage.setItem('geomatrix-refleksi', JSON.stringify(o));
+      } catch (err) { /* penyimpanan tidak tersedia: tetap tampilkan pesan */ }
       document.getElementById('reflection-saved-msg').classList.remove('hidden');
     }
+    function loadReflection() {
+      try {
+        const o = JSON.parse(localStorage.getItem('geomatrix-refleksi') || 'null'); if (!o) return;
+        REF_IDS.forEach(id => { const el = document.getElementById(id); if (el && typeof o[id] === 'string') el.value = o[id]; });
+      } catch (err) { /* abaikan */ }
+    }
+    document.addEventListener('DOMContentLoaded', loadReflection);
 
     // Menggunakan ekstensi Auto-Render dari KaTeX untuk presisi yang jauh lebih estetis dan standar.
     function renderMathEquations(root) {
@@ -4276,6 +4531,627 @@
         });
       }
     }
+  </script>
+
+  <script>
+  /* ==========================================================================
+     MOTIF BUDAYA & ARSITEKTUR (BATIK / FRAKTAL) — Etnomatematika
+     Setiap salinan motif = hasil komposisi matriks afin  x' = M·x + t.
+     Layer 1 dijalankan lebih dulu:  M_total = M_n · … · M_2 · M_1
+     ========================================================================== */
+  (function () {
+    const rad = d => d * Math.PI / 180;
+    const I = { m11: 1, m12: 0, m21: 0, m22: 1, tx: 0, ty: 0, lv: 0 };
+    const MAXC = 6000;           // batas jumlah salinan agar peramban tetap lancar
+
+    /* ---------- Aljabar matriks afin ---------- */
+    function mul(A, B) {         // A·B  (B dijalankan lebih dulu)
+      return {
+        m11: A.m11 * B.m11 + A.m12 * B.m21, m12: A.m11 * B.m12 + A.m12 * B.m22,
+        m21: A.m21 * B.m11 + A.m22 * B.m21, m22: A.m21 * B.m12 + A.m22 * B.m22,
+        tx: A.m11 * B.tx + A.m12 * B.ty + A.tx, ty: A.m21 * B.tx + A.m22 * B.ty + A.ty,
+        lv: (A.lv || 0) + (B.lv || 0)
+      };
+    }
+    function inv(A) {
+      const d = A.m11 * A.m22 - A.m12 * A.m21;
+      if (Math.abs(d) < 1e-9) return { ...I };
+      const a = A.m22 / d, b = -A.m12 / d, c = -A.m21 / d, e = A.m11 / d;
+      return { m11: a, m12: b, m21: c, m22: e, tx: -(a * A.tx + b * A.ty), ty: -(c * A.tx + e * A.ty), lv: 0 };
+    }
+    function pow(A, k) {
+      const B = k < 0 ? inv(A) : A; let R = { ...I };
+      for (let i = 0; i < Math.abs(k); i++) R = mul(R, B);
+      R.lv = 0; return R;
+    }
+    function rotAbout(deg, px, py) {
+      const c = Math.cos(rad(deg)), s = Math.sin(rad(deg));
+      return { m11: c, m12: -s, m21: s, m22: c, tx: px - (c * px - s * py), ty: py - (s * px + c * py), lv: 0 };
+    }
+    function reflAxis(axis, a) {
+      switch (axis) {
+        case 'x':    return { m11: 1, m12: 0, m21: 0, m22: -1, tx: 0, ty: 0, lv: 0 };
+        case 'y':    return { m11: -1, m12: 0, m21: 0, m22: 1, tx: 0, ty: 0, lv: 0 };
+        case 'y=x':  return { m11: 0, m12: 1, m21: 1, m22: 0, tx: 0, ty: 0, lv: 0 };
+        case 'y=-x': return { m11: 0, m12: -1, m21: -1, m22: 0, tx: 0, ty: 0, lv: 0 };
+        case 'x=a':  return { m11: -1, m12: 0, m21: 0, m22: 1, tx: 2 * a, ty: 0, lv: 0 };
+        case 'y=b':  return { m11: 1, m12: 0, m21: 0, m22: -1, tx: 0, ty: 2 * a, lv: 0 };
+      }
+      return { ...I };
+    }
+    const AXDIR = { 'x': [1, 0], 'y': [0, 1], 'y=x': [Math.SQRT1_2, Math.SQRT1_2], 'y=-x': [Math.SQRT1_2, -Math.SQRT1_2] };
+    const AXNAME = { 'x': 'sumbu-X (y = 0)', 'y': 'sumbu-Y (x = 0)', 'y=x': 'garis y = x', 'y=-x': 'garis y = −x', 'x=a': 'garis x = a', 'y=b': 'garis y = b' };
+
+    /* ---------- Definisi layer ---------- */
+    const DEF = {
+      rot:     { n: 4, px: 0, py: 0 },
+      mirror:  { axis: 'y=x', a: 1 },
+      glide:   { axis: 'y=x', s: 2, m: 6 },
+      lattice: { ux: 2, uy: 0, vx: 0, vy: 2, mu: 3, mv: 3 },
+      fractal: { k: 0.8, th: 20, tx: 0, ty: 1.6, br: 2, depth: 5 },
+      matrix:  { a: 0, b: -1, c: 1, d: 0, e: 0, f: 0, n: 4 }
+    };
+    const TNAME = { rot: 'Rotasi radial', mirror: 'Refleksi (cermin)', glide: 'Glide refleksi', lattice: 'Translasi kisi', fractal: 'Fraktal rekursif', matrix: 'Matriks 2×2 bebas' };
+    // [kunci, label, step, min, max]
+    const SCH = {
+      rot:     [['n', 'n', 1, 1, 36], ['px', 'pusat x', 0.5, -9, 9], ['py', 'pusat y', 0.5, -9, 9]],
+      mirror:  [['axis'], ['a', 'a / b', 0.5, -9, 9]],
+      glide:   [['axis'], ['s', 'jarak s', 0.1, -8, 8], ['m', '± m', 1, 0, 12]],
+      lattice: [['ux', 'u x', 0.1, -9, 9], ['uy', 'u y', 0.1, -9, 9], ['vx', 'v x', 0.1, -9, 9], ['vy', 'v y', 0.1, -9, 9], ['mu', '± m_u', 1, 0, 12], ['mv', '± m_v', 1, 0, 12]],
+      fractal: [['k', 'k (skala)', 0.01, 0.1, 0.98], ['th', 'θ (°)', 1, -180, 180], ['tx', 't x', 0.1, -9, 9], ['ty', 't y', 0.1, -9, 9], ['br', 'cabang', 1, 1, 3], ['depth', 'kedalaman', 1, 0, 9]],
+      matrix:  [['a', 'a', 0.1, -9, 9], ['b', 'b', 0.1, -9, 9], ['c', 'c', 0.1, -9, 9], ['d', 'd', 0.1, -9, 9], ['e', 'dx', 0.1, -9, 9], ['f', 'dy', 0.1, -9, 9], ['n', 'n (ulang)', 1, 1, 36]]
+    };
+    const bk = {
+      uid: 1, tpl: 'kawung', motifId: 'kawung', pal: 'sogan', stages: [],
+      view: { s: 30, ox: 0, oy: 0 }, span: 18,
+      guides: true, hi: false, cmp: false, chal: null,
+      custom: { pts: [[0, 0], [1.6, 0.9], [2.4, 0], [1.6, -0.9]], closed: true, smooth: true, v: 0 },
+      ncA: 0, ncB: 1
+    };
+    const S = (type, o) => ({ id: bk.uid++, type, on: true, ...DEF[type], ...o });
+
+    /* ---------- Motif dasar (elemen primitif) ---------- */
+    function parangD() {
+      const N = 30, A = 0.5, top = [], bot = [];
+      for (let i = 0; i <= N; i++) {
+        const x = -1 + 2 * i / N, yc = A * Math.sin(Math.PI * x), w = 0.2 * (1 - 0.5 * x * x);
+        top.push([x, yc + w]); bot.push([x, yc - w]);
+      }
+      const p = top.concat(bot.reverse()).map(q => q[0].toFixed(3) + ' ' + q[1].toFixed(3));
+      return 'M' + p.join(' L') + 'Z M-0.45 0.62 a.07 .07 0 1 0 .14 0 a.07 .07 0 1 0 -.14 0Z M0.45 -0.62 a.07 .07 0 1 0 .14 0 a.07 .07 0 1 0 -.14 0Z';
+    }
+    const R45 = { m11: Math.SQRT1_2, m12: -Math.SQRT1_2, m21: Math.SQRT1_2, m22: Math.SQRT1_2, tx: 0, ty: 0, lv: 0 };
+    const MOT = {
+      kawung: { name: 'Kelopak Kawung', d: 'M0 0 C0.2 0.74 1.8 0.74 2 0 C1.8 -0.74 0.2 -0.74 0 0Z M1.35 0.22 a.09 .09 0 1 0 -.18 0 a.09 .09 0 1 0 .18 0Z', pre: I },
+      parang: { name: 'Pita Parang (S)', d: parangD(), pre: { ...R45, m11: R45.m11 * 1.1, m12: R45.m12 * 1.1, m21: R45.m21 * 1.1, m22: R45.m22 * 1.1 } },
+      awan:   { name: 'Awan Mendung', d: 'M-2 0 C-2 0.85 -1.45 1.3 -0.95 1.12 C-0.85 1.75 -0.1 1.95 0.3 1.55 C0.7 1.92 1.55 1.6 1.45 1.0 C1.95 1.1 2 0.5 2 0Z', pre: I },
+      daun:   { name: 'Daun / Gurda', d: 'M0 0 C0.75 0.5 0.75 1.6 0 2.3 C-0.75 1.6 -0.75 0.5 0 0Z M0 0.3 L0 2.0', pre: I },
+      ranting:{ name: 'Ranting', d: 'M-0.07 0 L0.07 0 L0.035 1.6 L-0.035 1.6Z M-0.1 1.6 a.1 .1 0 1 0 .2 0 a.1 .1 0 1 0 -.2 0Z', pre: I },
+      cecek:  { name: 'Cecek (titik)', d: 'M1.22 0.4 a.22 .22 0 1 0 -.44 0 a.22 .22 0 1 0 .44 0Z', pre: I },
+      custom: { name: 'Gambar sendiri', pre: I }
+    };
+    function customD() {
+      const c = bk.custom, p = c.pts, n = p.length, f = v => (+v).toFixed(3);
+      if (n < 2) return '';
+      if (c.smooth && c.closed && n >= 3) {
+        const mid = (a, b) => [(a[0] + b[0]) / 2, (a[1] + b[1]) / 2];
+        let s = mid(p[n - 1], p[0]); let d = 'M' + f(s[0]) + ' ' + f(s[1]);
+        for (let i = 0; i < n; i++) { const m = mid(p[i], p[(i + 1) % n]); d += ' Q' + f(p[i][0]) + ' ' + f(p[i][1]) + ' ' + f(m[0]) + ' ' + f(m[1]); }
+        return d + 'Z';
+      }
+      if (c.smooth && !c.closed && n >= 3) {
+        let d = 'M' + f(p[0][0]) + ' ' + f(p[0][1]);
+        for (let i = 1; i < n - 1; i++) { const m = [(p[i][0] + p[i + 1][0]) / 2, (p[i][1] + p[i + 1][1]) / 2]; d += ' Q' + f(p[i][0]) + ' ' + f(p[i][1]) + ' ' + f(m[0]) + ' ' + f(m[1]); }
+        return d + ' L' + f(p[n - 1][0]) + ' ' + f(p[n - 1][1]);
+      }
+      return 'M' + p.map(q => f(q[0]) + ' ' + f(q[1])).join(' L') + (c.closed ? 'Z' : '');
+    }
+    const pathCache = {};
+    function motif(id) {
+      const m = MOT[id]; let d = id === 'custom' ? customD() : m.d;
+      const key = id + (id === 'custom' ? ':' + d : '');
+      if (!pathCache[key]) pathCache[key] = new Path2D(d || 'M0 0');
+      return { id, name: m.name, d, pre: m.pre, path: pathCache[key], noFill: id === 'custom' && !bk.custom.closed };
+    }
+
+    /* ---------- Palet ---------- */
+    const PAL = {
+      sogan:   { bg: '#f1e2bf', line: '#3b2314', fills: ['#8b5a2b', '#a8703a', '#6e4420', '#c08a4a'], grid: 'rgba(59,35,20,.08)' },
+      indigo:  { bg: '#f6f1e4', line: '#0f2a5c', fills: ['#1e4fa0', '#3a6bbd', '#16397a', '#5a85cc'], grid: 'rgba(15,42,92,.08)' },
+      mendung: { bg: '#fbf3e6', line: '#5a0f17', fills: ['#7a1620', '#a32a35', '#c4545c', '#dd8087', '#ecabb0', '#f4cdd0'], grid: 'rgba(90,15,23,.07)' },
+      malam:   { bg: '#14172b', line: '#f2d7a0', fills: ['#c9962b', '#e0b04a', '#a7771d', '#f0cc7a'], grid: 'rgba(242,215,160,.08)' }
+    };
+
+    /* ---------- Mesin transformasi ---------- */
+    function branchMaps(st) {
+      const mk = deg => { const c = Math.cos(rad(deg)) * st.k, s = Math.sin(rad(deg)) * st.k; return { m11: c, m12: -s, m21: s, m22: c, tx: st.tx, ty: st.ty, lv: 1 }; };
+      const o = [mk(st.th)]; if (st.br >= 2) o.push(mk(-st.th)); if (st.br >= 3) o.push(mk(0)); return o;
+    }
+    function gen(st) {            // matriks langkah (generator) tiap layer
+      switch (st.type) {
+        case 'rot': return rotAbout(360 / Math.max(1, st.n), st.px, st.py);
+        case 'mirror': return reflAxis(st.axis, st.a);
+        case 'glide': { const d = AXDIR[st.axis]; return mul({ ...I, tx: d[0] * st.s, ty: d[1] * st.s }, reflAxis(st.axis, 0)); }
+        case 'lattice': return { ...I, tx: st.ux, ty: st.uy };
+        case 'fractal': return branchMaps(st)[0];
+        case 'matrix': return { m11: st.a, m12: st.b, m21: st.c, m22: st.d, tx: st.e, ty: st.f, lv: 0 };
+      }
+      return { ...I };
+    }
+    function count(st) {
+      switch (st.type) {
+        case 'rot': case 'matrix': return Math.max(1, Math.round(st.n));
+        case 'mirror': return 2;
+        case 'glide': return 2 * Math.round(st.m) + 1;
+        case 'lattice': return (2 * Math.round(st.mu) + 1) * (2 * Math.round(st.mv) + 1);
+        case 'fractal': { let s = 0, p = 1; for (let j = 0; j <= Math.round(st.depth); j++) { s += p; p *= Math.round(st.br); } return s; }
+      }
+      return 1;
+    }
+    function setOf(st) {
+      const out = [];
+      switch (st.type) {
+        case 'rot': { const n = Math.max(1, Math.round(st.n)); for (let i = 0; i < n; i++) out.push(rotAbout(360 / n * i, st.px, st.py)); break; }
+        case 'mirror': out.push({ ...I }, reflAxis(st.axis, st.a)); break;
+        case 'glide': { const G = gen(st), m = Math.round(st.m); for (let k = -m; k <= m; k++) out.push(pow(G, k)); break; }
+        case 'lattice': { const a = Math.round(st.mu), b = Math.round(st.mv);
+          for (let i = -a; i <= a; i++) for (let j = -b; j <= b; j++) out.push({ ...I, tx: i * st.ux + j * st.vx, ty: i * st.uy + j * st.vy }); break; }
+        case 'matrix': { const G = gen(st), n = Math.max(1, Math.round(st.n)); for (let k = 0; k < n; k++) out.push(pow(G, k)); break; }
+        case 'fractal': { const B = branchMaps(st); let cur = [{ ...I }]; out.push({ ...I });
+          for (let d = 1; d <= Math.round(st.depth); d++) { const nx = []; for (const P of cur) for (const b of B) nx.push(mul(P, b)); out.push(...nx); cur = nx; } break; }
+      }
+      return out;
+    }
+    function build(stages) {
+      let est = 1;
+      for (const st of stages) { if (!st.on) continue; est *= count(st); if (est > MAXC) return { over: true, est, list: [] }; }
+      let list = [{ ...I }];
+      for (const st of stages) {
+        if (!st.on) continue;
+        const set = setOf(st), nx = [];
+        for (const g of set) for (const p of list) nx.push(mul(g, p));
+        list = nx;
+      }
+      if (stages.some(s => s.on && s.type === 'fractal')) list.sort((a, b) => a.lv - b.lv);
+      return { over: false, est, list };
+    }
+
+    /* ---------- Template (skenario budaya) ---------- */
+    const TPL = {
+      kawung: {
+        name: 'Batik Kawung', motif: 'kawung', pal: 'sogan', span: 16,
+        mk: () => [S('rot', { n: 4 }), S('mirror', { axis: 'y=x' }), S('lattice', { ux: 2, uy: 2, vx: 2, vy: -2, mu: 4, mv: 4 })],
+        info: String.raw`<b>Batik Kawung</b> — empat kelopak elips mengelilingi satu titik pusat. Simetrinya adalah <b>grup titik dihedral $D_4$</b> (rotasi $90^\circ$ + cermin diagonal), diulang pada kisi.
+          <ul class="list-disc pl-4 space-y-0.5">
+          <li>Rotasi $90^\circ$: $R=\begin{pmatrix}0&-1\\1&0\end{pmatrix}$, diulang $R^k$, $k=0..3$</li>
+          <li>Cermin $y=x$: $\begin{pmatrix}0&1\\1&0\end{pmatrix}$; $y=-x$: $\begin{pmatrix}0&-1\\-1&0\end{pmatrix}$</li>
+          <li>Translasi kisi: $u=(2,2)$ dan $v=(2,-2)$</li></ul>
+          Perhatikan titik kecil di kelopak: ia ikut <i>terpantul</i> oleh cermin $y=x$.`,
+        hints: ['Pola ini tersusun dari 3 layer. Layer pertama memutar kelopak mengelilingi titik pusat.', 'Urutannya: Rotasi (n = 4) → Cermin y = x → Translasi kisi.', 'Kisi: u = (2, 2), v = (2, −2), ± m_u = 4, ± m_v = 4.']
+      },
+      parang: {
+        name: 'Batik Parang', motif: 'parang', pal: 'sogan', span: 16,
+        mk: () => [S('glide', { axis: 'y=x', s: 2, m: 7 }), S('lattice', { ux: -0.8, uy: 0.8, vx: 0, vy: 0, mu: 10, mv: 0 })],
+        info: String.raw`<b>Batik Parang</b> — pita "S" yang miring $45^\circ$ dan berulang sepanjang diagonal. Inilah contoh nyata <b>glide reflection</b> (refleksi + translasi sejajar sumbu pencerminan).
+          <ul class="list-disc pl-4 space-y-0.5">
+          <li>Cermin terhadap $y=x$: $S=\begin{pmatrix}0&1\\1&0\end{pmatrix}$</li>
+          <li>Geser sepanjang diagonal: $t=(\sqrt2,\sqrt2)$ (jarak $s=2$)</li>
+          <li>Glide: $G(x)=S\,x+t$, diulang $G^k$ → pita bolak-balik S/Z</li>
+          <li>Baris-baris sejajar: translasi $u=(-0.8,\,0.8)$</li></ul>`,
+        hints: ['Ada 2 layer: satu membentuk pita memanjang, satu menumpuk banyak baris pita.', 'Layer 1: Glide refleksi terhadap y = x, jarak s = 2, ± m = 7.', 'Layer 2: Translasi kisi u = (−0.8, 0.8), ± m_u = 10, v = (0, 0), ± m_v = 0.']
+      },
+      mendung: {
+        name: 'Mega Mendung', motif: 'awan', pal: 'mendung', span: 15,
+        mk: () => [S('fractal', { k: 0.78, th: 0, tx: 0, ty: 0, br: 1, depth: 6 }), S('lattice', { ux: 4.4, uy: 0, vx: 2.2, vy: 2.6, mu: 3, mv: 3 })],
+        info: String.raw`<b>Mega Mendung</b> (Cirebon) — pita awan berlapis yang makin kecil. Matematikanya adalah <b>Iterated Function System</b>: dilatasi berulang terhadap titik pusat.
+          <ul class="list-disc pl-4 space-y-0.5">
+          <li>$M=k\begin{pmatrix}\cos\theta&-\sin\theta\\\sin\theta&\cos\theta\end{pmatrix}$ dengan $k=0.78<1$, $\theta=0^\circ$</li>
+          <li>Lapisan ke-$j$ = $M^j\cdot$ awan → pita konsentris, warna berubah per lapisan</li>
+          <li>Coba ubah $\theta$ ≠ 0: awan berputar menjadi <i>spiral</i>.</li></ul>`,
+        hints: ['Layer pertama adalah dilatasi berulang (fraktal) dengan satu cabang.', 'Fraktal: k ≈ 0.78, θ = 0, t = (0,0), cabang = 1, kedalaman = 6.', 'Lalu translasi kisi: u = (4.4, 0), v = (2.2, 2.6), ± m = 3.']
+      },
+      candi: {
+        name: 'Ornamen Fraktal Candi', motif: 'ranting', pal: 'sogan', span: 13,
+        mk: () => [S('fractal', { k: 0.72, th: 30, tx: 0, ty: 1.6, br: 2, depth: 6 }), S('rot', { n: 6 })],
+        info: String.raw`<b>Ornamen Fraktal Candi</b> — sulur bercabang yang makin kecil, lalu diputar mengelilingi pusat seperti medalion ukiran candi.
+          <ul class="list-disc pl-4 space-y-0.5">
+          <li>Tiap cabang: $M=0.72\,R(\pm30^\circ)$ dan geser $t=(0,1.6)$ → $v'=Mv+t$</li>
+          <li>Rotasi radial $n=6$ ($60^\circ$) memberi simetri $C_6$</li>
+          <li><b>Non-komutatif:</b> tukar urutan kedua layer (▲▼) dan bandingkan!</li></ul>`,
+        hints: ['Dua layer: sulur bercabang, lalu rotasi mengelilingi pusat.', 'Fraktal: k = 0.72, θ = 30°, t = (0, 1.6), cabang = 2, kedalaman = 6.', 'Rotasi radial n = 6 dengan pusat (0, 0).']
+      },
+      bebas: {
+        name: 'Kanvas Bebas', motif: 'daun', pal: 'indigo', span: 18,
+        mk: () => [S('rot', { n: 8 })],
+        info: String.raw`<b>Kanvas Bebas</b> — rancang motif batik atau ornamen arsitektur karyamu sendiri. Pilih/gambar motif dasar, tambah layer, lalu ubah matriksnya.
+          <ul class="list-disc pl-4 space-y-0.5">
+          <li>Coba <b>Matriks 2×2</b> bebas: $\begin{pmatrix}a&b\\c&d\end{pmatrix}$ dengan $ad-bc\neq0$</li>
+          <li>Urutan layer dapat digeser: $M_2M_1\neq M_1M_2$</li></ul>`,
+        hints: []
+      }
+    };
+
+    /* ---------- Rendering ---------- */
+    const cv = () => document.getElementById('bk-canvas');
+    let raf = 0, size = { w: 0, h: 0, dpr: 1 };
+    function viewFor(w, h, span) { const s = Math.min(w, h) / span; return { s, ox: w / 2, oy: h / 2 }; }
+
+    function paint(g, dpr, V, mt, list, mode, pal) {
+      const base = { m11: V.s, m12: 0, m21: 0, m22: -V.s, tx: V.ox, ty: V.oy, lv: 0 };
+      const n = pal.fills.length;
+      g.lineJoin = 'round';
+      for (const A of list) {
+        const T = mul(base, mul(A, mt.pre));
+        g.setTransform(dpr * T.m11, dpr * T.m21, dpr * T.m12, dpr * T.m22, dpr * T.tx, dpr * T.ty);
+        if (mode === 'ghost') { g.fillStyle = 'rgba(100,116,139,.38)'; g.fill(mt.path, 'evenodd'); continue; }
+        if (mode === 'hi') { g.fillStyle = 'rgba(245,158,11,.55)'; g.strokeStyle = '#d97706'; g.lineWidth = 0.07; g.fill(mt.path, 'evenodd'); g.stroke(mt.path); continue; }
+        if (!mt.noFill) { g.globalAlpha = 0.82; g.fillStyle = pal.fills[(A.lv || 0) % n]; g.fill(mt.path, 'evenodd'); g.globalAlpha = 1; }
+        g.strokeStyle = pal.line; g.lineWidth = 0.045; g.stroke(mt.path);
+      }
+      g.setTransform(dpr, 0, 0, dpr, 0, 0);
+    }
+    function lineGuide(g, V, p0, d) {
+      const L = 60; g.beginPath();
+      g.moveTo(V.ox + V.s * (p0[0] - d[0] * L), V.oy - V.s * (p0[1] - d[1] * L));
+      g.lineTo(V.ox + V.s * (p0[0] + d[0] * L), V.oy - V.s * (p0[1] + d[1] * L)); g.stroke();
+    }
+    function drawGuides(g, V, stages) {
+      g.save(); g.lineWidth = 1.4; g.setLineDash([6, 5]); g.strokeStyle = 'rgba(225,29,72,.75)';
+      for (const st of stages) {
+        if (!st.on) continue;
+        if (st.type === 'mirror' || st.type === 'glide') {
+          if (st.axis === 'x=a') lineGuide(g, V, [st.a, 0], [0, 1]);
+          else if (st.axis === 'y=b') lineGuide(g, V, [0, st.a], [1, 0]);
+          else lineGuide(g, V, [0, 0], AXDIR[st.axis]);
+        }
+      }
+      g.setLineDash([]);
+      for (const st of stages) {
+        if (st.on && st.type === 'rot') {
+          const x = V.ox + V.s * st.px, y = V.oy - V.s * st.py;
+          g.fillStyle = '#e11d48'; g.beginPath(); g.arc(x, y, 4.5, 0, 7); g.fill();
+          g.strokeStyle = '#fff'; g.lineWidth = 1.5; g.stroke();
+        }
+      }
+      g.restore();
+    }
+    function drawGrid(g, W, H, V, pal) {
+      g.save(); g.lineWidth = 1; g.strokeStyle = pal.grid;
+      if (V.s >= 12) {
+        const x0 = Math.floor((0 - V.ox) / V.s), x1 = Math.ceil((W - V.ox) / V.s), y0 = Math.floor((V.oy - H) / V.s), y1 = Math.ceil(V.oy / V.s);
+        g.beginPath();
+        for (let i = x0; i <= x1; i++) { const x = Math.round(V.ox + i * V.s) + .5; g.moveTo(x, 0); g.lineTo(x, H); }
+        for (let j = y0; j <= y1; j++) { const y = Math.round(V.oy - j * V.s) + .5; g.moveTo(0, y); g.lineTo(W, y); }
+        g.stroke();
+      }
+      g.strokeStyle = pal.grid.replace(/[\d.]+\)$/, '.28)'); g.lineWidth = 1.5; g.beginPath();
+      g.moveTo(0, V.oy); g.lineTo(W, V.oy); g.moveTo(V.ox, 0); g.lineTo(V.ox, H); g.stroke(); g.restore();
+    }
+    function targetList() { const t = TPL[bk.chal.tpl]; return build(t.mk()).list; }
+
+    function draw() {
+      raf = 0;
+      const c = cv(); if (!c || !size.w) return;
+      const g = c.getContext('2d'), { w, h, dpr } = size, pal = PAL[bk.pal], mt = motif(bk.motifId);
+      g.setTransform(dpr, 0, 0, dpr, 0, 0); g.fillStyle = pal.bg; g.fillRect(0, 0, w, h);
+      drawGrid(g, w, h, bk.view, pal);
+      const warn = document.getElementById('bk-warn'), res = build(bk.stages);
+      if (bk.chal) { const tm = motif(TPL[bk.chal.tpl].motif); paint(g, dpr, bk.view, tm, bk.chal.target, 'ghost', pal); }
+      if (res.over) {
+        warn.textContent = 'Terlalu banyak salinan (≈ ' + res.est.toLocaleString('id-ID') + '). Kurangi n, ± m, cabang atau kedalaman agar ≤ ' + MAXC.toLocaleString('id-ID') + '.';
+        warn.classList.remove('hidden');
+      } else {
+        warn.classList.add('hidden');
+        paint(g, dpr, bk.view, mt, res.list, 'color', pal);
+        if (bk.hi) paint(g, dpr, bk.view, mt, [{ ...I }], 'hi', pal);
+      }
+      if (bk.guides) drawGuides(g, bk.view, bk.stages);
+      document.getElementById('bk-count').textContent = res.over ? '' : res.list.length.toLocaleString('id-ID') + ' salinan motif';
+      if (bk.cmp) drawCompare(res);
+      if (bk.chal) scheduleScore();
+    }
+    const redraw = () => { if (!raf) raf = requestAnimationFrame(draw); };
+
+    /* ---------- Perbandingan urutan dibalik ---------- */
+    function drawCompare(res) {
+      const wrap = document.getElementById('bk-cmp-wrap'), c = document.getElementById('bk-cmp');
+      const N = 170, dpr = size.dpr; c.width = N * dpr; c.height = N * dpr;
+      const g = c.getContext('2d'), pal = PAL[bk.pal], mt = motif(bk.motifId);
+      g.setTransform(dpr, 0, 0, dpr, 0, 0); g.fillStyle = pal.bg; g.fillRect(0, 0, N, N);
+      const V = { s: bk.view.s * N / Math.min(size.w, size.h), ox: N / 2 + (bk.view.ox - size.w / 2) * N / Math.min(size.w, size.h), oy: N / 2 + (bk.view.oy - size.h / 2) * N / Math.min(size.w, size.h) };
+      const rev = bk.stages.filter(s => s.on).reverse(), r2 = build(rev);
+      if (!r2.over) paint(g, dpr, V, mt, r2.list, 'color', pal);
+      const note = document.getElementById('bk-cmp-note');
+      if (res.over || r2.over || bk.stages.filter(s => s.on).length < 2) { note.textContent = 'Butuh ≥ 2 layer aktif.'; return; }
+      const sim = iou(maskOf(res.list, mt), maskOf(r2.list, mt));
+      note.textContent = sim > 0.985 ? 'Hasilnya sama persis — pasangan ini kebetulan komutatif.' : 'Hasil BERBEDA (kemiripan ' + Math.round(sim * 100) + '%) → urutan matriks penting!';
+    }
+
+    /* ---------- Skor kemiripan (tantangan) ---------- */
+    function maskOf(list, mt, N = 128) {
+      const c = document.createElement('canvas'); c.width = c.height = N;
+      const g = c.getContext('2d', { willReadFrequently: true }), V = { s: N / bk.span, ox: N / 2, oy: N / 2 };
+      g.fillStyle = '#000'; g.strokeStyle = '#000';
+      const base = { m11: V.s, m12: 0, m21: 0, m22: -V.s, tx: V.ox, ty: V.oy, lv: 0 };
+      for (const A of list) {
+        const T = mul(base, mul(A, mt.pre)); g.setTransform(T.m11, T.m21, T.m12, T.m22, T.tx, T.ty);
+        g.lineWidth = 0.1; if (!mt.noFill) g.fill(mt.path); g.stroke(mt.path);
+      }
+      const d = g.getImageData(0, 0, N, N).data, m = new Uint8Array(N * N);
+      for (let i = 0; i < m.length; i++) m[i] = d[i * 4 + 3] > 40 ? 1 : 0;
+      return m;
+    }
+    function iou(a, b) { let i = 0, u = 0; for (let k = 0; k < a.length; k++) { if (a[k] && b[k]) i++; if (a[k] || b[k]) u++; } return u ? i / u : 0; }
+    let scoreT = 0;
+    function scheduleScore() { clearTimeout(scoreT); scoreT = setTimeout(updateScore, 160); }
+    function updateScore() {
+      if (!bk.chal) return;
+      const res = build(bk.stages); const saveSpan = bk.span; bk.span = bk.chal.span;
+      let sc = 0;
+      if (!res.over && res.list.length) {
+        const tm = motif(TPL[bk.chal.tpl].motif);
+        sc = iou(maskOf(res.list, motif(bk.motifId)), bk.chal.mask || (bk.chal.mask = maskOf(bk.chal.target, tm)));
+      }
+      bk.span = saveSpan;
+      const pct = Math.round(sc * 100), bar = document.getElementById('bk-score-bar');
+      document.getElementById('bk-score-txt').textContent = pct + '%';
+      bar.style.width = pct + '%'; bar.className = 'h-full transition-all ' + (pct >= 95 ? 'bg-emerald-500' : pct >= 60 ? 'bg-amber-500' : 'bg-rose-500');
+      document.getElementById('bk-score-msg').textContent = pct >= 95 ? '🎉 Berhasil! Pola kamu identik dengan ' + TPL[bk.chal.tpl].name + '.' : pct >= 60 ? 'Hampir! Periksa sudut, pusat, atau vektor translasinya.' : 'Belum mirip — tambahkan layer transformasi atau minta petunjuk.';
+      document.getElementById('bk-chal-badge').textContent = '🎯 ' + TPL[bk.chal.tpl].name + ' · ' + pct + '%';
+    }
+
+    /* ---------- UI: layer ---------- */
+    const f3 = x => { let v = Math.round(x * 1000) / 1000; if (Object.is(v, -0) || v === 0) v = 0; return String(v); };
+    const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+    function fieldHTML(st, def) {
+      const k = def[0];
+      if (k === 'axis') {
+        const opts = st.type === 'glide' ? ['x', 'y', 'y=x', 'y=-x'] : ['x', 'y', 'y=x', 'y=-x', 'x=a', 'y=b'];
+        return '<label class="bk-f">sumbu<select onchange="bkApi.setAxis(' + st.id + ',this.value)">' + opts.map(o => '<option value="' + o + '"' + (o === st.axis ? ' selected' : '') + '>' + AXNAME[o].replace(/ \(.*\)/, '') + '</option>').join('') + '</select></label>';
+      }
+      if (st.type === 'mirror' && k === 'a' && st.axis !== 'x=a' && st.axis !== 'y=b') return '';
+      return '<label class="bk-f">' + def[1] + '<input type="number" inputmode="decimal" step="' + def[2] + '" min="' + def[3] + '" max="' + def[4] + '" value="' + f3(st[k]) + '" oninput="bkApi.set(' + st.id + ',\'' + k + '\',this.value)"></label>';
+    }
+    function renderStages() {
+      const el = document.getElementById('bk-stages');
+      if (!bk.stages.length) { el.innerHTML = '<div class="text-xs text-slate-500 bg-slate-50 border border-dashed border-slate-300 rounded-xl p-3 text-center">Belum ada layer. Tambahkan transformasi di bawah — motif dasar akan digandakan.</div>'; return; }
+      el.innerHTML = bk.stages.map((st, i) => {
+        const last = i === bk.stages.length - 1;
+        return '<div class="bk-stage' + (st.on ? '' : ' off') + '"><div class="hd"><span class="inline-flex w-5 h-5 rounded-full bg-teal-600 text-white text-[10px] items-center justify-center">' + (i + 1) + '</span>' + TNAME[st.type] +
+          '<span class="sp"></span><button title="Naik (dijalankan lebih dulu)" onclick="bkApi.move(' + st.id + ',-1)"' + (i === 0 ? ' disabled style="opacity:.3"' : '') + '><i class="fa-solid fa-arrow-up"></i></button>' +
+          '<button title="Turun" onclick="bkApi.move(' + st.id + ',1)"' + (last ? ' disabled style="opacity:.3"' : '') + '><i class="fa-solid fa-arrow-down"></i></button>' +
+          '<button title="Aktif/nonaktif" onclick="bkApi.toggleStage(' + st.id + ')"><i class="fa-solid ' + (st.on ? 'fa-eye' : 'fa-eye-slash') + '"></i></button>' +
+          '<button class="del" title="Hapus" onclick="bkApi.del(' + st.id + ')"><i class="fa-solid fa-trash"></i></button></div>' +
+          '<div class="bk-fields">' + SCH[st.type].map(d => fieldHTML(st, d)).join('') + '</div></div>';
+      }).join('');
+    }
+    function setStage(id, k, v) {
+      const st = bk.stages.find(s => s.id === id); if (!st) return;
+      const def = SCH[st.type].find(d => d[0] === k); let x = parseFloat(v); if (!isFinite(x) || !def) return;
+      x = Math.min(def[4], Math.max(def[3], x)); if (def[2] === 1) x = Math.round(x); st[k] = x;
+      afterChange(false);
+    }
+
+    /* ---------- UI: rumus & non-komutatif ---------- */
+    const pmat = m => String.raw`\begin{pmatrix}${f3(m.m11)}&${f3(m.m12)}\\${f3(m.m21)}&${f3(m.m22)}\end{pmatrix}`;
+    const pvec = m => String.raw`\begin{pmatrix}${f3(m.tx)}\\${f3(m.ty)}\end{pmatrix}`;
+    const tex = s => (window.katex ? katex.renderToString(s, { throwOnError: false }) : esc(s));
+    function renderFormulas() {
+      const act = bk.stages.filter(s => s.on), el = document.getElementById('bk-formulas');
+      if (!act.length) { el.innerHTML = '<span class="text-slate-500">Tambahkan layer untuk melihat matriksnya.</span>'; fillNC(); return; }
+      let h = act.map((st, i) => { const m = gen(st);
+        return '<div class="whitespace-nowrap"><span class="font-bold text-teal-700">Layer ' + (i + 1) + ' · ' + TNAME[st.type] + '</span> ' + tex('M_{' + (i + 1) + '}=' + pmat(m) + ',\\; t_{' + (i + 1) + '}=' + pvec(m)) + '</div>'; }).join('');
+      let T = { ...I }; act.forEach(st => { T = mul(gen(st), T); });
+      const name = act.map((_, i) => 'M_{' + (act.length - i) + '}').join('\\cdot ');
+      h += '<div class="whitespace-nowrap pt-1 border-t border-slate-200"><span class="font-bold text-rose-700">Komposisi generator</span> ' + tex('M_{total}=' + name + '=' + pmat(T) + ',\\; t=' + pvec(T)) + '</div>';
+      el.innerHTML = h; fillNC();
+    }
+    function fillNC() {
+      const act = bk.stages.filter(s => s.on), a = document.getElementById('bk-nc-a'), b = document.getElementById('bk-nc-b'), out = document.getElementById('bk-nc-out');
+      const opts = act.map((st, i) => '<option value="' + i + '">Layer ' + (i + 1) + ' (' + TNAME[st.type].split(' ')[0] + ')</option>').join('');
+      a.innerHTML = opts; b.innerHTML = opts;
+      if (act.length < 2) { out.innerHTML = '<span class="text-slate-500">Butuh minimal 2 layer aktif.</span>'; return; }
+      bk.ncA = Math.min(bk.ncA, act.length - 1); bk.ncB = Math.min(bk.ncB, act.length - 1); if (bk.ncA === bk.ncB) bk.ncB = (bk.ncA + 1) % act.length;
+      a.value = bk.ncA; b.value = bk.ncB; ncCalc();
+    }
+    function ncCalc() {
+      const act = bk.stages.filter(s => s.on), out = document.getElementById('bk-nc-out');
+      if (act.length < 2) return;
+      const A = gen(act[bk.ncA]), B = gen(act[bk.ncB]), BA = mul(B, A), AB = mul(A, B);
+      const same = ['m11', 'm12', 'm21', 'm22', 'tx', 'ty'].every(k => Math.abs(BA[k] - AB[k]) < 1e-6);
+      out.innerHTML = '<div class="whitespace-nowrap">' + tex('M_B\\cdot M_A=' + pmat(BA) + ',\\; t=' + pvec(BA)) + '</div>' +
+        '<div class="whitespace-nowrap">' + tex('M_A\\cdot M_B=' + pmat(AB) + ',\\; t=' + pvec(AB)) + '</div>' +
+        '<div class="font-black mt-1 ' + (same ? 'text-emerald-700' : 'text-rose-700') + '">' + (same ? '✔ Sama → pasangan ini komutatif.' : '✘ Berbeda → perkalian matriks tidak komutatif: urutan transformasi mengubah motif!') + '</div>';
+    }
+    function afterChange(rebuildList) {
+      if (rebuildList !== false) renderStages();
+      renderFormulas(); if (bk.chal) bk.chal.mask = bk.chal.mask; redraw();
+    }
+
+    /* ---------- UI: template & primitif ---------- */
+    function renderTplBtns() {
+      document.getElementById('bk-tpl-btns').innerHTML = Object.keys(TPL).map(k =>
+        '<button class="bk-tpl' + (bk.tpl === k ? ' on' : '') + '" onclick="bkApi.loadTpl(\'' + k + '\')">' + TPL[k].name + '</button>').join('');
+      const sel = document.getElementById('bk-chal-sel');
+      if (!sel.options.length) sel.innerHTML = ['kawung', 'parang', 'mendung', 'candi'].map(k => '<option value="' + k + '">' + TPL[k].name + '</option>').join('');
+      const info = document.getElementById('bk-info'); info.innerHTML = TPL[bk.tpl].info;
+      if (window.renderMathInElement) renderMathEquations(info);
+    }
+    function renderPrims() {
+      document.getElementById('bk-prims').innerHTML = Object.keys(MOT).map(k =>
+        '<button class="bk-chip' + (bk.motifId === k ? ' on' : '') + '" onclick="bkApi.setMotif(\'' + k + '\')">' + MOT[k].name + '</button>').join('');
+      document.getElementById('bk-editor').classList.toggle('hidden', bk.motifId !== 'custom');
+      if (bk.motifId === 'custom') drawEditor();
+    }
+    function applyTpl(k) {
+      const t = TPL[k]; bk.tpl = k; bk.motifId = t.motif; bk.pal = t.pal; bk.stages = t.mk(); bk.span = t.span;
+      bk.userView = false; bk.view = viewFor(size.w, size.h, t.span); bk.ncA = 0; bk.ncB = 1;
+      document.getElementById('bk-palette').value = bk.pal;
+      renderTplBtns(); renderPrims(); renderStages(); renderFormulas(); redraw();
+    }
+
+    /* ---------- Editor motif sendiri ---------- */
+    const ED = { n: 260, sc: 260 / 6, drag: -1 };
+    function edXY(e) { const r = e.target.getBoundingClientRect(); const px = (e.clientX - r.left) * ED.n / r.width, py = (e.clientY - r.top) * ED.n / r.height; return [px, py, (px - ED.n / 2) / ED.sc, (ED.n / 2 - py) / ED.sc]; }
+    function drawEditor() {
+      const c = document.getElementById('bk-ed'), g = c.getContext('2d'), n = ED.n, sc = ED.sc;
+      g.setTransform(1, 0, 0, 1, 0, 0); g.fillStyle = '#fff'; g.fillRect(0, 0, n, n);
+      g.strokeStyle = '#e2e8f0'; g.lineWidth = 1; g.beginPath();
+      for (let i = -3; i <= 3; i++) { const p = n / 2 + i * sc; g.moveTo(p, 0); g.lineTo(p, n); g.moveTo(0, p); g.lineTo(n, p); } g.stroke();
+      g.strokeStyle = '#94a3b8'; g.lineWidth = 1.5; g.beginPath(); g.moveTo(0, n / 2); g.lineTo(n, n / 2); g.moveTo(n / 2, 0); g.lineTo(n / 2, n); g.stroke();
+      const mt = motif('custom'); g.setTransform(sc, 0, 0, -sc, n / 2, n / 2); g.lineWidth = 0.05;
+      if (mt.d) { if (!mt.noFill) { g.fillStyle = 'rgba(13,148,136,.3)'; g.fill(mt.path, 'evenodd'); } g.strokeStyle = '#0f766e'; g.stroke(mt.path); }
+      g.setTransform(1, 0, 0, 1, 0, 0);
+      bk.custom.pts.forEach((p, i) => { g.fillStyle = i === 0 ? '#e11d48' : '#0f766e'; g.beginPath(); g.arc(n / 2 + p[0] * sc, n / 2 - p[1] * sc, 5, 0, 7); g.fill(); });
+    }
+    function initEditor() {
+      const c = document.getElementById('bk-ed'), snap = v => Math.round(v * 4) / 4;
+      const near = (px, py) => bk.custom.pts.findIndex(p => Math.hypot(ED.n / 2 + p[0] * ED.sc - px, ED.n / 2 - p[1] * ED.sc - py) < 12);
+      c.addEventListener('pointerdown', e => {
+        const [px, py, x, y] = edXY(e), i = near(px, py);
+        if (i >= 0) ED.drag = i; else { bk.custom.pts.push([snap(Math.max(-3, Math.min(3, x))), snap(Math.max(-3, Math.min(3, y)))]); ED.drag = bk.custom.pts.length - 1; }
+        c.setPointerCapture(e.pointerId); customChanged();
+      });
+      c.addEventListener('pointermove', e => { if (ED.drag < 0) return; const [, , x, y] = edXY(e); bk.custom.pts[ED.drag] = [snap(Math.max(-3, Math.min(3, x))), snap(Math.max(-3, Math.min(3, y)))]; customChanged(); });
+      const up = () => { ED.drag = -1; }; c.addEventListener('pointerup', up); c.addEventListener('pointercancel', up);
+      c.addEventListener('dblclick', e => { const [px, py] = edXY(e), i = near(px, py); if (i >= 0 && bk.custom.pts.length > 2) { bk.custom.pts.splice(i, 1); customChanged(); } });
+    }
+    function customChanged() { drawEditor(); if (bk.motifId === 'custom') { if (bk.chal) bk.chal.mask = bk.chal.mask; redraw(); } }
+
+    /* ---------- Pan & zoom ---------- */
+    function zoomAt(f, cx, cy) {
+      bk.userView = true;
+      const v = bk.view, ns = Math.min(400, Math.max(4, v.s * f)), r = ns / v.s;
+      v.ox = cx - (cx - v.ox) * r; v.oy = cy - (cy - v.oy) * r; v.s = ns; redraw();
+    }
+    function initPan() {
+      const c = cv(), ptrs = new Map(); let last = 0;
+      c.addEventListener('pointerdown', e => { c.setPointerCapture(e.pointerId); ptrs.set(e.pointerId, [e.clientX, e.clientY]); last = 0; });
+      c.addEventListener('pointermove', e => {
+        if (!ptrs.has(e.pointerId)) return; const prev = ptrs.get(e.pointerId); ptrs.set(e.pointerId, [e.clientX, e.clientY]);
+        if (ptrs.size === 1) { bk.userView = true; bk.view.ox += e.clientX - prev[0]; bk.view.oy += e.clientY - prev[1]; redraw(); }
+        else if (ptrs.size === 2) {
+          const [a, b] = [...ptrs.values()], d = Math.hypot(a[0] - b[0], a[1] - b[1]);
+          if (last) { const r = c.getBoundingClientRect(); zoomAt(d / last, (a[0] + b[0]) / 2 - r.left, (a[1] + b[1]) / 2 - r.top); } last = d;
+        }
+      });
+      const end = e => { ptrs.delete(e.pointerId); last = 0; }; c.addEventListener('pointerup', end); c.addEventListener('pointercancel', end);
+      c.addEventListener('wheel', e => { e.preventDefault(); const r = c.getBoundingClientRect(); zoomAt(e.deltaY < 0 ? 1.12 : 1 / 1.12, e.clientX - r.left, e.clientY - r.top); }, { passive: false });
+    }
+    function resize() {
+      const st = document.getElementById('bk-stage'); if (!st || !st.clientWidth || !st.clientHeight) return;
+      const c = cv(), dpr = Math.min(window.devicePixelRatio || 1, 2), w = st.clientWidth, h = st.clientHeight;
+      const first = !size.w;
+      const old = size;
+      size = { w, h, dpr }; c.width = Math.round(w * dpr); c.height = Math.round(h * dpr);
+      if (first || !bk.userView) bk.view = viewFor(w, h, bk.span);
+      else { bk.view.ox += (w - old.w) / 2; bk.view.oy += (h - old.h) / 2; }
+      redraw();
+    }
+
+    /* ---------- Ekspor PNG / SVG + Sertifikat ---------- */
+    function layerLines() {
+      const act = bk.stages.filter(s => s.on), L = [];
+      act.forEach((st, i) => {
+        const m = gen(st); let t;
+        switch (st.type) {
+          case 'rot': t = 'Rotasi ' + f3(360 / st.n) + '° (n=' + st.n + ') pusat (' + f3(st.px) + ',' + f3(st.py) + ')'; break;
+          case 'mirror': t = 'Refleksi terhadap ' + AXNAME[st.axis].replace(/ [ab]$/, ' ') + (st.axis === 'x=a' ? ' [x = ' + f3(st.a) + ']' : st.axis === 'y=b' ? ' [y = ' + f3(st.a) + ']' : ''); break;
+          case 'glide': t = 'Glide: refleksi ' + AXNAME[st.axis] + ' + geser s=' + f3(st.s) + ', k=−' + st.m + '..' + st.m; break;
+          case 'lattice': t = 'Translasi kisi u=(' + f3(st.ux) + ',' + f3(st.uy) + ') ±' + st.mu + ', v=(' + f3(st.vx) + ',' + f3(st.vy) + ') ±' + st.mv; break;
+          case 'fractal': t = 'Fraktal k=' + f3(st.k) + ', θ=' + f3(st.th) + '°, cabang ' + st.br + ', kedalaman ' + st.depth; break;
+          case 'matrix': t = 'Matriks bebas, ulang n=' + st.n; break;
+        }
+        L.push(['Layer ' + (i + 1) + ': ' + t, '   M = [ ' + f3(m.m11) + '  ' + f3(m.m12) + ' ; ' + f3(m.m21) + '  ' + f3(m.m22) + ' ]    t = ( ' + f3(m.tx) + ' , ' + f3(m.ty) + ' )']);
+      });
+      let T = { ...I }; act.forEach(st => { T = mul(gen(st), T); });
+      return { L, total: act.length ? 'M_total = ' + act.map((_, i) => 'M' + (act.length - i)).join('·') + ' = [ ' + f3(T.m11) + '  ' + f3(T.m12) + ' ; ' + f3(T.m21) + '  ' + f3(T.m22) + ' ],  t = ( ' + f3(T.tx) + ' , ' + f3(T.ty) + ' )' : '' };
+    }
+    function exportView(W) {                       // tampilan persegi yang sama dengan kanvas saat ini
+      const m = Math.min(size.w, size.h), k = W / m;
+      return { s: bk.view.s * k, ox: W / 2 + (bk.view.ox - size.w / 2) * k, oy: W / 2 + (bk.view.oy - size.h / 2) * k };
+    }
+    function meta() {
+      const nm = (document.getElementById('bk-name').value || '').trim() || '—';
+      return { nm, date: new Date().toLocaleDateString('id-ID', { dateStyle: 'long' }), tplName: TPL[bk.tpl].name, mt: MOT[bk.motifId].name };
+    }
+    function download(url, name) { const a = document.createElement('a'); a.href = url; a.download = name; document.body.appendChild(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(url), 2000); }
+    function exportPNG() {
+      const res = build(bk.stages); if (res.over) return alert('Terlalu banyak salinan. Kurangi parameter dulu.');
+      const W = 1100, { L, total } = layerLines(), M = meta(), certH = 250 + L.length * 62 + (total ? 70 : 0);
+      const c = document.createElement('canvas'); c.width = W; c.height = W + certH; const g = c.getContext('2d'), pal = PAL[bk.pal];
+      g.fillStyle = pal.bg; g.fillRect(0, 0, W, W); paint(g, 1, exportView(W), motif(bk.motifId), res.list, 'color', pal);
+      g.fillStyle = '#fffdf7'; g.fillRect(0, W, W, certH); g.fillStyle = '#b45309'; g.fillRect(0, W, W, 8);
+      let y = W + 62; g.textBaseline = 'alphabetic';
+      g.fillStyle = '#7c2d12'; g.font = 'bold 38px Georgia, serif'; g.fillText('SERTIFIKAT FORMULA MATRIKS', 44, y);
+      y += 36; g.fillStyle = '#475569'; g.font = '20px sans-serif'; g.fillText('Mathematical Art · GeoMatrix Lab — Etnomatematika Motif Batik & Fraktal', 44, y);
+      y += 40; g.fillStyle = '#0f172a'; g.font = 'bold 24px sans-serif'; g.fillText('Nama: ' + M.nm, 44, y);
+      y += 32; g.font = '20px sans-serif'; g.fillText('Basis: ' + M.tplName + ' · Motif dasar: ' + M.mt + ' · ' + res.list.length.toLocaleString('id-ID') + ' salinan · ' + M.date, 44, y);
+      y += 44; g.fillStyle = '#0f766e'; g.font = 'bold 20px sans-serif'; g.fillText('Urutan transformasi (layer 1 dijalankan lebih dulu):', 44, y);
+      L.forEach(([a, b]) => { y += 34; g.fillStyle = '#0f172a'; g.font = 'bold 19px sans-serif'; g.fillText(a, 44, y); y += 28; g.fillStyle = '#334155'; g.font = '18px "Courier New", monospace'; g.fillText(b, 44, y); });
+      if (total) { y += 50; g.fillStyle = '#be123c'; g.font = 'bold 19px "Courier New", monospace'; g.fillText(total, 44, y); }
+      c.toBlob(b => download(URL.createObjectURL(b), 'motif-geomatrix-' + bk.tpl + '.png'), 'image/png');
+    }
+    function exportSVG() {
+      const res = build(bk.stages); if (res.over) return alert('Terlalu banyak salinan. Kurangi parameter dulu.');
+      const W = 1100, { L, total } = layerLines(), M = meta(), certH = 250 + L.length * 62 + (total ? 70 : 0), pal = PAL[bk.pal], mt = motif(bk.motifId), V = exportView(W);
+      const base = { m11: V.s, m12: 0, m21: 0, m22: -V.s, tx: V.ox, ty: V.oy, lv: 0 }, n = pal.fills.length, r = x => +x.toFixed(4);
+      let s = '<svg xmlns="http://www.w3.org/2000/svg" width="' + W + '" height="' + (W + certH) + '" viewBox="0 0 ' + W + ' ' + (W + certH) + '">';
+      s += '<defs><clipPath id="c"><rect width="' + W + '" height="' + W + '"/></clipPath><path id="m" d="' + esc(mt.d) + '" fill-rule="evenodd"/></defs>';
+      s += '<rect width="' + W + '" height="' + W + '" fill="' + pal.bg + '"/><g clip-path="url(#c)" stroke="' + pal.line + '" stroke-width="0.045" stroke-linejoin="round">';
+      for (const A of res.list) { const T = mul(base, mul(A, mt.pre));
+        s += '<use href="#m" transform="matrix(' + [T.m11, T.m21, T.m12, T.m22, T.tx, T.ty].map(r).join(' ') + ')" fill="' + (mt.noFill ? 'none' : pal.fills[(A.lv || 0) % n]) + '" fill-opacity=".82"/>'; }
+      s += '</g><rect y="' + W + '" width="' + W + '" height="' + certH + '" fill="#fffdf7"/><rect y="' + W + '" width="' + W + '" height="8" fill="#b45309"/>';
+      let y = W + 62; const t = (txt, sz, fill, bold, mono) => { s += '<text x="44" y="' + y + '" font-size="' + sz + '" fill="' + fill + '" font-family="' + (mono ? 'Courier New,monospace' : 'sans-serif') + '"' + (bold ? ' font-weight="bold"' : '') + '>' + esc(txt) + '</text>'; };
+      t('SERTIFIKAT FORMULA MATRIKS', 38, '#7c2d12', true); y += 36; t('Mathematical Art · GeoMatrix Lab — Etnomatematika Motif Batik & Fraktal', 20, '#475569');
+      y += 40; t('Nama: ' + M.nm, 24, '#0f172a', true); y += 32; t('Basis: ' + M.tplName + ' · Motif dasar: ' + M.mt + ' · ' + res.list.length + ' salinan · ' + M.date, 20, '#0f172a');
+      y += 44; t('Urutan transformasi (layer 1 dijalankan lebih dulu):', 20, '#0f766e', true);
+      L.forEach(([a, b]) => { y += 34; t(a, 19, '#0f172a', true); y += 28; t(b, 18, '#334155', false, true); });
+      if (total) { y += 50; t(total, 19, '#be123c', true, true); }
+      s += '</svg>';
+      download(URL.createObjectURL(new Blob([s], { type: 'image/svg+xml' })), 'motif-geomatrix-' + bk.tpl + '.svg');
+    }
+
+    /* ---------- API publik (dipanggil dari HTML) ---------- */
+    window.bkApi = {
+      set: setStage,
+      setAxis(id, v) { const st = bk.stages.find(s => s.id === id); if (st) { st.axis = v; afterChange(true); } },
+      add(type) { bk.stages.push(S(type)); afterChange(true); },
+      del(id) { bk.stages = bk.stages.filter(s => s.id !== id); afterChange(true); },
+      toggleStage(id) { const st = bk.stages.find(s => s.id === id); if (st) { st.on = !st.on; afterChange(true); } },
+      move(id, d) { const i = bk.stages.findIndex(s => s.id === id), j = i + d; if (i < 0 || j < 0 || j >= bk.stages.length) return; [bk.stages[i], bk.stages[j]] = [bk.stages[j], bk.stages[i]]; afterChange(true); },
+      setMotif(id) { bk.motifId = id; renderPrims(); redraw(); },
+      setPalette(p) { bk.pal = p; redraw(); },
+      toggle(k, v) { bk[k] = v; if (k === 'cmp') document.getElementById('bk-cmp-wrap').classList.toggle('hidden', !v); redraw(); },
+      zoom(f) { zoomAt(f, size.w / 2, size.h / 2); },
+      resetView() { bk.userView = false; bk.view = viewFor(size.w, size.h, bk.span); redraw(); },
+      loadTpl(k) { this.exitChallenge(true); applyTpl(k); },
+      nc() { bk.ncA = +document.getElementById('bk-nc-a').value; bk.ncB = +document.getElementById('bk-nc-b').value; ncCalc(); },
+      edOpt() { bk.custom.closed = document.getElementById('bk-ed-closed').checked; bk.custom.smooth = document.getElementById('bk-ed-smooth').checked; customChanged(); },
+      edUndo() { bk.custom.pts.pop(); customChanged(); },
+      edClear() { bk.custom.pts = []; customChanged(); },
+      startChallenge() {
+        const k = document.getElementById('bk-chal-sel').value, t = TPL[k];
+        bk.chal = { tpl: k, hint: 0, span: t.span, target: build(t.mk()).list, mask: null };
+        bk.tpl = 'bebas'; bk.motifId = t.motif; bk.pal = t.pal; bk.stages = []; bk.span = t.span; bk.userView = false; bk.view = viewFor(size.w, size.h, t.span);
+        document.getElementById('bk-palette').value = bk.pal; document.getElementById('bk-chal-box').classList.remove('hidden');
+        document.getElementById('bk-chal-badge').classList.remove('hidden'); document.getElementById('bk-hints').innerHTML = '';
+        bk.tpl = k; renderTplBtns(); renderPrims(); renderStages(); renderFormulas(); redraw();
+      },
+      hint() { if (!bk.chal) return; const h = TPL[bk.chal.tpl].hints; if (bk.chal.hint < h.length) bk.chal.hint++; document.getElementById('bk-hints').innerHTML = h.slice(0, bk.chal.hint).map((t, i) => '<div class="bg-amber-50 border border-amber-200 rounded-lg px-2 py-1"><b>Petunjuk ' + (i + 1) + ':</b> ' + t + '</div>').join(''); },
+      showKey() { if (!bk.chal) return; const t = TPL[bk.chal.tpl]; bk.stages = t.mk(); bk.motifId = t.motif; renderPrims(); renderStages(); renderFormulas(); redraw(); },
+      exitChallenge(silent) { bk.chal = null; document.getElementById('bk-chal-box').classList.add('hidden'); document.getElementById('bk-chal-badge').classList.add('hidden'); if (!silent) redraw(); },
+      exportPNG, exportSVG,
+      onShow() { setTimeout(() => { resize(); renderFormulas(); }, 30); }
+    };
+
+    document.addEventListener('DOMContentLoaded', () => {
+      initEditor(); initPan();
+      const st = document.getElementById('bk-stage');
+      if (window.ResizeObserver) new ResizeObserver(resize).observe(st); window.addEventListener('resize', resize);
+      applyTpl('kawung'); renderPrims();
+    });
+  })();
   </script>
 </body>
 </html>
