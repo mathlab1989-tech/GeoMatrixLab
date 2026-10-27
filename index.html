@@ -217,16 +217,16 @@
     .bk-stage .hd button.wand { background: #fef3c7; color: #b45309; }
     .bk-stage .hd button.wand:hover { background: #fde68a; }
     #bk-bubble { position: absolute; left: 8px; bottom: 34px; z-index: 25; max-width: min(340px, calc(100% - 16px)); display: flex; gap: 8px; align-items: flex-end; animation: bkpop .3s ease-out; }
-    #bk-bubble.hidden, #bk-tour.hidden, #bk-tip.hidden, #bk-toast.hidden { display: none !important; }
+    #bk-bubble.hidden, #bk-tour.hidden, #lab-tour.hidden, #bk-tip.hidden, #bk-toast.hidden { display: none !important; }
     @keyframes bkpop { from { opacity: 0; transform: translateY(8px) scale(.96); } to { opacity: 1; transform: none; } }
     #bk-bubble .av { width: 38px; height: 38px; border-radius: 50%; background: linear-gradient(135deg,#f59e0b,#ea580c); color: #fff; display: flex; align-items: center; justify-content: center; flex: none; box-shadow: 0 6px 14px rgba(245,158,11,.45); }
     #bk-bubble .bd { background: #fff; border: 2px solid #f59e0b; border-radius: 16px 16px 16px 4px; padding: 8px 10px; box-shadow: 0 12px 28px rgba(0,0,0,.18); font-size: .75rem; color: #334155; line-height: 1.4; }
-    #bk-tour { position: fixed; inset: 0; z-index: 80; }
-    #bk-tour-hole { position: fixed; border-radius: 14px; box-shadow: 0 0 0 9999px rgba(15,23,42,.64); border: 2px solid #fbbf24; transition: all .25s ease; pointer-events: none; }
-    #bk-tour-card { position: fixed; width: min(330px, calc(100vw - 20px)); background: #fff; border-radius: 16px; padding: 14px; box-shadow: 0 20px 50px rgba(0,0,0,.35); border-top: 5px solid #f59e0b; }
-    #bk-tour-dots i { display: block; width: 7px; height: 7px; border-radius: 50%; background: #e2e8f0; }
-    #bk-tour-dots i.on { background: #f59e0b; }
-    @media (prefers-reduced-motion: reduce) { #bk-tour-hole { transition: none; } #bk-bubble { animation: none; } }
+    #bk-tour, #lab-tour { position: fixed; inset: 0; z-index: 80; }
+    #bk-tour-hole, #lt-hole { position: fixed; border-radius: 14px; box-shadow: 0 0 0 9999px rgba(15,23,42,.64); border: 2px solid #fbbf24; transition: all .25s ease; pointer-events: none; }
+    #bk-tour-card, #lt-card { position: fixed; width: min(330px, calc(100vw - 20px)); background: #fff; border-radius: 16px; padding: 14px; box-shadow: 0 20px 50px rgba(0,0,0,.35); border-top: 5px solid #f59e0b; }
+    #bk-tour-dots i, #lt-dots i { display: block; width: 7px; height: 7px; border-radius: 50%; background: #e2e8f0; }
+    #bk-tour-dots i.on, #lt-dots i.on { background: #f59e0b; }
+    @media (prefers-reduced-motion: reduce) { #bk-tour-hole, #lt-hole { transition: none; } #bk-bubble { animation: none; } }
   </style>
 </head>
 <body class="h-full flex flex-col font-sans overflow-x-hidden antialiased text-slate-800 select-none bg-slate-50">
@@ -322,7 +322,7 @@
     <main id="tab-lab" class="tab-page flex-1 flex flex-col overflow-hidden">
       
       <!-- Sub-Bar: Transformation & Object Selection Controls -->
-      <div class="bg-white border-b border-slate-200 p-2 sm:p-3 flex flex-wrap items-center justify-between gap-2 shrink-0">
+      <div id="lab-selectors" class="bg-white border-b border-slate-200 p-2 sm:p-3 flex flex-wrap items-center justify-between gap-2 shrink-0">
         
         <!-- Transformation Selector -->
         <div class="flex items-center gap-1 bg-slate-50 p-1 rounded-xl border border-slate-200 overflow-x-auto max-w-full">
@@ -352,6 +352,9 @@
 
           <button onclick="resetLabView()" class="px-2.5 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-600 border border-slate-200 text-xs font-bold flex items-center gap-1">
             <i class="fa-solid fa-arrows-rotate"></i> Reset
+          </button>
+          <button type="button" id="lab-tour-btn" onclick="labTour.start()" class="px-2.5 py-1.5 rounded-lg bg-amber-100 hover:bg-amber-200 text-amber-800 border border-amber-300 text-xs font-black flex items-center gap-1" title="Tampilkan panduan interaktif Lab Maya" aria-label="Tampilkan tur panduan Lab Maya">
+            <i class="fa-solid fa-circle-question"></i><span class="hidden sm:inline">Tur Lab</span>
           </button>
         </div>
       </div>
@@ -408,7 +411,7 @@
           </div>
 
           <!-- Interactive Canvas -->
-          <div class="flex-1 w-full h-full relative cursor-crosshair">
+          <div id="lab-canvas-wrap" class="flex-1 w-full h-full relative cursor-crosshair">
             <canvas id="lab-canvas" role="img" aria-label="Bidang Cartesius" class="absolute inset-0 w-full h-full"></canvas>
             <div id="anim-info" role="status" aria-live="polite" class="hidden absolute bottom-3 right-3 z-10 glass-card px-3 py-2 rounded-lg text-[11px] font-bold text-purple-800 shadow-sm pointer-events-none space-y-0.5"></div>
             <button id="assistant-fab" onclick="openAssistant()" title="Buka Asisten Penemuan" aria-label="Buka Asisten Penemuan" class="hidden absolute z-20 left-3 bottom-3 items-center gap-2 px-3 sm:px-3.5 py-2.5 rounded-full bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-400 hover:to-orange-400 text-white text-xs font-bold shadow-lg shadow-amber-500/30 active:scale-95 transition-all">
@@ -4619,7 +4622,7 @@
     <div id="bk-tour-card">
       <div class="flex items-center justify-between mb-1">
         <span id="bk-tour-count" class="text-[10px] font-black uppercase tracking-wide text-amber-600"></span>
-        <button type="button" id="bk-tour-skip" class="text-[11px] font-bold text-slate-400 hover:text-slate-600 underline">Lewati</button>
+        <button type="button" id="bk-tour-skip" class="text-[11px] font-bold text-slate-500 hover:text-rose-600 flex items-center gap-1" aria-label="Lewati tur"><i class="fa-solid fa-xmark"></i> Lewati tur</button>
       </div>
       <h4 id="bk-tour-title" class="font-black text-slate-900 text-sm"></h4>
       <p id="bk-tour-text" class="text-xs text-slate-600 mt-1 leading-relaxed"></p>
@@ -4633,6 +4636,26 @@
     </div>
   </div>
   <div id="bk-tip" class="hidden" role="tooltip"></div>
+
+  <!-- Tur terpandu Lab Maya (Amati → Prediksi → Uji → Putar Animasi) -->
+  <div id="lab-tour" class="hidden" role="dialog" aria-modal="true" aria-labelledby="lt-title">
+    <div id="lt-hole"></div>
+    <div id="lt-card">
+      <div class="flex items-center justify-between mb-1">
+        <span id="lt-count" class="text-[10px] font-black uppercase tracking-wide text-amber-600"></span>
+        <button type="button" id="lt-skip" class="text-[11px] font-bold text-slate-500 hover:text-rose-600 flex items-center gap-1" aria-label="Lewati tur"><i class="fa-solid fa-xmark"></i> Lewati tur</button>
+      </div>
+      <h4 id="lt-title" class="font-black text-slate-900 text-sm"></h4>
+      <p id="lt-text" class="text-xs text-slate-600 mt-1 leading-relaxed"></p>
+      <div class="flex items-center justify-between mt-3">
+        <div id="lt-dots" class="flex gap-1" aria-hidden="true"></div>
+        <div class="flex gap-1.5">
+          <button type="button" id="lt-prev" class="bk-btn bg-slate-100 text-slate-700 border border-slate-300">Kembali</button>
+          <button type="button" id="lt-next" class="bk-btn bg-amber-500 hover:bg-amber-400 text-white">Lanjut</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <script>
   /* ==========================================================================
@@ -5641,6 +5664,119 @@
       if (window.ResizeObserver) new ResizeObserver(resize).observe(st); window.addEventListener('resize', resize);
       applyTpl('kawung'); renderPrims();
     });
+  })();
+  </script>
+  <script>
+  /* ==========================================================================
+     TUR TERPANDU LAB MAYA — menuntun alur penemuan: Pilih → Amati → Prediksi → Uji → Putar Animasi.
+     Teks hanya menunjuk DI MANA siswa bekerja, tidak pernah menyebut APA yang harus diisi.
+     ========================================================================== */
+  (function () {
+    const KEY = 'gm_lab_tour_v1';
+    const $ = id => document.getElementById(id);
+    const mobile = () => window.innerWidth < 1024;
+    const visible = el => !!(el && el.getClientRects().length);
+    const seen = () => { try { return localStorage.getItem(KEY) === '1'; } catch (e) { return false; } };
+    const mark = () => { try { localStorage.setItem(KEY, '1'); } catch (e) { /* abaikan */ } };
+    const labVisible = () => { const a = $('app-container'), t = $('tab-lab'); return !!(a && t && !a.classList.contains('hidden') && !t.classList.contains('hidden')); };
+    const modalOpen = () => ['guide-modal', 'info-modal'].some(id => { const m = $(id); return m && !m.classList.contains('hidden'); });
+    const panel = () => { if (mobile()) switchMobileLabTab('panel'); };
+    const canvas = () => { if (mobile()) switchMobileLabTab('canvas'); };
+
+    const STEPS = [
+      { sel: '#lab-selectors', title: 'Langkah 1 · Pilih senjatamu!', prep: canvas,
+        text: 'Mulailah dari sini: pilih jenis objek (titik, garis, kurva, atau bidang) dan jenis transformasi (translasi, refleksi, rotasi, atau dilatasi) yang ingin kamu selidiki.' },
+      { sel: '#lab-canvas-wrap', title: 'Langkah 2 · Amati baik-baik', prep: canvas,
+        text: 'Ini bidang koordinat. Lihat posisi awal objek, lalu geser titik-titik yang bisa digeser dan perhatikan bagaimana koordinat bayangannya ikut berubah.' },
+      { sel: '#step-1', title: 'Langkah 3 · Catat polanya', prep() { panel(); goToStep(1); },
+        text: 'Ubah parameter di panel ini dan baca tabel pola. Cari keteraturan antara koordinat awal dan koordinat bayangannya sebelum melangkah ke prediksi.' },
+      { sel: '#step-2', title: 'Langkah 4 · Waktunya menebak!', prep() { panel(); goToStep(2); },
+        text: 'Berdasarkan pengamatanmu, isi sendiri kotak-kotak hipotesis di sini dengan nilai yang menurutmu tepat, lalu tekan “Lanjut ke Uji” untuk mencocokkannya dengan hasil sebenarnya.' },
+      { sel: '#step-4', title: 'Langkah 5 · Buktikan prediksimu', prep() { panel(); goToStep(4); },
+        text: 'Tekan “Transformasikan” untuk melihat gerakannya. Jika bayangan oranye (prediksimu) menimpa bayangan hijau di akhir gerak, prediksimu sudah tepat.' }
+    ];
+
+    const T = { open: false, i: 0, saved: null, t: 0, auto: false };
+
+    function place() {
+      if (!T.open) return;
+      const s = STEPS[T.i], el = document.querySelector(s.sel);
+      const hole = $('lt-hole'), card = $('lt-card');
+      if (!visible(el)) return;
+      const vw = innerWidth, vh = innerHeight, r = el.getBoundingClientRect(), pad = 4;
+      const top = Math.max(6, r.top - pad), left = Math.max(6, r.left - pad);
+      const bottom = Math.min(vh - 6, r.bottom + pad), right = Math.min(vw - 6, r.right + pad);
+      hole.style.top = top + 'px'; hole.style.left = left + 'px';
+      hole.style.width = Math.max(10, right - left) + 'px'; hole.style.height = Math.max(10, bottom - top) + 'px';
+      const cw = card.offsetWidth, ch = card.offsetHeight, gap = 12;
+      let cy, cx = Math.min(Math.max(8, (left + right) / 2 - cw / 2), vw - cw - 8);
+      if (vh - bottom >= ch + gap) cy = bottom + gap;
+      else if (top >= ch + gap) cy = top - ch - gap;
+      else if (left >= cw + gap + 8) { cx = left - cw - gap; cy = Math.min(Math.max(8, top), vh - ch - 8); }
+      else if (vw - right >= cw + gap + 8) { cx = right + gap; cy = Math.min(Math.max(8, top), vh - ch - 8); }
+      else cy = Math.max(8, vh - ch - 12);
+      card.style.left = cx + 'px'; card.style.top = cy + 'px';
+    }
+
+    function show(i) {
+      T.i = i; const s = STEPS[i];
+      if (s.prep) s.prep();
+      $('lt-count').textContent = 'Tur Lab · ' + (i + 1) + ' dari ' + STEPS.length;
+      $('lt-title').textContent = s.title;
+      $('lt-text').textContent = s.text;
+      $('lt-dots').innerHTML = STEPS.map((_, j) => '<i class="' + (j === i ? 'on' : '') + '"></i>').join('');
+      $('lt-prev').style.visibility = i === 0 ? 'hidden' : 'visible';
+      const nx = $('lt-next'); nx.textContent = i === STEPS.length - 1 ? 'Selesai ✓' : 'Lanjut →';
+      place(); requestAnimationFrame(place);
+      clearTimeout(T.t);
+      T.t = setTimeout(() => {          // tunggu animasi gulir akordeon (goToStep) selesai
+        const el = document.querySelector(s.sel); if (visible(el)) el.scrollIntoView({ block: 'nearest' });
+        place();
+      }, 520);
+      nx.focus({ preventScroll: true });
+    }
+
+    function start() {
+      if (T.open || !labVisible()) return;
+      if (typeof stopAnimation === 'function') stopAnimation(true);
+      T.saved = { step: steps.active, panel: mobile() && !$('mobile-sec-panel').classList.contains('hidden') };
+      T.open = true; $('lab-tour').classList.remove('hidden');
+      show(0);
+    }
+
+    function end() {
+      if (!T.open) return;
+      T.open = false; clearTimeout(T.t); $('lab-tour').classList.add('hidden'); mark();
+      const sv = T.saved; T.saved = null;
+      if (sv) {                          // kembalikan posisi kerja siswa seperti sebelum tur
+        if (mobile()) switchMobileLabTab(sv.panel ? 'panel' : 'canvas');
+        goToStep(sv.step);
+      }
+    }
+
+    function autoStart() {
+      if (T.auto || seen() || T.open || !labVisible() || modalOpen()) return;
+      T.auto = true; start();
+    }
+
+    function init() {
+      $('lt-next').addEventListener('click', () => { if (T.i >= STEPS.length - 1) end(); else show(T.i + 1); });
+      $('lt-prev').addEventListener('click', () => { if (T.i > 0) show(T.i - 1); });
+      $('lt-skip').addEventListener('click', end);
+      window.addEventListener('resize', place); window.addEventListener('scroll', place, true);
+      document.addEventListener('keydown', e => {
+        if (!T.open) return;
+        if (e.key === 'Escape') { e.preventDefault(); e.stopPropagation(); end(); }
+        else if (e.key === 'ArrowRight') { e.preventDefault(); if (T.i < STEPS.length - 1) show(T.i + 1); }
+        else if (e.key === 'ArrowLeft') { e.preventDefault(); if (T.i > 0) show(T.i - 1); }
+      }, true);
+      // Tur otomatis muncul sekali, tepat setelah panduan teks pembuka ditutup
+      const baseClose = window.closeModal;
+      window.closeModal = function (id) { baseClose.apply(this, arguments); if (id === 'guide-modal') setTimeout(autoStart, 450); };
+    }
+
+    window.labTour = { start, end, isOpen: () => T.open, steps: STEPS.length };
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
   })();
   </script>
 </body>
