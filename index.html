@@ -180,6 +180,53 @@
     .bk-f input:focus, .bk-f select:focus { outline: none; border-color: #f59e0b; box-shadow: 0 0 0 2px rgba(245,158,11,.25); }
     @media (max-width: 639px) { #bk-cmp { width: 110px !important; height: 110px !important; } #bk-cmp-note { max-width: 110px !important; } }
     #bk-formulas .katex, #bk-nc-out .katex { font-size: 1em; }
+
+    /* ===== Revisi UX Motif Batik: misi, slider/stepper, tooltip, tur, asisten ===== */
+    .bk-mprog { border: 1px solid #fde68a; background: linear-gradient(135deg,#fffbeb,#fff7ed); border-radius: 16px; padding: 10px 12px; }
+    .bk-mprog .bar { height: 8px; border-radius: 99px; background: rgba(245,158,11,.18); overflow: hidden; margin-top: 6px; }
+    .bk-mprog .bar > div { height: 100%; width: 0; background: linear-gradient(90deg,#f59e0b,#ea580c); transition: width .4s; }
+    .bk-mis { border: 1px dashed #f59e0b; background: #fffbeb; border-radius: 12px; padding: 8px 10px; font-size: .75rem; color: #78350f; transition: background .3s, border-color .3s; }
+    .bk-mis.done { border: 1px solid #34d399; background: #ecfdf5; color: #065f46; }
+    .bk-mis .mt { font-weight: 800; line-height: 1.35; }
+    .bk-mis ul { margin-top: 4px; display: flex; flex-direction: column; gap: 3px; font-weight: 600; }
+    .bk-mis li { display: flex; gap: 6px; align-items: flex-start; }
+    .bk-mis li .ck { width: 14px; height: 14px; border-radius: 4px; border: 1.5px solid #d97706; flex: none; margin-top: 1px; display: inline-flex; align-items: center; justify-content: center; font-size: 9px; color: #fff; background: #fff; }
+    .bk-mis li.ok .ck { background: #10b981; border-color: #10b981; }
+    .bk-mis li.ok .tx { text-decoration: line-through; opacity: .7; }
+    .bk-fields2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(172px, 1fr)); gap: 8px 12px; margin-top: 6px; }
+    .bk-f2 { display: flex; flex-direction: column; gap: 3px; min-width: 0; border-radius: 8px; padding: 2px 3px; transition: background .15s; }
+    .bk-f2:hover, .bk-f2:focus-within { background: #f0fdfa; }
+    .bk-fl { display: flex; align-items: center; gap: 4px; font-size: .66rem; font-weight: 800; color: #475569; line-height: 1.2; }
+    .bk-fl .nm { flex: 1; min-width: 0; }
+    .bk-fl output { font-variant-numeric: tabular-nums; font-weight: 900; color: #0f766e; background: #ccfbf1; border-radius: 6px; padding: 1px 6px; font-size: .7rem; white-space: nowrap; }
+    .bk-fc { display: flex; align-items: center; gap: 5px; }
+    .bk-sl { flex: 1; min-width: 0; height: 22px; accent-color: #0d9488; cursor: pointer; }
+    .bk-stp { width: 26px; height: 26px; border-radius: 8px; background: #f1f5f9; border: 1px solid #cbd5e1; color: #334155; font-weight: 900; font-size: .9rem; line-height: 1; flex: none; }
+    .bk-stp:hover { background: #ccfbf1; border-color: #5eead4; color: #0f766e; }
+    .bk-stp:active { transform: scale(.92); }
+    .bk-sel { width: 100%; height: 30px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: .76rem; font-weight: 700; color: #1e293b; background: #fff; padding: 0 6px; }
+    .bk-sel:focus { outline: none; border-color: #f59e0b; box-shadow: 0 0 0 2px rgba(245,158,11,.25); }
+    .bk-q { width: 15px; height: 15px; border-radius: 50%; background: #e0f2fe; color: #0369a1; font-size: .6rem; font-weight: 900; line-height: 1; flex: none; display: inline-flex; align-items: center; justify-content: center; cursor: help; border: 1px solid #bae6fd; }
+    .bk-q:hover, .bk-q:focus-visible { background: #0284c7; color: #fff; outline: none; }
+    #bk-tip { position: fixed; z-index: 90; max-width: 240px; background: #0f172a; color: #f8fafc; font-size: .72rem; line-height: 1.4; font-weight: 600; padding: 8px 10px; border-radius: 10px; box-shadow: 0 10px 25px rgba(0,0,0,.3); pointer-events: none; }
+    .bk-mode { display: inline-flex; border: 1px solid #cbd5e1; border-radius: 999px; overflow: hidden; font-size: .66rem; font-weight: 800; background: #fff; }
+    .bk-mode button { padding: 3px 10px; color: #64748b; }
+    .bk-mode button.on { background: #0f766e; color: #fff; }
+    .bk-note { margin-top: 6px; font-size: .7rem; font-weight: 700; color: #0f766e; background: #f0fdfa; border: 1px solid #99f6e4; border-radius: 8px; padding: 4px 8px; }
+    .bk-sdesc { font-size: .66rem; color: #64748b; font-weight: 600; margin-top: 3px; }
+    .bk-stage .hd button.wand { background: #fef3c7; color: #b45309; }
+    .bk-stage .hd button.wand:hover { background: #fde68a; }
+    #bk-bubble { position: absolute; left: 8px; bottom: 34px; z-index: 25; max-width: min(340px, calc(100% - 16px)); display: flex; gap: 8px; align-items: flex-end; animation: bkpop .3s ease-out; }
+    #bk-bubble.hidden, #bk-tour.hidden, #bk-tip.hidden, #bk-toast.hidden { display: none !important; }
+    @keyframes bkpop { from { opacity: 0; transform: translateY(8px) scale(.96); } to { opacity: 1; transform: none; } }
+    #bk-bubble .av { width: 38px; height: 38px; border-radius: 50%; background: linear-gradient(135deg,#f59e0b,#ea580c); color: #fff; display: flex; align-items: center; justify-content: center; flex: none; box-shadow: 0 6px 14px rgba(245,158,11,.45); }
+    #bk-bubble .bd { background: #fff; border: 2px solid #f59e0b; border-radius: 16px 16px 16px 4px; padding: 8px 10px; box-shadow: 0 12px 28px rgba(0,0,0,.18); font-size: .75rem; color: #334155; line-height: 1.4; }
+    #bk-tour { position: fixed; inset: 0; z-index: 80; }
+    #bk-tour-hole { position: fixed; border-radius: 14px; box-shadow: 0 0 0 9999px rgba(15,23,42,.64); border: 2px solid #fbbf24; transition: all .25s ease; pointer-events: none; }
+    #bk-tour-card { position: fixed; width: min(330px, calc(100vw - 20px)); background: #fff; border-radius: 16px; padding: 14px; box-shadow: 0 20px 50px rgba(0,0,0,.35); border-top: 5px solid #f59e0b; }
+    #bk-tour-dots i { display: block; width: 7px; height: 7px; border-radius: 50%; background: #e2e8f0; }
+    #bk-tour-dots i.on { background: #f59e0b; }
+    @media (prefers-reduced-motion: reduce) { #bk-tour-hole { transition: none; } #bk-bubble { animation: none; } }
   </style>
 </head>
 <body class="h-full flex flex-col font-sans overflow-x-hidden antialiased text-slate-800 select-none bg-slate-50">
@@ -662,13 +709,27 @@
           <button onclick="bkApi.zoom(0.8)" class="bk-ib" title="Perkecil"><i class="fa-solid fa-magnifying-glass-minus"></i></button>
           <button onclick="bkApi.resetView()" class="bk-ib" title="Reset tampilan"><i class="fa-solid fa-expand"></i></button>
           <label class="flex items-center gap-1 text-[11px] font-bold text-slate-600 cursor-pointer"><input id="bk-guides" type="checkbox" checked onchange="bkApi.toggle('guides',this.checked)"> Sumbu &amp; pusat</label>
-          <label class="flex items-center gap-1 text-[11px] font-bold text-slate-600 cursor-pointer"><input id="bk-hi" type="checkbox" onchange="bkApi.toggle('hi',this.checked)"> Sorot motif dasar</label>
+          <label class="flex items-center gap-1 text-[11px] font-bold text-slate-600 cursor-pointer"><input id="bk-hi" type="checkbox" onchange="bkApi.toggle('hi',this.checked)"> Sorot Cap Dasar</label>
+          <button type="button" onclick="bkApi.tour()" class="px-2 py-1 rounded-lg bg-amber-100 hover:bg-amber-200 text-amber-800 text-[11px] font-black border border-amber-300" title="Ulangi panduan interaktif"><i class="fa-solid fa-circle-question mr-1"></i>Panduan</button>
           <span id="bk-count" class="ml-auto text-[11px] font-bold text-slate-500"></span>
         </div>
         <div id="bk-stage" class="relative rounded-2xl border border-slate-200 bg-white overflow-hidden">
           <canvas id="bk-canvas" class="absolute inset-0 w-full h-full" aria-label="Kanvas motif batik hasil transformasi matriks"></canvas>
+          <canvas id="bk-fx" class="absolute inset-0 w-full h-full pointer-events-none" aria-hidden="true"></canvas>
           <div id="bk-warn" class="hidden absolute inset-x-3 top-3 px-3 py-2 rounded-lg bg-rose-50 border border-rose-200 text-rose-700 text-xs font-bold"></div>
           <div id="bk-chal-badge" class="hidden absolute left-3 top-3 px-3 py-1.5 rounded-full bg-slate-900/85 text-white text-xs font-black shadow-lg"></div>
+          <div id="bk-toast" class="hidden absolute z-20 left-1/2 top-14 -translate-x-1/2 px-3 py-1.5 rounded-full bg-emerald-600 text-white text-xs font-black shadow-lg whitespace-nowrap" role="status"></div>
+          <div id="bk-bubble" class="hidden" role="status" aria-live="polite">
+            <div class="av"><i class="fa-solid fa-wand-magic-sparkles"></i></div>
+            <div class="bd">
+              <div class="text-[10px] font-black uppercase tracking-wide text-amber-600 mb-0.5">Asisten Batik</div>
+              <div id="bk-bubble-msg"></div>
+              <div class="flex gap-1.5 mt-2">
+                <button type="button" onclick="bkApi.bubbleHint()" class="bk-btn bg-amber-100 text-amber-800 border border-amber-300"><i class="fa-solid fa-lightbulb mr-1"></i>Buka Petunjuk</button>
+                <button type="button" onclick="bkApi.closeBubble()" class="bk-btn bg-slate-100 text-slate-600 border border-slate-300">Nanti saja</button>
+              </div>
+            </div>
+          </div>
           <div id="bk-cmp-wrap" class="hidden absolute right-2 bottom-2 rounded-xl bg-white/95 border border-slate-300 shadow-xl p-1.5">
             <div class="text-[10px] font-black text-slate-600 mb-1 px-1">Urutan layer DIBALIK</div>
             <canvas id="bk-cmp" class="rounded-lg block" style="width:170px;height:170px"></canvas>
@@ -681,9 +742,20 @@
       <!-- Panel kontrol -->
       <aside id="bk-panel" class="p-2 sm:p-3 space-y-3 bg-white border-slate-200">
 
+        <!-- PROGRES MISI -->
+        <section id="bk-mprog" class="bk-mprog" aria-label="Progres misi">
+          <div class="flex items-center justify-between gap-2">
+            <span class="text-xs font-black text-amber-800"><i class="fa-solid fa-medal mr-1"></i>Petualangan Membatik</span>
+            <span id="bk-mprog-lv" class="text-[11px] font-black text-white bg-amber-500 rounded-full px-2 py-0.5">Pembatik Pemula</span>
+          </div>
+          <div class="bar"><div id="bk-mprog-bar"></div></div>
+          <div id="bk-mprog-txt" class="text-[11px] font-bold text-amber-800 mt-1">0 dari 4 misi selesai</div>
+        </section>
+
         <!-- TAHAP 1 -->
         <section class="bk-card">
           <h3 class="bk-h"><span class="bk-badge bg-amber-500">1</span> Dekonstruksi Motif Lokal <span class="bk-sub">Etnomatematika</span></h3>
+          <div id="bk-mis-1" class="bk-mis"></div>
           <div id="bk-tpl-btns" class="grid grid-cols-2 gap-1.5"></div>
           <div id="bk-info" class="text-xs leading-relaxed text-slate-700 bg-amber-50 border border-amber-200 rounded-xl p-3 space-y-1.5"></div>
         </section>
@@ -691,14 +763,15 @@
         <!-- TAHAP 2 -->
         <section class="bk-card">
           <h3 class="bk-h"><span class="bk-badge bg-sky-600">2</span> Replikasi Pola <span class="bk-sub">Penemuan terbimbing</span></h3>
-          <p class="text-xs text-slate-600">Pilih motif target, lalu susun <b>layer transformasi</b> sampai pola kamu menimpa bayangan abu-abu.</p>
+          <div id="bk-mis-2" class="bk-mis"></div>
+          <p class="text-xs text-slate-600">Pilih <b>Pola Cetakan</b>, lalu susun <b>Jejak Langkah (layer)</b> sampai cap batikmu menimpa bayangan abu-abu.</p>
           <div class="flex flex-wrap gap-1.5">
-            <select id="bk-chal-sel" class="bk-in text-xs font-semibold flex-1 min-w-[8rem]"></select>
+            <select id="bk-chal-sel" aria-label="Pilih Pola Cetakan" class="bk-in text-xs font-semibold flex-1 min-w-[8rem]"></select>
             <button onclick="bkApi.startChallenge()" class="bk-btn bg-sky-600 text-white"><i class="fa-solid fa-bullseye mr-1"></i>Mulai</button>
           </div>
           <div id="bk-chal-box" class="hidden space-y-2">
             <div>
-              <div class="flex justify-between text-[11px] font-black text-slate-600"><span>Kemiripan dengan target</span><span id="bk-score-txt">0%</span></div>
+              <div class="flex justify-between text-[11px] font-black text-slate-600"><span>Kemiripan dengan Pola Cetakan</span><span id="bk-score-txt">0%</span></div>
               <div class="h-3 rounded-full bg-slate-200 overflow-hidden"><div id="bk-score-bar" class="h-full bg-rose-500 transition-all" style="width:0%"></div></div>
               <div id="bk-score-msg" class="text-xs font-bold mt-1 text-slate-600"></div>
             </div>
@@ -713,9 +786,10 @@
 
         <!-- TAHAP 3 -->
         <section class="bk-card">
-          <h3 class="bk-h"><span class="bk-badge bg-teal-600">3</span> Kreasi Mandiri <span class="bk-sub">Motif · Layer · Matriks</span></h3>
+          <h3 class="bk-h"><span class="bk-badge bg-teal-600">3</span> Kreasi Mandiri <span class="bk-sub">Cap · Layer · Matriks</span></h3>
+          <div id="bk-mis-3" class="bk-mis"></div>
 
-          <div class="bk-lbl">A. Motif dasar (elemen primitif)</div>
+          <div class="bk-lbl">A. Cap Batik Dasar <span class="normal-case font-semibold text-slate-500">— bentuk awal yang akan digandakan</span></div>
           <div id="bk-prims" class="flex flex-wrap gap-1.5"></div>
           <div id="bk-editor" class="hidden space-y-1.5">
             <canvas id="bk-ed" width="260" height="260" class="rounded-lg border border-slate-300 bg-white mx-auto block" style="width:260px;max-width:100%;height:auto;aspect-ratio:1"></canvas>
@@ -728,15 +802,18 @@
             <p class="text-[11px] text-slate-500">Klik kotak untuk menambah titik, seret untuk menggeser, klik dua kali untuk menghapus. Titik asal (0,0) = pusat transformasi.</p>
           </div>
 
-          <div class="bk-lbl mt-2">B. Timeline layer (urutan operasi: layer 1 dijalankan lebih dulu)</div>
-          <div id="bk-stages" class="space-y-2"></div>
-          <div class="flex flex-wrap gap-1.5">
-            <button onclick="bkApi.add('rot')" class="bk-add">+ Rotasi</button>
-            <button onclick="bkApi.add('mirror')" class="bk-add">+ Cermin</button>
-            <button onclick="bkApi.add('glide')" class="bk-add">+ Glide</button>
-            <button onclick="bkApi.add('lattice')" class="bk-add">+ Kisi</button>
-            <button onclick="bkApi.add('fractal')" class="bk-add">+ Fraktal</button>
-            <button onclick="bkApi.add('matrix')" class="bk-add">+ Matriks 2×2</button>
+          <div id="bk-trail" class="space-y-2">
+            <div class="bk-lbl mt-2">B. Jejak Langkah (Layer) <span class="normal-case font-semibold text-slate-500">— urutan operasi: layer 1 dijalankan lebih dulu</span></div>
+            <div id="bk-stages" class="space-y-2"></div>
+            <div class="text-[11px] font-bold text-slate-500">Tambah langkah baru:</div>
+            <div class="flex flex-wrap gap-1.5">
+              <button onclick="bkApi.add('rot')" class="bk-add" title="Memutar cap seperti kelopak bunga">+ Putar (Rotasi)</button>
+              <button onclick="bkApi.add('mirror')" class="bk-add" title="Memantulkan cap seperti cermin">+ Cermin (Refleksi)</button>
+              <button onclick="bkApi.add('glide')" class="bk-add" title="Pantul lalu geser">+ Glide</button>
+              <button onclick="bkApi.add('lattice')" class="bk-add" title="Menderetkan cap seperti kotak-kotak kain">+ Kisi (Translasi)</button>
+              <button onclick="bkApi.add('fractal')" class="bk-add" title="Mengecil dan berputar berulang">+ Fraktal</button>
+              <button onclick="bkApi.add('matrix')" class="bk-add" title="Matriks 2×2 buatanmu sendiri">+ Matriks 2×2</button>
+            </div>
           </div>
 
           <div class="bk-lbl mt-2">C. Matriks &amp; komposisi</div>
@@ -755,6 +832,7 @@
         <!-- TAHAP 4 -->
         <section class="bk-card">
           <h3 class="bk-h"><span class="bk-badge bg-rose-600">4</span> Ekspor &amp; Sertifikat Matriks <span class="bk-sub">Mathematical Art</span></h3>
+          <div id="bk-mis-4" class="bk-mis"></div>
           <input id="bk-name" type="text" maxlength="40" placeholder="Nama siswa (untuk sertifikat)" class="bk-in w-full text-sm">
           <div class="flex flex-wrap gap-1.5">
             <button onclick="bkApi.exportPNG()" class="bk-btn bg-rose-600 text-white"><i class="fa-solid fa-image mr-1"></i>Unduh PNG + Sertifikat</button>
@@ -1693,14 +1771,16 @@
             <i class="fa-solid fa-chevron-down text-slate-400 text-xs transition-transform group-open:rotate-180"></i>
           </summary>
           <div class="px-4 pb-4 space-y-3 text-xs text-slate-600">
-            <p class="text-sm text-slate-700">Buka tab <strong>Motif Batik</strong>. Satu motif dasar digandakan oleh <strong>layer transformasi</strong>; setiap salinan adalah hasil perkalian matriks $x' = Mx + t$. Layer 1 dijalankan lebih dulu, sehingga $M_{total} = M_n \cdots M_2 M_1$.</p>
+            <p class="text-sm text-slate-700">Buka tab <strong>Motif Batik</strong>. Satu <strong>Cap Batik Dasar</strong> digandakan oleh <strong>Jejak Langkah (layer transformasi)</strong>; setiap salinan adalah hasil perkalian matriks $x' = Mx + t$. Layer 1 dijalankan lebih dulu, sehingga $M_{total} = M_n \cdots M_2 M_1$.</p>
             <ol class="space-y-2">
-              <li class="p-3 rounded-xl bg-white border border-slate-200"><p class="font-black text-amber-700">Tahap 1 &middot; Dekonstruksi</p><p>Pilih templat: <em>Kawung</em> (rotasi $90^\circ$ + cermin $y=x$ + kisi), <em>Parang</em> (glide refleksi), <em>Mega Mendung</em> dan <em>Fraktal Candi</em> (dilatasi-rotasi berulang). Baca kotak penjelasan matriksnya. Aktifkan <strong>Sorot motif dasar</strong> untuk melihat satu elemen asli dan <strong>Sumbu &amp; pusat</strong> untuk melihat garis cermin dan pusat rotasi.</p></li>
-              <li class="p-3 rounded-xl bg-white border border-slate-200"><p class="font-black text-sky-700">Tahap 2 &middot; Replikasi</p><p>Pilih motif target lalu tekan <strong>Mulai</strong>. Bayangan abu-abu adalah target; susun layer sampai <strong>Kemiripan</strong> mendekati 100%. Minta <strong>Petunjuk</strong> bertahap, atau <strong>Lihat kunci</strong> bila perlu.</p></li>
+              <li class="p-3 rounded-xl bg-white border border-slate-200"><p class="font-black text-amber-700">Tahap 1 &middot; Dekonstruksi</p><p>Pilih templat: <em>Kawung</em> (rotasi $90^\circ$ + cermin $y=x$ + kisi), <em>Parang</em> (glide refleksi), <em>Mega Mendung</em> dan <em>Fraktal Candi</em> (dilatasi-rotasi berulang). Baca kotak penjelasan matriksnya. Aktifkan <strong>Sorot Cap Dasar</strong> untuk melihat satu cap asli dan <strong>Sumbu &amp; pusat</strong> untuk melihat garis cermin dan pusat rotasi.</p></li>
+              <li class="p-3 rounded-xl bg-white border border-slate-200"><p class="font-black text-sky-700">Tahap 2 &middot; Replikasi</p><p>Pilih <strong>Pola Cetakan</strong> lalu tekan <strong>Mulai</strong>. Bayangan abu-abu adalah Pola Cetakan; susun Jejak Langkah sampai <strong>Kemiripan</strong> mendekati 100%. Minta <strong>Petunjuk</strong> bertahap, atau <strong>Lihat kunci</strong> bila perlu.</p></li>
               <li class="p-3 rounded-xl bg-white border border-slate-200"><p class="font-black text-teal-700">Tahap 3 &middot; Kreasi mandiri</p>
                 <ul class="list-disc list-inside space-y-1 mt-1">
-                  <li><strong>Motif dasar:</strong> pilih elemen primitif atau <em>Gambar sendiri</em> (klik untuk menambah titik, seret untuk menggeser, klik dua kali untuk menghapus).</li>
-                  <li><strong>Layer:</strong> tambah Rotasi, Cermin, Glide, Kisi, Fraktal, atau Matriks 2&times;2 bebas. Atur parameternya, geser urutan dengan &#9650;&#9660;, matikan sementara dengan ikon mata.</li>
+                  <li><strong>Cap Batik Dasar:</strong> pilih cap primitif atau <em>Gambar sendiri</em> (klik untuk menambah titik, seret untuk menggeser, klik dua kali untuk menghapus).</li>
+                  <li><strong>Layer:</strong> tambah Rotasi, Cermin, Glide, Kisi, Fraktal, atau Matriks 2&times;2 bebas. Atur nilainya dengan <strong>slider</strong> atau tombol <strong>+/&minus;</strong> (tanda <strong>?</strong> menjelaskan setiap istilah), geser urutan dengan &#9650;&#9660;, matikan sementara dengan ikon mata. Tombol &#10024; <strong>Lihat Contoh</strong> mengisi nilai yang menghasilkan pola simetris, dan <strong>Translasi Kisi</strong> punya <em>Mode Dasar</em> (geser lurus X/Y) serta <em>Mode Lanjut</em> (vektor $u$, $v$).</li>
+                  <li><strong>Visual langsung:</strong> saat kamu menyentuh <em>Pusat Putar</em> muncul titik merah berkedip, dan saat memilih <em>Garis Cermin</em> muncul garis putus-putus di kanvas.</li>
+                  <li><strong>Misi &amp; Panduan:</strong> selesaikan 4 misi untuk naik tingkat; tombol <em>Panduan</em> di atas kanvas mengulang tur interaktif. Bila kamu diam 60 detik saat tantangan, <em>Asisten Batik</em> memberi petunjuk.</li>
                   <li><strong>Matriks &amp; komposisi:</strong> panel rumus menampilkan matriks tiap layer. <strong>Uji non-komutatif</strong> membandingkan $M_BM_A$ dengan $M_AM_B$; centang <em>Bandingkan urutan dibalik</em> untuk melihat dampaknya pada motif.</li>
                   <li>Bila muncul peringatan &ldquo;terlalu banyak salinan&rdquo; (batas 6.000), kurangi $n$, $\pm m$, cabang, atau kedalaman. Geser kanvas dengan seret, zoom dengan roda mouse atau cubitan.</li>
                 </ul></li>
@@ -4533,6 +4613,27 @@
     }
   </script>
 
+  <!-- Panduan interaktif (onboarding tour) & tooltip Motif Batik -->
+  <div id="bk-tour" class="hidden" role="dialog" aria-modal="true" aria-labelledby="bk-tour-title">
+    <div id="bk-tour-hole"></div>
+    <div id="bk-tour-card">
+      <div class="flex items-center justify-between mb-1">
+        <span id="bk-tour-count" class="text-[10px] font-black uppercase tracking-wide text-amber-600"></span>
+        <button type="button" id="bk-tour-skip" class="text-[11px] font-bold text-slate-400 hover:text-slate-600 underline">Lewati</button>
+      </div>
+      <h4 id="bk-tour-title" class="font-black text-slate-900 text-sm"></h4>
+      <p id="bk-tour-text" class="text-xs text-slate-600 mt-1 leading-relaxed"></p>
+      <div class="flex items-center justify-between mt-3">
+        <div id="bk-tour-dots" class="flex gap-1" aria-hidden="true"></div>
+        <div class="flex gap-1.5">
+          <button type="button" id="bk-tour-prev" class="bk-btn bg-slate-100 text-slate-700 border border-slate-300">Kembali</button>
+          <button type="button" id="bk-tour-next" class="bk-btn bg-amber-500 hover:bg-amber-400 text-white">Lanjut</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="bk-tip" class="hidden" role="tooltip"></div>
+
   <script>
   /* ==========================================================================
      MOTIF BUDAYA & ARSITEKTUR (BATIK / FRAKTAL) — Etnomatematika
@@ -4592,23 +4693,103 @@
       matrix:  { a: 0, b: -1, c: 1, d: 0, e: 0, f: 0, n: 4 }
     };
     const TNAME = { rot: 'Rotasi radial', mirror: 'Refleksi (cermin)', glide: 'Glide refleksi', lattice: 'Translasi kisi', fractal: 'Fraktal rekursif', matrix: 'Matriks 2×2 bebas' };
-    // [kunci, label, step, min, max]
-    const SCH = {
-      rot:     [['n', 'n', 1, 1, 36], ['px', 'pusat x', 0.5, -9, 9], ['py', 'pusat y', 0.5, -9, 9]],
-      mirror:  [['axis'], ['a', 'a / b', 0.5, -9, 9]],
-      glide:   [['axis'], ['s', 'jarak s', 0.1, -8, 8], ['m', '± m', 1, 0, 12]],
-      lattice: [['ux', 'u x', 0.1, -9, 9], ['uy', 'u y', 0.1, -9, 9], ['vx', 'v x', 0.1, -9, 9], ['vy', 'v y', 0.1, -9, 9], ['mu', '± m_u', 1, 0, 12], ['mv', '± m_v', 1, 0, 12]],
-      fractal: [['k', 'k (skala)', 0.01, 0.1, 0.98], ['th', 'θ (°)', 1, -180, 180], ['tx', 't x', 0.1, -9, 9], ['ty', 't y', 0.1, -9, 9], ['br', 'cabang', 1, 1, 3], ['depth', 'kedalaman', 1, 0, 9]],
-      matrix:  [['a', 'a', 0.1, -9, 9], ['b', 'b', 0.1, -9, 9], ['c', 'c', 0.1, -9, 9], ['d', 'd', 0.1, -9, 9], ['e', 'dx', 0.1, -9, 9], ['f', 'dy', 0.1, -9, 9], ['n', 'n (ulang)', 1, 1, 36]]
+    const TDESC = {
+      rot: 'Memutar cap seperti kelopak bunga mengelilingi satu titik paku.',
+      mirror: 'Memantulkan cap seperti bayangan di cermin.',
+      glide: 'Memantulkan lalu menggeser: menghasilkan pita yang berselang-seling.',
+      lattice: 'Menderetkan cap berulang seperti kotak-kotak kain.',
+      fractal: 'Mengecilkan dan memutar cap berulang kali, lapisan demi lapisan.',
+      matrix: 'Mengubah cap dengan matriks 2×2 buatanmu sendiri.'
     };
+    const WHY = {
+      rot: 'Kelopak perlu diputar mengelilingi satu titik pusat.',
+      mirror: 'Ada bagian pola yang saling berpantulan seperti di cermin.',
+      glide: 'Pola bergeser sambil dipantulkan secara berselang-seling.',
+      lattice: 'Pola diulang berderet seperti kotak-kotak kain.',
+      fractal: 'Pola mengecil berulang, makin lama makin kecil.',
+      matrix: 'Kamu bisa mencoba matriks 2×2 bebas.'
+    };
+    const AX_TIP = 'Garis yang bekerja seperti cermin: cap dipantulkan ke seberang garis ini. Garis putus-putus akan muncul di kanvas saat kamu memilihnya.';
+    const U_TIP = 'Dua arah geser (u dan v) membentuk kisi seperti kotak-kotak kain. ';
+    // [kunci, label, step, min, max, tooltip]
+    const SCH = {
+      rot: [
+        ['n', 'Jumlah Kelopak (n)', 1, 1, 36, 'Berapa kali cap diputar mengelilingi pusat, seperti kelopak bunga. Sudut tiap putaran = 360° ÷ n. Contoh: n = 4 → setiap kelopak berjarak 90°.'],
+        ['px', 'Pusat Putar · x', 0.5, -9, 9, 'Posisi mendatar “paku” tempat cap berputar: kanan (+) atau kiri (−). Titik merah berkedip di kanvas menunjukkan lokasinya.'],
+        ['py', 'Pusat Putar · y', 0.5, -9, 9, 'Posisi tegak “paku” tempat cap berputar: atas (+) atau bawah (−). Titik merah berkedip di kanvas menunjukkan lokasinya.']
+      ],
+      mirror: [
+        ['axis', 'Garis Cermin', 0, 0, 0, AX_TIP],
+        ['a', 'Posisi Garis', 0.5, -9, 9, 'Letak garis cermin. Untuk x = a garis berdiri tegak di posisi a; untuk y = b garis mendatar di posisi b.']
+      ],
+      glide: [
+        ['axis', 'Garis Cermin', 0, 0, 0, AX_TIP],
+        ['s', 'Jarak Geser (s)', 0.1, -8, 8, 'Seberapa jauh cap bergeser sejajar garis cermin setelah dipantulkan. Tanda + atau − menentukan arah geser.'],
+        ['m', 'Banyak Ulangan (± m)', 1, 0, 12, 'Langkah glide diulang m kali ke depan dan m kali ke belakang. Total salinan = 2m + 1.']
+      ],
+      lattice: [
+        ['ux', 'Geseran 1 · Kanan/Kiri (u x)', 0.1, -9, 9, U_TIP + 'Komponen mendatar vektor u: kanan (+) atau kiri (−).'],
+        ['uy', 'Geseran 1 · Atas/Bawah (u y)', 0.1, -9, 9, U_TIP + 'Komponen tegak vektor u: atas (+) atau bawah (−).'],
+        ['vx', 'Geseran 2 · Kanan/Kiri (v x)', 0.1, -9, 9, U_TIP + 'Komponen mendatar vektor v.'],
+        ['vy', 'Geseran 2 · Atas/Bawah (v y)', 0.1, -9, 9, U_TIP + 'Komponen tegak vektor v.'],
+        ['mu', 'Ulangan Geseran 1 (± m_u)', 1, 0, 12, 'Berapa kali geseran pertama diulang ke dua arah. Total deret = 2·m_u + 1.'],
+        ['mv', 'Ulangan Geseran 2 (± m_v)', 1, 0, 12, 'Berapa kali geseran kedua diulang ke dua arah. Total deret = 2·m_v + 1.']
+      ],
+      fractal: [
+        ['k', 'Skala Pengecilan (k)', 0.01, 0.1, 0.98, 'Setiap lapisan diperkecil menjadi k kali ukuran lapisan sebelumnya. k < 1 → makin kecil (dilatasi terhadap pusat (0, 0)).'],
+        ['th', 'Sudut Putar Lapisan (θ)', 1, -180, 180, 'Sudut putar tiap lapisan. 0° = lurus; nilai lain membuat lapisan berputar menjadi spiral.'],
+        ['tx', 'Geser Tiap Lapisan · X (t x)', 0.1, -9, 9, 'Seberapa jauh tiap lapisan baru bergeser ke kanan (+) atau kiri (−).'],
+        ['ty', 'Geser Tiap Lapisan · Y (t y)', 0.1, -9, 9, 'Seberapa jauh tiap lapisan baru bergeser ke atas (+) atau bawah (−).'],
+        ['br', 'Jumlah Cabang', 1, 1, 3, 'Jumlah cabang baru di setiap lapisan: 1 = lurus, 2 = bercabang dua, 3 = bercabang tiga.'],
+        ['depth', 'Kedalaman Lapisan', 1, 0, 9, 'Berapa lapisan yang digambar. Makin besar → makin rinci, tetapi jumlah salinan makin banyak.']
+      ],
+      matrix: [
+        ['a', 'Entri a (baris 1, kolom 1)', 0.1, -9, 9, 'Entri kiri-atas matriks 2×2. Mengatur skala/putaran pada arah x.'],
+        ['b', 'Entri b (baris 1, kolom 2)', 0.1, -9, 9, 'Entri kanan-atas matriks 2×2.'],
+        ['c', 'Entri c (baris 2, kolom 1)', 0.1, -9, 9, 'Entri kiri-bawah matriks 2×2.'],
+        ['d', 'Entri d (baris 2, kolom 2)', 0.1, -9, 9, 'Entri kanan-bawah matriks 2×2. Mengatur skala/putaran pada arah y.'],
+        ['e', 'Geser Kanan/Kiri (dx)', 0.1, -9, 9, 'Translasi mendatar yang ditambahkan setelah matriks diterapkan.'],
+        ['f', 'Geser Atas/Bawah (dy)', 0.1, -9, 9, 'Translasi tegak yang ditambahkan setelah matriks diterapkan.'],
+        ['n', 'Jumlah Ulangan (n)', 1, 1, 36, 'Berapa kali matriks diterapkan berulang: M⁰, M¹, …, Mⁿ⁻¹.']
+      ]
+    };
+    // Translasi kisi · Mode Dasar: hanya geser lurus (X dan Y) + banyak salinan
+    const SCH_LD = [
+      ['ux', 'Geser Kanan/Kiri (X)', 0.5, -9, 9, 'Jarak antar cap secara mendatar: kanan (+) atau kiri (−). Nilai 0 = tidak digeser mendatar.'],
+      ['vy', 'Geser Atas/Bawah (Y)', 0.5, -9, 9, 'Jarak antar cap secara tegak: atas (+) atau bawah (−). Nilai 0 = tidak digeser tegak.'],
+      ['mu', 'Banyak Salinan (± m)', 1, 0, 12, 'Berapa kali cap digandakan ke tiap arah. m = 3 → 3 salinan di tiap sisi (total 7 deret).']
+    ];
+    const MODE_TIP = 'Mode Dasar: cap hanya digeser lurus kanan-kiri (X) dan atas-bawah (Y). Mode Lanjut: kamu mengatur dua vektor geser u dan v secara penuh, termasuk geser miring.';
+    // Tombol “Lihat Contoh”: konfigurasi yang menghasilkan pola simetris
+    const PRESET = {
+      rot:     { vals: { n: 6, px: 0, py: 0 }, msg: 'Rotasi 6 kelopak (60° tiap langkah) → bunga bersimetri enam.' },
+      mirror:  { vals: { axis: 'y', a: 0 }, msg: 'Cermin sumbu-Y → sepasang cap berhadapan seperti sayap kupu-kupu.' },
+      glide:   { vals: { axis: 'y=x', s: 2, m: 6 }, msg: 'Glide sepanjang y = x → pita S/Z berselang-seling seperti Parang.' },
+      lattice: { vals: { mode: 'dasar', ux: 3, uy: 0, vx: 0, vy: 3, mu: 3, mv: 3 }, msg: 'Kisi jarak 3 × 3 → deretan cap rapi seperti kain kotak-kotak.' },
+      fractal: { vals: { k: 0.75, th: 25, tx: 0, ty: 1.5, br: 2, depth: 5 }, msg: 'Fraktal bercabang dua → sulur yang makin kecil di tiap lapisan.' },
+      matrix:  { vals: { a: 0, b: -1, c: 1, d: 0, e: 0, f: 0, n: 4 }, msg: 'Matriks rotasi 90° diulang 4 kali → pola bersimetri putar.' }
+    };
+    // Misi bergaya gim
+    const MIS = [
+      { id: 1, text: 'Amati bagaimana matriks memecah pola batik ini.', items: [['a', 'Nyalakan “Sorot Cap Dasar” di atas kanvas'], ['b', 'Klik ikon mata pada satu layer untuk melihat perannya']] },
+      { id: 2, text: 'Tantangan! Cocokkan cap batikmu dengan bayangan sasaran (“Pola Cetakan”).', items: [['a', 'Pilih Pola Cetakan lalu tekan Mulai'], ['b', 'Capai kemiripan ≥ 95% tanpa “Lihat kunci”']] },
+      { id: 3, text: 'Rancang batik buatanmu lewat Jejak Langkah.', items: [['a', 'Tambahkan satu layer baru'], ['b', 'Geser slider, tekan +/− atau ✨ sampai polanya berubah'], ['c', 'Centang “Bandingkan urutan dibalik”']] },
+      { id: 4, text: 'Beri nama, lalu unduh karya dan sertifikat matriksmu.', items: [['a', 'Unduh PNG + Sertifikat atau SVG']] }
+    ];
+    const LEVELS = ['Pembatik Pemula', 'Pemegang Canting', 'Pembatik Terampil', 'Pembatik Mahir', 'Maestro Batik'];
     const bk = {
       uid: 1, tpl: 'kawung', motifId: 'kawung', pal: 'sogan', stages: [],
       view: { s: 30, ox: 0, oy: 0 }, span: 18,
       guides: true, hi: false, cmp: false, chal: null,
       custom: { pts: [[0, 0], [1.6, 0.9], [2.4, 0], [1.6, -0.9]], closed: true, smooth: true, v: 0 },
-      ncA: 0, ncB: 1
+      ncA: 0, ncB: 1,
+      mis: { 1: {}, 2: {}, 3: {}, 4: {} }, tourAsked: false
     };
-    const S = (type, o) => ({ id: bk.uid++, type, on: true, ...DEF[type], ...o });
+    const S = (type, o) => {
+      const st = { id: bk.uid++, type, on: true, ...DEF[type], ...o };
+      if (type === 'lattice' && !st.mode) st.mode = (st.uy === 0 && st.vx === 0 && st.mu === st.mv) ? 'dasar' : 'lanjut';
+      return st;
+    };
 
     /* ---------- Motif dasar (elemen primitif) ---------- */
     function parangD() {
@@ -4683,7 +4864,7 @@
         case 'rot': case 'matrix': return Math.max(1, Math.round(st.n));
         case 'mirror': return 2;
         case 'glide': return 2 * Math.round(st.m) + 1;
-        case 'lattice': return (2 * Math.round(st.mu) + 1) * (2 * Math.round(st.mv) + 1);
+        case 'lattice': { const z1 = !st.ux && !st.uy, z2 = !st.vx && !st.vy; return (z1 ? 1 : 2 * Math.round(st.mu) + 1) * (z2 ? 1 : 2 * Math.round(st.mv) + 1); }
         case 'fractal': { let s = 0, p = 1; for (let j = 0; j <= Math.round(st.depth); j++) { s += p; p *= Math.round(st.br); } return s; }
       }
       return 1;
@@ -4694,7 +4875,7 @@
         case 'rot': { const n = Math.max(1, Math.round(st.n)); for (let i = 0; i < n; i++) out.push(rotAbout(360 / n * i, st.px, st.py)); break; }
         case 'mirror': out.push({ ...I }, reflAxis(st.axis, st.a)); break;
         case 'glide': { const G = gen(st), m = Math.round(st.m); for (let k = -m; k <= m; k++) out.push(pow(G, k)); break; }
-        case 'lattice': { const a = Math.round(st.mu), b = Math.round(st.mv);
+        case 'lattice': { const a = (!st.ux && !st.uy) ? 0 : Math.round(st.mu), b = (!st.vx && !st.vy) ? 0 : Math.round(st.mv);
           for (let i = -a; i <= a; i++) for (let j = -b; j <= b; j++) out.push({ ...I, tx: i * st.ux + j * st.vx, ty: i * st.uy + j * st.vy }); break; }
         case 'matrix': { const G = gen(st), n = Math.max(1, Math.round(st.n)); for (let k = 0; k < n; k++) out.push(pow(G, k)); break; }
         case 'fractal': { const B = branchMaps(st); let cur = [{ ...I }]; out.push({ ...I });
@@ -4727,7 +4908,7 @@
           <li>Cermin $y=x$: $\begin{pmatrix}0&1\\1&0\end{pmatrix}$; $y=-x$: $\begin{pmatrix}0&-1\\-1&0\end{pmatrix}$</li>
           <li>Translasi kisi: $u=(2,2)$ dan $v=(2,-2)$</li></ul>
           Perhatikan titik kecil di kelopak: ia ikut <i>terpantul</i> oleh cermin $y=x$.`,
-        hints: ['Pola ini tersusun dari 3 layer. Layer pertama memutar kelopak mengelilingi titik pusat.', 'Urutannya: Rotasi (n = 4) → Cermin y = x → Translasi kisi.', 'Kisi: u = (2, 2), v = (2, −2), ± m_u = 4, ± m_v = 4.']
+        hints: ['Pola ini tersusun dari 3 layer. Layer pertama memutar kelopak mengelilingi titik pusat.', 'Urutannya: Rotasi (Jumlah Kelopak n = 4) → Cermin y = x → Translasi kisi.', 'Kisi (pakai Mode Lanjut): Geseran 1 u = (2, 2), Geseran 2 v = (2, −2), ± m_u = 4, ± m_v = 4.']
       },
       parang: {
         name: 'Batik Parang', motif: 'parang', pal: 'sogan', span: 16,
@@ -4738,7 +4919,7 @@
           <li>Geser sepanjang diagonal: $t=(\sqrt2,\sqrt2)$ (jarak $s=2$)</li>
           <li>Glide: $G(x)=S\,x+t$, diulang $G^k$ → pita bolak-balik S/Z</li>
           <li>Baris-baris sejajar: translasi $u=(-0.8,\,0.8)$</li></ul>`,
-        hints: ['Ada 2 layer: satu membentuk pita memanjang, satu menumpuk banyak baris pita.', 'Layer 1: Glide refleksi terhadap y = x, jarak s = 2, ± m = 7.', 'Layer 2: Translasi kisi u = (−0.8, 0.8), ± m_u = 10, v = (0, 0), ± m_v = 0.']
+        hints: ['Ada 2 layer: satu membentuk pita memanjang, satu menumpuk banyak baris pita.', 'Layer 1: Glide refleksi terhadap y = x, Jarak Geser s = 2, Banyak Ulangan ± m = 7.', 'Layer 2: Translasi kisi (Mode Lanjut) u = (−0.8, 0.8), ± m_u = 10, v = (0, 0), ± m_v = 0.']
       },
       mendung: {
         name: 'Mega Mendung', motif: 'awan', pal: 'mendung', span: 15,
@@ -4748,7 +4929,7 @@
           <li>$M=k\begin{pmatrix}\cos\theta&-\sin\theta\\\sin\theta&\cos\theta\end{pmatrix}$ dengan $k=0.78<1$, $\theta=0^\circ$</li>
           <li>Lapisan ke-$j$ = $M^j\cdot$ awan → pita konsentris, warna berubah per lapisan</li>
           <li>Coba ubah $\theta$ ≠ 0: awan berputar menjadi <i>spiral</i>.</li></ul>`,
-        hints: ['Layer pertama adalah dilatasi berulang (fraktal) dengan satu cabang.', 'Fraktal: k ≈ 0.78, θ = 0, t = (0,0), cabang = 1, kedalaman = 6.', 'Lalu translasi kisi: u = (4.4, 0), v = (2.2, 2.6), ± m = 3.']
+        hints: ['Layer pertama adalah dilatasi berulang (fraktal) dengan satu cabang.', 'Fraktal: k ≈ 0.78, θ = 0, t = (0,0), cabang = 1, kedalaman = 6.', 'Lalu translasi kisi (Mode Lanjut): u = (4.4, 0), v = (2.2, 2.6), ± m = 3.']
       },
       candi: {
         name: 'Ornamen Fraktal Candi', motif: 'ranting', pal: 'sogan', span: 13,
@@ -4838,7 +5019,7 @@
       const warn = document.getElementById('bk-warn'), res = build(bk.stages);
       if (bk.chal) { const tm = motif(TPL[bk.chal.tpl].motif); paint(g, dpr, bk.view, tm, bk.chal.target, 'ghost', pal); }
       if (res.over) {
-        warn.textContent = 'Terlalu banyak salinan (≈ ' + res.est.toLocaleString('id-ID') + '). Kurangi n, ± m, cabang atau kedalaman agar ≤ ' + MAXC.toLocaleString('id-ID') + '.';
+        warn.textContent = 'Terlalu banyak salinan (≈ ' + res.est.toLocaleString('id-ID') + '). Kurangi Jumlah Kelopak, Banyak Ulangan (± m), cabang atau kedalaman agar ≤ ' + MAXC.toLocaleString('id-ID') + '.';
         warn.classList.remove('hidden');
       } else {
         warn.classList.add('hidden');
@@ -4849,6 +5030,7 @@
       document.getElementById('bk-count').textContent = res.over ? '' : res.list.length.toLocaleString('id-ID') + ' salinan motif';
       if (bk.cmp) drawCompare(res);
       if (bk.chal) scheduleScore();
+      drawFx();
     }
     const redraw = () => { if (!raf) raf = requestAnimationFrame(draw); };
 
@@ -4894,44 +5076,84 @@
       }
       bk.span = saveSpan;
       const pct = Math.round(sc * 100), bar = document.getElementById('bk-score-bar');
+      bk.chal.pct = pct; if (pct >= 95) { if (!bk.chal.keyUsed) mis(2, 'b'); hideBubble(); }
       document.getElementById('bk-score-txt').textContent = pct + '%';
       bar.style.width = pct + '%'; bar.className = 'h-full transition-all ' + (pct >= 95 ? 'bg-emerald-500' : pct >= 60 ? 'bg-amber-500' : 'bg-rose-500');
-      document.getElementById('bk-score-msg').textContent = pct >= 95 ? '🎉 Berhasil! Pola kamu identik dengan ' + TPL[bk.chal.tpl].name + '.' : pct >= 60 ? 'Hampir! Periksa sudut, pusat, atau vektor translasinya.' : 'Belum mirip — tambahkan layer transformasi atau minta petunjuk.';
-      document.getElementById('bk-chal-badge').textContent = '🎯 ' + TPL[bk.chal.tpl].name + ' · ' + pct + '%';
+      document.getElementById('bk-score-msg').textContent = pct >= 95 ? '🎉 Berhasil! Cap batikmu identik dengan Pola Cetakan ' + TPL[bk.chal.tpl].name + '.' : pct >= 60 ? 'Hampir! Periksa sudut, pusat, atau vektor translasinya.' : 'Belum mirip — tambahkan layer di Jejak Langkah atau minta petunjuk.';
+      document.getElementById('bk-chal-badge').textContent = '🎯 Pola Cetakan: ' + TPL[bk.chal.tpl].name + ' · ' + pct + '%';
     }
 
-    /* ---------- UI: layer ---------- */
+    /* ---------- UI: Jejak Langkah (slider, stepper, tooltip, contoh) ---------- */
     const f3 = x => { let v = Math.round(x * 1000) / 1000; if (Object.is(v, -0) || v === 0) v = 0; return String(v); };
     const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+    const defsFor = st => (st.type === 'lattice' && st.mode === 'dasar') ? SCH_LD : SCH[st.type];
+    const findSt = id => bk.stages.find(s => s.id === id);
+    const clearNotes = () => bk.stages.forEach(s => { delete s._note; });
+    function fxKind(st, k) {
+      if (st.type === 'rot' && (k === 'px' || k === 'py')) return 'pt';
+      if (st.type === 'fractal' && (k === 'k' || k === 'th')) return 'pt';
+      if ((st.type === 'mirror' || st.type === 'glide') && (k === 'axis' || k === 'a')) return 'line';
+      return '';
+    }
+    function fmtVal(st, k) {
+      const v = st[k];
+      if (st.type === 'rot' && k === 'n') return v + ' (' + f3(360 / v) + '°)';
+      if (st.type === 'fractal' && k === 'th') return f3(v) + '°';
+      return f3(v);
+    }
+    const tipBtn = tip => '<button type="button" class="bk-q" data-tip="' + esc(tip) + '" aria-label="Penjelasan istilah">?</button>';
     function fieldHTML(st, def) {
-      const k = def[0];
+      const k = def[0], tip = def[5], fk = fxKind(st, k);
+      const wrap = '<div class="bk-f2" data-sid="' + st.id + '" data-k="' + k + '"' + (fk ? ' data-fx="' + fk + '"' : '') + '>';
       if (k === 'axis') {
         const opts = st.type === 'glide' ? ['x', 'y', 'y=x', 'y=-x'] : ['x', 'y', 'y=x', 'y=-x', 'x=a', 'y=b'];
-        return '<label class="bk-f">sumbu<select onchange="bkApi.setAxis(' + st.id + ',this.value)">' + opts.map(o => '<option value="' + o + '"' + (o === st.axis ? ' selected' : '') + '>' + AXNAME[o].replace(/ \(.*\)/, '') + '</option>').join('') + '</select></label>';
+        return wrap + '<div class="bk-fl"><span class="nm">' + def[1] + '</span>' + tipBtn(tip) + '</div>' +
+          '<select class="bk-sel" aria-label="Garis cermin" onchange="bkApi.setAxis(' + st.id + ',this.value)">' +
+          opts.map(o => '<option value="' + o + '"' + (o === st.axis ? ' selected' : '') + '>' + AXNAME[o] + '</option>').join('') + '</select></div>';
       }
       if (st.type === 'mirror' && k === 'a' && st.axis !== 'x=a' && st.axis !== 'y=b') return '';
-      return '<label class="bk-f">' + def[1] + '<input type="number" inputmode="decimal" step="' + def[2] + '" min="' + def[3] + '" max="' + def[4] + '" value="' + f3(st[k]) + '" oninput="bkApi.set(' + st.id + ',\'' + k + '\',this.value)"></label>';
+      const label = (st.type === 'mirror' && k === 'a') ? (st.axis === 'x=a' ? 'Posisi Garis · x = a' : 'Posisi Garis · y = b') : def[1];
+      const id = st.id + '-' + k;
+      return wrap + '<div class="bk-fl"><span class="nm">' + label + '</span>' + tipBtn(tip) + '<output id="bkv-' + id + '">' + fmtVal(st, k) + '</output></div>' +
+        '<div class="bk-fc"><button type="button" class="bk-stp" data-dir="-1" aria-label="Kurangi ' + esc(label) + '">−</button>' +
+        '<input id="bks-' + id + '" class="bk-sl" type="range" min="' + def[3] + '" max="' + def[4] + '" step="' + def[2] + '" value="' + f3(st[k]) + '" aria-label="' + esc(label) + '">' +
+        '<button type="button" class="bk-stp" data-dir="1" aria-label="Tambah ' + esc(label) + '">+</button></div></div>';
+    }
+    function stageHTML(st, i, last) {
+      const modeSw = st.type === 'lattice'
+        ? '<div class="flex items-center gap-2 mt-1.5"><span class="text-[10px] font-black uppercase text-slate-500">Mode</span>' +
+          '<span class="bk-mode" role="group" aria-label="Mode translasi"><button type="button" data-mode="dasar" class="' + (st.mode === 'dasar' ? 'on' : '') + '">Dasar</button>' +
+          '<button type="button" data-mode="lanjut" class="' + (st.mode === 'lanjut' ? 'on' : '') + '">Lanjut</button></span>' + tipBtn(MODE_TIP) + '</div>'
+        : '';
+      return '<div class="bk-stage' + (st.on ? '' : ' off') + '" data-sid="' + st.id + '"><div class="hd"><span class="inline-flex w-5 h-5 rounded-full bg-teal-600 text-white text-[10px] items-center justify-center">' + (i + 1) + '</span>' + TNAME[st.type] +
+        '<span class="sp"></span><button title="Naik (dijalankan lebih dulu)" onclick="bkApi.move(' + st.id + ',-1)"' + (i === 0 ? ' disabled style="opacity:.3"' : '') + '><i class="fa-solid fa-arrow-up"></i></button>' +
+        '<button title="Turun" onclick="bkApi.move(' + st.id + ',1)"' + (last ? ' disabled style="opacity:.3"' : '') + '><i class="fa-solid fa-arrow-down"></i></button>' +
+        '<button class="wand" title="Lihat Contoh: isi otomatis dengan nilai yang menghasilkan pola simetris" aria-label="Lihat contoh" onclick="bkApi.example(' + st.id + ')"><i class="fa-solid fa-wand-magic-sparkles"></i></button>' +
+        '<button title="Aktif/nonaktif" onclick="bkApi.toggleStage(' + st.id + ')"><i class="fa-solid ' + (st.on ? 'fa-eye' : 'fa-eye-slash') + '"></i></button>' +
+        '<button class="del" title="Hapus" onclick="bkApi.del(' + st.id + ')"><i class="fa-solid fa-trash"></i></button></div>' +
+        '<div class="bk-sdesc">' + TDESC[st.type] + '</div>' + modeSw +
+        '<div class="bk-fields2">' + defsFor(st).map(d => fieldHTML(st, d)).join('') + '</div>' +
+        (st._note ? '<div class="bk-note">✨ ' + esc(st._note) + '</div>' : '') + '</div>';
     }
     function renderStages() {
+      fx.focus = false; fx.hover = false;        // elemen lama dibuang saat render ulang
       const el = document.getElementById('bk-stages');
-      if (!bk.stages.length) { el.innerHTML = '<div class="text-xs text-slate-500 bg-slate-50 border border-dashed border-slate-300 rounded-xl p-3 text-center">Belum ada layer. Tambahkan transformasi di bawah — motif dasar akan digandakan.</div>'; return; }
-      el.innerHTML = bk.stages.map((st, i) => {
-        const last = i === bk.stages.length - 1;
-        return '<div class="bk-stage' + (st.on ? '' : ' off') + '"><div class="hd"><span class="inline-flex w-5 h-5 rounded-full bg-teal-600 text-white text-[10px] items-center justify-center">' + (i + 1) + '</span>' + TNAME[st.type] +
-          '<span class="sp"></span><button title="Naik (dijalankan lebih dulu)" onclick="bkApi.move(' + st.id + ',-1)"' + (i === 0 ? ' disabled style="opacity:.3"' : '') + '><i class="fa-solid fa-arrow-up"></i></button>' +
-          '<button title="Turun" onclick="bkApi.move(' + st.id + ',1)"' + (last ? ' disabled style="opacity:.3"' : '') + '><i class="fa-solid fa-arrow-down"></i></button>' +
-          '<button title="Aktif/nonaktif" onclick="bkApi.toggleStage(' + st.id + ')"><i class="fa-solid ' + (st.on ? 'fa-eye' : 'fa-eye-slash') + '"></i></button>' +
-          '<button class="del" title="Hapus" onclick="bkApi.del(' + st.id + ')"><i class="fa-solid fa-trash"></i></button></div>' +
-          '<div class="bk-fields">' + SCH[st.type].map(d => fieldHTML(st, d)).join('') + '</div></div>';
-      }).join('');
+      if (!bk.stages.length) { el.innerHTML = '<div class="text-xs text-slate-500 bg-slate-50 border border-dashed border-slate-300 rounded-xl p-3 text-center">Belum ada Jejak Langkah. Tambahkan layer di bawah — Cap Batik Dasar akan digandakan.</div>'; return; }
+      el.innerHTML = bk.stages.map((st, i) => stageHTML(st, i, i === bk.stages.length - 1)).join('');
     }
     function setStage(id, k, v) {
-      const st = bk.stages.find(s => s.id === id); if (!st) return;
-      const def = SCH[st.type].find(d => d[0] === k); let x = parseFloat(v); if (!isFinite(x) || !def) return;
-      x = Math.min(def[4], Math.max(def[3], x)); if (def[2] === 1) x = Math.round(x); st[k] = x;
+      const st = findSt(id); if (!st) return;
+      const def = defsFor(st).find(d => d[0] === k); let x = parseFloat(v); if (!isFinite(x) || !def) return;
+      x = Math.min(def[4], Math.max(def[3], x)); x = def[2] === 1 ? Math.round(x) : Math.round(x * 1000) / 1000;
+      st[k] = x;
+      if (st.type === 'lattice' && st.mode === 'dasar' && k === 'mu') st.mv = x;
+      if (st._note) { delete st._note; const n = document.querySelector('.bk-stage[data-sid="' + id + '"] .bk-note'); if (n) n.remove(); }
+      const out = document.getElementById('bkv-' + id + '-' + k), sl = document.getElementById('bks-' + id + '-' + k);
+      if (out) out.textContent = fmtVal(st, k);
+      if (sl && +sl.value !== x) sl.value = x;
+      fxTouch(id); mis(3, 'b');
       afterChange(false);
     }
-
     /* ---------- UI: rumus & non-komutatif ---------- */
     const pmat = m => String.raw`\begin{pmatrix}${f3(m.m11)}&${f3(m.m12)}\\${f3(m.m21)}&${f3(m.m22)}\end{pmatrix}`;
     const pvec = m => String.raw`\begin{pmatrix}${f3(m.tx)}\\${f3(m.ty)}\end{pmatrix}`;
@@ -4966,6 +5188,7 @@
     function afterChange(rebuildList) {
       if (rebuildList !== false) renderStages();
       renderFormulas(); if (bk.chal) bk.chal.mask = bk.chal.mask; redraw();
+      hideBubble(); bumpIdle();
     }
 
     /* ---------- UI: template & primitif ---------- */
@@ -5044,6 +5267,7 @@
       const first = !size.w;
       const old = size;
       size = { w, h, dpr }; c.width = Math.round(w * dpr); c.height = Math.round(h * dpr);
+      const fc = document.getElementById('bk-fx'); if (fc) { fc.width = c.width; fc.height = c.height; }
       if (first || !bk.userView) bk.view = viewFor(w, h, bk.span);
       else { bk.view.ox += (w - old.w) / 2; bk.view.oy += (h - old.h) / 2; }
       redraw();
@@ -5086,11 +5310,11 @@
       g.fillStyle = '#7c2d12'; g.font = 'bold 38px Georgia, serif'; g.fillText('SERTIFIKAT FORMULA MATRIKS', 44, y);
       y += 36; g.fillStyle = '#475569'; g.font = '20px sans-serif'; g.fillText('Mathematical Art · GeoMatrix Lab — Etnomatematika Motif Batik & Fraktal', 44, y);
       y += 40; g.fillStyle = '#0f172a'; g.font = 'bold 24px sans-serif'; g.fillText('Nama: ' + M.nm, 44, y);
-      y += 32; g.font = '20px sans-serif'; g.fillText('Basis: ' + M.tplName + ' · Motif dasar: ' + M.mt + ' · ' + res.list.length.toLocaleString('id-ID') + ' salinan · ' + M.date, 44, y);
-      y += 44; g.fillStyle = '#0f766e'; g.font = 'bold 20px sans-serif'; g.fillText('Urutan transformasi (layer 1 dijalankan lebih dulu):', 44, y);
+      y += 32; g.font = '20px sans-serif'; g.fillText('Basis: ' + M.tplName + ' · Cap dasar: ' + M.mt + ' · ' + res.list.length.toLocaleString('id-ID') + ' salinan · ' + M.date, 44, y);
+      y += 44; g.fillStyle = '#0f766e'; g.font = 'bold 20px sans-serif'; g.fillText('Jejak Langkah (layer 1 dijalankan lebih dulu):', 44, y);
       L.forEach(([a, b]) => { y += 34; g.fillStyle = '#0f172a'; g.font = 'bold 19px sans-serif'; g.fillText(a, 44, y); y += 28; g.fillStyle = '#334155'; g.font = '18px "Courier New", monospace'; g.fillText(b, 44, y); });
       if (total) { y += 50; g.fillStyle = '#be123c'; g.font = 'bold 19px "Courier New", monospace'; g.fillText(total, 44, y); }
-      c.toBlob(b => download(URL.createObjectURL(b), 'motif-geomatrix-' + bk.tpl + '.png'), 'image/png');
+      c.toBlob(b => download(URL.createObjectURL(b), 'motif-geomatrix-' + bk.tpl + '.png'), 'image/png'); mis(4, 'a');
     }
     function exportSVG() {
       const res = build(bk.stages); if (res.over) return alert('Terlalu banyak salinan. Kurangi parameter dulu.');
@@ -5104,25 +5328,286 @@
       s += '</g><rect y="' + W + '" width="' + W + '" height="' + certH + '" fill="#fffdf7"/><rect y="' + W + '" width="' + W + '" height="8" fill="#b45309"/>';
       let y = W + 62; const t = (txt, sz, fill, bold, mono) => { s += '<text x="44" y="' + y + '" font-size="' + sz + '" fill="' + fill + '" font-family="' + (mono ? 'Courier New,monospace' : 'sans-serif') + '"' + (bold ? ' font-weight="bold"' : '') + '>' + esc(txt) + '</text>'; };
       t('SERTIFIKAT FORMULA MATRIKS', 38, '#7c2d12', true); y += 36; t('Mathematical Art · GeoMatrix Lab — Etnomatematika Motif Batik & Fraktal', 20, '#475569');
-      y += 40; t('Nama: ' + M.nm, 24, '#0f172a', true); y += 32; t('Basis: ' + M.tplName + ' · Motif dasar: ' + M.mt + ' · ' + res.list.length + ' salinan · ' + M.date, 20, '#0f172a');
-      y += 44; t('Urutan transformasi (layer 1 dijalankan lebih dulu):', 20, '#0f766e', true);
+      y += 40; t('Nama: ' + M.nm, 24, '#0f172a', true); y += 32; t('Basis: ' + M.tplName + ' · Cap dasar: ' + M.mt + ' · ' + res.list.length + ' salinan · ' + M.date, 20, '#0f172a');
+      y += 44; t('Jejak Langkah (layer 1 dijalankan lebih dulu):', 20, '#0f766e', true);
       L.forEach(([a, b]) => { y += 34; t(a, 19, '#0f172a', true); y += 28; t(b, 18, '#334155', false, true); });
       if (total) { y += 50; t(total, 19, '#be123c', true, true); }
       s += '</svg>';
-      download(URL.createObjectURL(new Blob([s], { type: 'image/svg+xml' })), 'motif-geomatrix-' + bk.tpl + '.svg');
+      download(URL.createObjectURL(new Blob([s], { type: 'image/svg+xml' })), 'motif-geomatrix-' + bk.tpl + '.svg'); mis(4, 'a');
+    }
+
+    /* ==========================================================================
+       REVISI UX: efek visual real-time, misi, asisten proaktif, tur, tooltip
+       ========================================================================== */
+
+    /* ---------- Efek visual real-time di kanvas (titik pusat berkedip, garis cermin) ---------- */
+    const fx = { sid: null, kind: '', focus: false, hover: false, until: 0, raf: 0 };
+    const nowMs = () => performance.now();
+    function fxActive() { return fx.sid != null && (fx.focus || fx.hover || nowMs() < fx.until); }
+    function fxKick() { if (!fx.raf) fx.raf = requestAnimationFrame(fxLoop); }
+    function fxLoop() { fx.raf = 0; drawFx(); if (fxActive()) fx.raf = requestAnimationFrame(fxLoop); else { fx.sid = null; drawFx(); } }
+    function fxTouch(id) { if (fx.sid === id) { fx.until = nowMs() + 1600; fxKick(); } }
+    function fxSet(sid, kind, key, on) {
+      if (fx.sid !== sid || fx.kind !== kind) { fx.sid = sid; fx.kind = kind; fx.focus = false; fx.hover = false; fx.until = 0; }
+      fx[key] = on; if (!on) fx.until = nowMs() + 700;
+      fxKick();
+    }
+    function fxShow(sid, kind, ms) { fx.sid = sid; fx.kind = kind; fx.until = nowMs() + ms; fxKick(); }
+    function fxLabel(g, txt, x, y, w, h) {
+      g.font = '700 12px sans-serif'; g.textBaseline = 'middle';
+      const tw = g.measureText(txt).width + 14;
+      x = Math.max(6, Math.min(w - tw - 6, x)); y = Math.max(22, Math.min(h - 10, y));
+      g.fillStyle = 'rgba(15,23,42,.88)'; g.beginPath();
+      if (g.roundRect) g.roundRect(x, y - 16, tw, 22, 8); else g.rect(x, y - 16, tw, 22);
+      g.fill(); g.fillStyle = '#fff'; g.fillText(txt, x + 7, y - 5);
+    }
+    const AXTXT = { 'x': 'y = 0', 'y': 'x = 0', 'y=x': 'y = x', 'y=-x': 'y = −x' };
+    function drawFx() {
+      const c = document.getElementById('bk-fx'); if (!c || !size.w) return;
+      const g = c.getContext('2d'), { w, h, dpr } = size;
+      g.setTransform(dpr, 0, 0, dpr, 0, 0); g.clearRect(0, 0, w, h);
+      if (!fxActive()) return;
+      const st = findSt(fx.sid); if (!st) return;
+      const V = bk.view, t = nowMs();
+      if (fx.kind === 'pt') {
+        const px = st.type === 'rot' ? st.px : 0, py = st.type === 'rot' ? st.py : 0;
+        const x = V.ox + V.s * px, y = V.oy - V.s * py, ph = 0.5 + 0.5 * Math.sin(t / 140);
+        g.save();
+        g.globalAlpha = 0.55 * (1 - ph); g.strokeStyle = '#e11d48'; g.lineWidth = 3; g.beginPath(); g.arc(x, y, 10 + 16 * ph, 0, 7); g.stroke();
+        g.globalAlpha = 0.25 + 0.75 * ph; g.fillStyle = '#e11d48'; g.beginPath(); g.arc(x, y, 8, 0, 7); g.fill();
+        g.globalAlpha = 0.3 + 0.7 * ph; g.strokeStyle = '#fff'; g.lineWidth = 2; g.beginPath(); g.arc(x, y, 8, 0, 7); g.stroke(); g.globalAlpha = 1;
+        fxLabel(g, st.type === 'rot' ? 'Pusat putar (' + f3(px) + ', ' + f3(py) + ')' : 'Pusat dilatasi (0, 0)', x + 14, y - 14, w, h);
+        g.restore();
+      } else if (fx.kind === 'line') {
+        let p0, d, txt;
+        if (st.axis === 'x=a') { p0 = [st.a, 0]; d = [0, 1]; txt = 'x = ' + f3(st.a); }
+        else if (st.axis === 'y=b') { p0 = [0, st.a]; d = [1, 0]; txt = 'y = ' + f3(st.a); }
+        else { p0 = [0, 0]; d = AXDIR[st.axis]; txt = AXTXT[st.axis]; }
+        const sx = V.ox + V.s * p0[0], sy = V.oy - V.s * p0[1], dx = d[0], dy = -d[1], L = 6000;
+        g.save(); g.lineCap = 'round';
+        g.beginPath(); g.moveTo(sx - dx * L, sy - dy * L); g.lineTo(sx + dx * L, sy + dy * L);
+        g.setLineDash([]); g.strokeStyle = 'rgba(255,255,255,.9)'; g.lineWidth = 7; g.stroke();
+        g.setLineDash([12, 8]); g.lineDashOffset = -t / 35; g.strokeStyle = '#db2777'; g.lineWidth = 3.5; g.stroke();
+        g.restore();
+        const kk = (w / 2 - sx) * dx + (h / 2 - sy) * dy;
+        fxLabel(g, 'Cermin: ' + txt, sx + kk * dx + 12, sy + kk * dy - 12, w, h);
+      }
+    }
+    function initStageEvents() {
+      const el = document.getElementById('bk-stages');
+      const info = e => { const w = e.target.closest && e.target.closest('[data-fx]'); return w ? { sid: +w.dataset.sid, kind: w.dataset.fx, w } : null; };
+      el.addEventListener('input', e => { const t = e.target; if (t.classList && t.classList.contains('bk-sl')) { const w = t.closest('.bk-f2'); setStage(+w.dataset.sid, w.dataset.k, t.value); } });
+      el.addEventListener('click', e => {
+        const b = e.target.closest('.bk-stp');
+        if (b) { const w = b.closest('.bk-f2'); bkApi.step(+w.dataset.sid, w.dataset.k, +b.dataset.dir); return; }
+        const m = e.target.closest('[data-mode]');
+        if (m) bkApi.setMode(+m.closest('.bk-stage').dataset.sid, m.dataset.mode);
+      });
+      el.addEventListener('focusin', e => { const i = info(e); if (i) fxSet(i.sid, i.kind, 'focus', true); });
+      el.addEventListener('focusout', e => { const i = info(e); if (i && !i.w.contains(e.relatedTarget)) fxSet(i.sid, i.kind, 'focus', false); });
+      el.addEventListener('mouseover', e => { const i = info(e); if (i && !i.w.contains(e.relatedTarget)) fxSet(i.sid, i.kind, 'hover', true); });
+      el.addEventListener('mouseout', e => { const i = info(e); if (i && !i.w.contains(e.relatedTarget)) fxSet(i.sid, i.kind, 'hover', false); });
+    }
+
+    /* ---------- Misi ---------- */
+    const misDone = m => m.items.every(it => bk.mis[m.id][it[0]]);
+    function misRender() {
+      MIS.forEach(m => {
+        const el = document.getElementById('bk-mis-' + m.id); if (!el) return;
+        const st = bk.mis[m.id], done = misDone(m);
+        el.className = 'bk-mis' + (done ? ' done' : '');
+        el.innerHTML = '<div class="mt">' + (done ? '✅ Misi ' + m.id + ' selesai!' : '🎯 Misi ' + m.id + ':') + ' “' + m.text + '”</div><ul>' +
+          m.items.map(it => '<li class="' + (st[it[0]] ? 'ok' : '') + '"><span class="ck">' + (st[it[0]] ? '✓' : '') + '</span><span class="tx">' + it[1] + '</span></li>').join('') + '</ul>';
+      });
+      const n = MIS.filter(misDone).length;
+      const lv = document.getElementById('bk-mprog-lv'), bar = document.getElementById('bk-mprog-bar'), tx = document.getElementById('bk-mprog-txt');
+      if (lv) lv.textContent = LEVELS[n];
+      if (bar) bar.style.width = (n / MIS.length * 100) + '%';
+      if (tx) tx.textContent = n === MIS.length ? '🏆 Semua misi selesai — kamu Maestro Batik!' : n + ' dari ' + MIS.length + ' misi selesai';
+    }
+    function mis(id, k) {
+      const m = MIS.find(x => x.id === +id), s = bk.mis[id]; if (!m || s[k]) return;
+      const before = misDone(m); s[k] = true; misRender();
+      if (!before && misDone(m)) toast('🏅 Misi ' + id + ' selesai!');
+    }
+    let toastT = 0;
+    function toast(msg) {
+      const el = document.getElementById('bk-toast'); if (!el) return;
+      el.textContent = msg; el.classList.remove('hidden'); clearTimeout(toastT);
+      toastT = setTimeout(() => el.classList.add('hidden'), 2600);
+    }
+
+    /* ---------- Asisten Batik proaktif (muncul bila diam 60 detik saat tantangan) ---------- */
+    const IDLE = () => window.GM_BK_IDLE_MS || 60000;
+    let idleT = 0;
+    const tabVisible = () => { const t = document.getElementById('tab-batik'); return !!(t && !t.classList.contains('hidden') && t.getClientRects().length); };
+    function bumpIdle() { clearTimeout(idleT); if (!bk.chal || tour.open) return; idleT = setTimeout(onIdle, IDLE()); }
+    function onIdle() {
+      if (!bk.chal || tour.open || !tabVisible() || bk.chal.pct >= 95) return;   // tidur sampai ada interaksi lagi
+      showBubble(nextHint(Math.min(bk.chal.nudge, 1)));
+      bk.chal.nudge++;
+      idleT = setTimeout(onIdle, IDLE());
+    }
+    function showBubble(html) { const b = document.getElementById('bk-bubble'); if (!b) return; document.getElementById('bk-bubble-msg').innerHTML = html; b.classList.remove('hidden'); }
+    function hideBubble() { const b = document.getElementById('bk-bubble'); if (b) b.classList.add('hidden'); }
+    function describeStage(st) {
+      switch (st.type) {
+        case 'rot': return 'Rotasi ' + f3(360 / st.n) + '° (Jumlah Kelopak n = ' + st.n + ', pusat (' + f3(st.px) + ', ' + f3(st.py) + '))';
+        case 'mirror': return 'Cermin terhadap ' + (st.axis === 'x=a' ? 'garis x = ' + f3(st.a) : st.axis === 'y=b' ? 'garis y = ' + f3(st.a) : AXNAME[st.axis]);
+        case 'glide': return 'Glide terhadap ' + AXNAME[st.axis] + ' dengan Jarak Geser s = ' + f3(st.s) + ' dan ± m = ' + st.m;
+        case 'lattice': return 'Translasi kisi (Mode Lanjut): u = (' + f3(st.ux) + ', ' + f3(st.uy) + '), v = (' + f3(st.vx) + ', ' + f3(st.vy) + '), ± m_u = ' + st.mu + ', ± m_v = ' + st.mv;
+        case 'fractal': return 'Fraktal dengan k = ' + f3(st.k) + ', θ = ' + f3(st.th) + '°, t = (' + f3(st.tx) + ', ' + f3(st.ty) + '), ' + st.br + ' cabang, kedalaman ' + st.depth;
+        case 'matrix': return 'Matriks 2×2 [' + f3(st.a) + ' ' + f3(st.b) + '; ' + f3(st.c) + ' ' + f3(st.d) + '] dengan ulangan n = ' + st.n;
+      }
+      return '';
+    }
+    function nextHint(level) {
+      const t = TPL[bk.chal.tpl], key = t.mk(), act = bk.stages.filter(s => s.on);
+      if (bk.motifId !== t.motif) return 'Pola Cetakan ini memakai Cap Batik Dasar <b>' + MOT[t.motif].name + '</b>. Coba pilih cap itu di bagian A (Cap Batik Dasar)!';
+      for (let i = 0; i < key.length; i++) {
+        const k = key[i], u = act[i];
+        if (!u || u.type !== k.type) {
+          return level < 1
+            ? 'Layer ke-' + (i + 1) + ': coba gunakan matriks <b>' + TNAME[k.type] + '</b> untuk mencocokkan pola! ' + WHY[k.type]
+            : 'Layer ke-' + (i + 1) + ' sebaiknya <b>' + describeStage(k) + '</b>. Tekan tombol “+ …” di Jejak Langkah lalu atur slider-nya.';
+        }
+        const bad = Object.keys(DEF[k.type]).find(p => {
+          if (p === 'axis') return u.axis !== k.axis;
+          if (p === 'a' && k.type === 'mirror' && k.axis !== 'x=a' && k.axis !== 'y=b') return false;
+          return Math.abs(u[p] - k[p]) > 0.05;
+        });
+        if (bad) {
+          const def = SCH[k.type].find(d => d[0] === bad), label = def ? def[1] : bad;
+          const val = bad === 'axis' ? AXNAME[k.axis] : f3(k[bad]) + (k.type === 'rot' && bad === 'n' ? ' (' + f3(360 / k.n) + '°)' : '');
+          const adv = (u.type === 'lattice' && u.mode === 'dasar' && ['uy', 'vx', 'mv'].indexOf(bad) >= 0) ? ' (pindah ke Mode Lanjut dulu)' : '';
+          return level < 1
+            ? 'Layer ke-' + (i + 1) + ' (' + TNAME[k.type] + ') sudah tepat jenisnya. Coba periksa lagi nilai <b>' + label + '</b>.'
+            : 'Atur <b>' + label + '</b> pada layer ke-' + (i + 1) + ' menjadi <b>' + val + '</b>' + adv + '.';
+        }
+      }
+      if (act.length > key.length) return 'Pola Cetakan hanya terdiri dari <b>' + key.length + ' layer</b>. Coba matikan layer yang berlebih dengan ikon mata.';
+      return 'Hampir! Periksa lagi <b>urutan layer</b>: ingat, urutan transformasi menentukan hasil (A·B ≠ B·A).';
+    }
+
+    /* ---------- Tooltip (?) ---------- */
+    function initTips() {
+      const tip = document.getElementById('bk-tip'); let cur = null;
+      const hide = () => { if (cur) cur.removeAttribute('aria-describedby'); cur = null; tip.classList.add('hidden'); };
+      const show = b => {
+        cur = b; tip.textContent = b.dataset.tip; tip.classList.remove('hidden');
+        const r = b.getBoundingClientRect(), tw = tip.offsetWidth, th = tip.offsetHeight;
+        let x = Math.max(8, Math.min(innerWidth - tw - 8, r.left + r.width / 2 - tw / 2)), y = r.bottom + 8;
+        if (y + th > innerHeight - 8) y = Math.max(8, r.top - th - 8);
+        tip.style.left = x + 'px'; tip.style.top = y + 'px'; b.setAttribute('aria-describedby', 'bk-tip');
+      };
+      const q = e => e.target.closest && e.target.closest('.bk-q');
+      document.addEventListener('mouseover', e => { const b = q(e); if (b) show(b); });
+      document.addEventListener('mouseout', e => { if (q(e)) hide(); });
+      document.addEventListener('focusin', e => { const b = q(e); if (b) show(b); });
+      document.addEventListener('focusout', e => { if (q(e)) hide(); });
+      document.addEventListener('click', e => { const b = q(e); if (b) show(b); else hide(); });   // ketuk di layar sentuh
+      document.addEventListener('scroll', () => { if (cur && cur.isConnected) show(cur); else hide(); }, true);   // ikut bergeser saat panel di-scroll
+    }
+
+    /* ---------- Panduan interaktif (onboarding tour) ---------- */
+    const TOUR = [
+      { sel: '#bk-tpl-btns', title: 'Langkah 1 · Pilih motif awal', text: 'Mulai dari sini: pilih satu motif batik (Kawung, Parang, Mega Mendung, …). Setiap motif punya “resep” Jejak Langkahnya sendiri, dan kanvas langsung berubah.' },
+      { sel: '#bk-trail', title: 'Langkah 2 · Jejak Langkah (Layer)', text: 'Setiap kartu adalah satu langkah transformasi, dijalankan dari nomor 1 ke bawah. Ubah nilainya dengan slider atau tombol + / −. Tanda (?) menjelaskan setiap istilah.' },
+      { sel: '#bk-stages .bk-stage', title: 'Langkah 3 · Satu kartu = satu langkah', text: 'Tombol kecil di kepala kartu: ✨ Lihat Contoh (mengisi nilai yang menghasilkan pola simetris), ▲▼ mengubah urutan, 👁 menyembunyikan sementara, 🗑 menghapus. Coba klik ✨ dulu!' },
+      { sel: '#bk-stage', title: 'Langkah 4 · Kanvas batik', text: 'Saat kamu menyentuh Pusat Putar, titik merah berkedip menunjukkan lokasinya. Saat memilih Garis Cermin, garis putus-putus muncul. Pada tantangan, bayangan abu-abu adalah Pola Cetakan yang harus kamu timpa.' },
+      { sel: '#bk-mprog', title: 'Langkah 5 · Selesaikan misi', text: 'Selesaikan 4 misi untuk naik tingkat dari Pembatik Pemula sampai Maestro Batik. Tombol “Panduan” di atas kanvas mengulang tur ini kapan saja.' }
+    ];
+    const tour = { open: false, i: 0, steps: [] };
+    const tourSeen = () => { try { return localStorage.getItem('gm_bk_tour_v1') === '1'; } catch (e) { return false; } };
+    const tourMark = () => { try { localStorage.setItem('gm_bk_tour_v1', '1'); } catch (e) { /* abaikan */ } };
+    const visible = el => !!(el && el.getClientRects().length);
+    function startTour() {
+      if (!tabVisible()) return;
+      tour.steps = TOUR.filter(s => visible(document.querySelector(s.sel)));
+      if (!tour.steps.length) return;
+      hideBubble(); tour.open = true;
+      document.getElementById('bk-tour').classList.remove('hidden');
+      showStep(0);
+    }
+    function endTour() {
+      tour.open = false; document.getElementById('bk-tour').classList.add('hidden'); tourMark(); bumpIdle();
+    }
+    function showStep(i) {
+      tour.i = i; const s = tour.steps[i], el = document.querySelector(s.sel); if (!el) return endTour();
+      el.scrollIntoView({ block: 'center', inline: 'nearest' });
+      document.getElementById('bk-tour-count').textContent = 'Panduan · ' + (i + 1) + ' dari ' + tour.steps.length;
+      document.getElementById('bk-tour-title').textContent = s.title;
+      document.getElementById('bk-tour-text').textContent = s.text;
+      document.getElementById('bk-tour-dots').innerHTML = tour.steps.map((_, j) => '<i class="' + (j === i ? 'on' : '') + '"></i>').join('');
+      document.getElementById('bk-tour-prev').style.visibility = i === 0 ? 'hidden' : 'visible';
+      const nx = document.getElementById('bk-tour-next'); nx.textContent = i === tour.steps.length - 1 ? 'Selesai ✓' : 'Lanjut →';
+      placeTour(); requestAnimationFrame(placeTour); setTimeout(placeTour, 120);
+      nx.focus({ preventScroll: true });
+    }
+    function placeTour() {
+      if (!tour.open) return;
+      const s = tour.steps[tour.i], el = s && document.querySelector(s.sel); if (!el) return;
+      const vw = innerWidth, vh = innerHeight, r = el.getBoundingClientRect(), pad = 4;
+      const top = Math.max(6, r.top - pad), left = Math.max(6, r.left - pad);
+      const bottom = Math.min(vh - 6, r.bottom + pad), right = Math.min(vw - 6, r.right + pad);
+      const hole = document.getElementById('bk-tour-hole');
+      hole.style.top = top + 'px'; hole.style.left = left + 'px'; hole.style.width = Math.max(10, right - left) + 'px'; hole.style.height = Math.max(10, bottom - top) + 'px';
+      const card = document.getElementById('bk-tour-card'), cw = card.offsetWidth, ch = card.offsetHeight, gap = 12;
+      let cy, cx = Math.min(Math.max(8, (left + right) / 2 - cw / 2), vw - cw - 8);
+      if (vh - bottom >= ch + gap) cy = bottom + gap;
+      else if (top >= ch + gap) cy = top - ch - gap;
+      else if (left >= cw + gap + 8) { cx = left - cw - gap; cy = Math.min(Math.max(8, top), vh - ch - 8); }
+      else if (vw - right >= cw + gap + 8) { cx = right + gap; cy = Math.min(Math.max(8, top), vh - ch - 8); }
+      else cy = Math.max(8, vh - ch - 12);
+      card.style.left = cx + 'px'; card.style.top = cy + 'px';
+    }
+    function initTour() {
+      document.getElementById('bk-tour-next').addEventListener('click', () => { if (tour.i >= tour.steps.length - 1) endTour(); else showStep(tour.i + 1); });
+      document.getElementById('bk-tour-prev').addEventListener('click', () => { if (tour.i > 0) showStep(tour.i - 1); });
+      document.getElementById('bk-tour-skip').addEventListener('click', endTour);
+      window.addEventListener('resize', placeTour); window.addEventListener('scroll', placeTour, true);
+      document.addEventListener('keydown', e => {
+        if (!tour.open) return;
+        if (e.key === 'Escape') { e.preventDefault(); e.stopPropagation(); endTour(); }
+        else if (e.key === 'ArrowRight') { e.preventDefault(); if (tour.i < tour.steps.length - 1) showStep(tour.i + 1); }
+        else if (e.key === 'ArrowLeft') { e.preventDefault(); if (tour.i > 0) showStep(tour.i - 1); }
+      }, true);
+    }
+    function initIdleWatch() {
+      const t = document.getElementById('tab-batik');
+      ['pointerdown', 'keydown', 'wheel', 'input', 'change'].forEach(ev => t.addEventListener(ev, bumpIdle, true));
     }
 
     /* ---------- API publik (dipanggil dari HTML) ---------- */
     window.bkApi = {
       set: setStage,
-      setAxis(id, v) { const st = bk.stages.find(s => s.id === id); if (st) { st.axis = v; afterChange(true); } },
-      add(type) { bk.stages.push(S(type)); afterChange(true); },
-      del(id) { bk.stages = bk.stages.filter(s => s.id !== id); afterChange(true); },
-      toggleStage(id) { const st = bk.stages.find(s => s.id === id); if (st) { st.on = !st.on; afterChange(true); } },
-      move(id, d) { const i = bk.stages.findIndex(s => s.id === id), j = i + d; if (i < 0 || j < 0 || j >= bk.stages.length) return; [bk.stages[i], bk.stages[j]] = [bk.stages[j], bk.stages[i]]; afterChange(true); },
+      step(id, k, dir) { const st = findSt(id); if (!st) return; const def = defsFor(st).find(d => d[0] === k); if (def) setStage(id, k, st[k] + dir * def[2]); },
+      setMode(id, m) {
+        const st = findSt(id); if (!st || st.mode === m) return; clearNotes();
+        if (m === 'dasar') {
+          const changed = st.uy || st.vx || st.mu !== st.mv;
+          st.uy = 0; st.vx = 0; st.mv = st.mu;
+          st._note = changed ? 'Mode Dasar: geseran diluruskan ke kanan-kiri (X) dan atas-bawah (Y).' : 'Mode Dasar: cukup atur geser X, geser Y, dan banyak salinan.';
+        } else st._note = 'Mode Lanjut: kamu bebas mengatur dua vektor geser (u dan v), termasuk geser miring.';
+        st.mode = m; afterChange(true);
+      },
+      example(id) {
+        const st = findSt(id); if (!st) return; clearNotes();
+        const P = PRESET[st.type]; Object.assign(st, P.vals);
+        st._note = 'Contoh dimuat. ' + P.msg + ' Coba geser slider untuk bereksperimen!';
+        mis(3, 'b'); afterChange(true);
+      },
+      bubbleHint() { hideBubble(); if (bk.chal) { bkApi.hint(); const h = document.getElementById('bk-hints'); if (h && h.scrollIntoView) h.scrollIntoView({ block: 'nearest', behavior: 'smooth' }); } },
+      closeBubble() { hideBubble(); },
+      tour() { startTour(); },
+      setAxis(id, v) { const st = findSt(id); if (st) { clearNotes(); st.axis = v; afterChange(true); fxShow(st.id, 'line', 2600); } },
+      add(type) { clearNotes(); bk.stages.push(S(type)); mis(3, 'a'); afterChange(true); },
+      del(id) { clearNotes(); bk.stages = bk.stages.filter(s => s.id !== id); afterChange(true); },
+      toggleStage(id) { const st = findSt(id); if (st) { clearNotes(); st.on = !st.on; mis(1, 'b'); afterChange(true); } },
+      move(id, d) { clearNotes(); const i = bk.stages.findIndex(s => s.id === id), j = i + d; if (i < 0 || j < 0 || j >= bk.stages.length) return; [bk.stages[i], bk.stages[j]] = [bk.stages[j], bk.stages[i]]; afterChange(true); },
       setMotif(id) { bk.motifId = id; renderPrims(); redraw(); },
       setPalette(p) { bk.pal = p; redraw(); },
-      toggle(k, v) { bk[k] = v; if (k === 'cmp') document.getElementById('bk-cmp-wrap').classList.toggle('hidden', !v); redraw(); },
+      toggle(k, v) { bk[k] = v; if (k === 'cmp') document.getElementById('bk-cmp-wrap').classList.toggle('hidden', !v); if (k === 'hi' && v) mis(1, 'a'); if (k === 'cmp' && v) mis(3, 'c'); redraw(); },
       zoom(f) { zoomAt(f, size.w / 2, size.h / 2); },
       resetView() { bk.userView = false; bk.view = viewFor(size.w, size.h, bk.span); redraw(); },
       loadTpl(k) { this.exitChallenge(true); applyTpl(k); },
@@ -5132,21 +5617,26 @@
       edClear() { bk.custom.pts = []; customChanged(); },
       startChallenge() {
         const k = document.getElementById('bk-chal-sel').value, t = TPL[k];
-        bk.chal = { tpl: k, hint: 0, span: t.span, target: build(t.mk()).list, mask: null };
+        bk.chal = { tpl: k, hint: 0, span: t.span, target: build(t.mk()).list, mask: null, nudge: 0, pct: 0, keyUsed: false };
         bk.tpl = 'bebas'; bk.motifId = t.motif; bk.pal = t.pal; bk.stages = []; bk.span = t.span; bk.userView = false; bk.view = viewFor(size.w, size.h, t.span);
         document.getElementById('bk-palette').value = bk.pal; document.getElementById('bk-chal-box').classList.remove('hidden');
         document.getElementById('bk-chal-badge').classList.remove('hidden'); document.getElementById('bk-hints').innerHTML = '';
         bk.tpl = k; renderTplBtns(); renderPrims(); renderStages(); renderFormulas(); redraw();
+        mis(2, 'a'); hideBubble(); bumpIdle();
       },
-      hint() { if (!bk.chal) return; const h = TPL[bk.chal.tpl].hints; if (bk.chal.hint < h.length) bk.chal.hint++; document.getElementById('bk-hints').innerHTML = h.slice(0, bk.chal.hint).map((t, i) => '<div class="bg-amber-50 border border-amber-200 rounded-lg px-2 py-1"><b>Petunjuk ' + (i + 1) + ':</b> ' + t + '</div>').join(''); },
-      showKey() { if (!bk.chal) return; const t = TPL[bk.chal.tpl]; bk.stages = t.mk(); bk.motifId = t.motif; renderPrims(); renderStages(); renderFormulas(); redraw(); },
-      exitChallenge(silent) { bk.chal = null; document.getElementById('bk-chal-box').classList.add('hidden'); document.getElementById('bk-chal-badge').classList.add('hidden'); if (!silent) redraw(); },
+      hint() { if (!bk.chal) return; hideBubble(); const h = TPL[bk.chal.tpl].hints; if (bk.chal.hint < h.length) bk.chal.hint++; document.getElementById('bk-hints').innerHTML = h.slice(0, bk.chal.hint).map((t, i) => '<div class="bg-amber-50 border border-amber-200 rounded-lg px-2 py-1"><b>Petunjuk ' + (i + 1) + ':</b> ' + t + '</div>').join(''); },
+      showKey() { if (!bk.chal) return; bk.chal.keyUsed = true; hideBubble(); const t = TPL[bk.chal.tpl]; bk.stages = t.mk(); bk.motifId = t.motif; renderPrims(); renderStages(); renderFormulas(); redraw(); },
+      exitChallenge(silent) { bk.chal = null; hideBubble(); clearTimeout(idleT); document.getElementById('bk-chal-box').classList.add('hidden'); document.getElementById('bk-chal-badge').classList.add('hidden'); if (!silent) redraw(); },
       exportPNG, exportSVG,
-      onShow() { setTimeout(() => { resize(); renderFormulas(); }, 30); }
+      onShow() {
+        setTimeout(() => { resize(); renderFormulas(); drawFx(); }, 30);
+        bumpIdle();
+        if (!tourSeen() && !bk.tourAsked) { bk.tourAsked = true; setTimeout(startTour, 700); }   // tur otomatis saat pertama kali dibuka
+      }
     };
 
     document.addEventListener('DOMContentLoaded', () => {
-      initEditor(); initPan();
+      initEditor(); initPan(); initStageEvents(); initTips(); initTour(); initIdleWatch(); misRender();
       const st = document.getElementById('bk-stage');
       if (window.ResizeObserver) new ResizeObserver(resize).observe(st); window.addEventListener('resize', resize);
       applyTpl('kawung'); renderPrims();
